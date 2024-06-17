@@ -45,4 +45,4 @@ async def list_files():
 if __name__ == "__main__":
     from uvicorn import run
 
-    run(app)
+    run(app, host="0.0.0.0", port=8080)
