@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="
+    https://cdn.jsdelivr.net/npm/materialize-css@1.0.0/dist/css/materialize.min.css
+    "
+      rel="stylesheet"
+    />
+    <title>Document</title>
+  </head>
+
+  <body>
+    <nav class="nav-extended">
+      <div class="nav-wrapper">
+        <div class="container">
+          <a href="#" class="brand-logo">LOGO</a>
+          <a href="#" data-activates="mobile-menu" class="button-collapse"
+            ><i class="material-icons">menu</i></a
+          >
+          <ul class="right hide-on-med-and-down">
+            <li><a href="#">item1</a></li>
+            <li><a href="#">item2</a></li>
+            <li><a href="#">item3</a></li>
+            <li><a href="#">item4</a></li>
+          </ul>
+          <ul class="side-nav" id="mobile-menu">
+            <li><a href="#">item1</a></li>
+            <li><a href="#">item2</a></li>
+            <li><a href="#">item3</a></li>
+            <li><a href="#">item4</a></li>
+          </ul>
+          <!-- tabs items -->
+          <ul class="tabs tabs-transparent">
+            <li class="tab"><a href="#test1">Test 1</a></li>
+            <li class="tab"><a class="active" href="#test2">Test 2</a></li>
+            <li class="tab disabled"><a href="#test3">Disabled Tab</a></li>
+            <li class="tab"><a href="#test4">Test 4</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <!-- tabs content -->
+    <div id="test1" class="col s12">Test 1</div>
+    <div id="test2" class="col s12">Test 2</div>
+    <div id="test3" class="col s12">Test 3</div>
+    <div id="test4" class="col s12">Test 4</div>
+    <div class="collection">
+      {% for item in items %}
+
+      <a href="/p/{{ item }}" class="collection-item">{{ item }}</a>
+
+      {% endfor %}
+    </div>
+    <script src="
+https://cdn.jsdelivr.net/npm/materialize-css@1.0.0/dist/js/materialize.min.js
+"></script>
+  </body>
+</html>

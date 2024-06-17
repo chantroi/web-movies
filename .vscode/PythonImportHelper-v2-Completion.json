@@ -1,0 +1,119 @@
+[
+    {
+        "label": "Deta",
+        "importPath": "deta",
+        "description": "deta",
+        "isExtraImport": true,
+        "detail": "deta",
+        "documentation": {}
+    },
+    {
+        "label": "BytesIO",
+        "importPath": "io",
+        "description": "io",
+        "isExtraImport": true,
+        "detail": "io",
+        "documentation": {}
+    },
+    {
+        "label": "Quart",
+        "importPath": "quart",
+        "description": "quart",
+        "isExtraImport": true,
+        "detail": "quart",
+        "documentation": {}
+    },
+    {
+        "label": "request",
+        "importPath": "quart",
+        "description": "quart",
+        "isExtraImport": true,
+        "detail": "quart",
+        "documentation": {}
+    },
+    {
+        "label": "send_file",
+        "importPath": "quart",
+        "description": "quart",
+        "isExtraImport": true,
+        "detail": "quart",
+        "documentation": {}
+    },
+    {
+        "label": "render_template",
+        "importPath": "quart",
+        "description": "quart",
+        "isExtraImport": true,
+        "detail": "quart",
+        "documentation": {}
+    },
+    {
+        "label": "jsonify",
+        "importPath": "quart",
+        "description": "quart",
+        "isExtraImport": true,
+        "detail": "quart",
+        "documentation": {}
+    },
+    {
+        "label": "DetaFs",
+        "importPath": "detafs",
+        "description": "detafs",
+        "isExtraImport": true,
+        "detail": "detafs",
+        "documentation": {}
+    },
+    {
+        "label": "DetaFs",
+        "importPath": "detafs",
+        "description": "detafs",
+        "isExtraImport": true,
+        "detail": "detafs",
+        "documentation": {}
+    },
+    {
+        "label": "DetaFs",
+        "kind": 6,
+        "importPath": "detafs.core",
+        "description": "detafs.core",
+        "peekOfCode": "class DetaFs:\n    def __init__(self, access_key: str, folder: str = \"files\") -> None:\n        self.deta = Deta(access_key)\n        self.fs = self.deta.Drive(folder)\n        self.db = self.deta.Base(\"detafs\")\n        if not self.db.get(folder):\n            self.db.put({\"key\": folder, \"list\": []})\n        self.folder = self.db.get(folder)\n    def open(self, file: str):\n        return self.fs.get(file)",
+        "detail": "detafs.core",
+        "documentation": {}
+    },
+    {
+        "label": "app",
+        "kind": 5,
+        "importPath": "app",
+        "description": "app",
+        "peekOfCode": "app = Quart(__name__)\nfs = DetaFs(\"c0a1xmuzlhz_9ukoxqAYL8nr8w9hPai2kPbyf7qnAaGC\")\n@app.route(\"/\")\nasync def index():\n    files = fs.ls()\n    return await render_template(\"index.html\", items=files)\n@app.route(\"/p/<file>\")\nasync def stream_file(file: str):\n    fileobj = BytesIO(fs.open(file).read())\n    return await send_file(fileobj, attachment_filename=file)",
+        "detail": "app",
+        "documentation": {}
+    },
+    {
+        "label": "fs",
+        "kind": 5,
+        "importPath": "app",
+        "description": "app",
+        "peekOfCode": "fs = DetaFs(\"c0a1xmuzlhz_9ukoxqAYL8nr8w9hPai2kPbyf7qnAaGC\")\n@app.route(\"/\")\nasync def index():\n    files = fs.ls()\n    return await render_template(\"index.html\", items=files)\n@app.route(\"/p/<file>\")\nasync def stream_file(file: str):\n    fileobj = BytesIO(fs.open(file).read())\n    return await send_file(fileobj, attachment_filename=file)\n@app.route(\"/file/delete\")",
+        "detail": "app",
+        "documentation": {}
+    },
+    {
+        "label": "fs",
+        "kind": 5,
+        "importPath": "test",
+        "description": "test",
+        "peekOfCode": "fs = DetaFs(\"c0a1xmuzlhz_9ukoxqAYL8nr8w9hPai2kPbyf7qnAaGC\")\nf = fs.open(\"Áo Cưới.mp4\")\nwith open(\"video2.mp4\", \"wb\") as w:\n    w.write(f.read())",
+        "detail": "test",
+        "documentation": {}
+    },
+    {
+        "label": "f",
+        "kind": 5,
+        "importPath": "test",
+        "description": "test",
+        "peekOfCode": "f = fs.open(\"Áo Cưới.mp4\")\nwith open(\"video2.mp4\", \"wb\") as w:\n    w.write(f.read())",
+        "detail": "test",
+        "documentation": {}
+    }
+]
