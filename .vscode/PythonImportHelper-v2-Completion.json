@@ -16,43 +16,43 @@
         "documentation": {}
     },
     {
-        "label": "Quart",
-        "importPath": "quart",
-        "description": "quart",
+        "label": "Flask",
+        "importPath": "flask",
+        "description": "flask",
         "isExtraImport": true,
-        "detail": "quart",
+        "detail": "flask",
         "documentation": {}
     },
     {
         "label": "request",
-        "importPath": "quart",
-        "description": "quart",
+        "importPath": "flask",
+        "description": "flask",
         "isExtraImport": true,
-        "detail": "quart",
+        "detail": "flask",
         "documentation": {}
     },
     {
         "label": "send_file",
-        "importPath": "quart",
-        "description": "quart",
+        "importPath": "flask",
+        "description": "flask",
         "isExtraImport": true,
-        "detail": "quart",
+        "detail": "flask",
         "documentation": {}
     },
     {
         "label": "render_template",
-        "importPath": "quart",
-        "description": "quart",
+        "importPath": "flask",
+        "description": "flask",
         "isExtraImport": true,
-        "detail": "quart",
+        "detail": "flask",
         "documentation": {}
     },
     {
         "label": "jsonify",
-        "importPath": "quart",
-        "description": "quart",
+        "importPath": "flask",
+        "description": "flask",
         "isExtraImport": true,
-        "detail": "quart",
+        "detail": "flask",
         "documentation": {}
     },
     {
@@ -81,11 +81,56 @@
         "documentation": {}
     },
     {
+        "label": "index",
+        "kind": 2,
+        "importPath": "app",
+        "description": "app",
+        "peekOfCode": "def index():\n    files = fs.ls()\n    return render_template(\"index.html\", items=files)\n@app.route(\"/p/\")\ndef stream_file(file: str):\n    fileobj = BytesIO(fs.open(file).read())\n    return send_file(fileobj, attachment_filename=file)\n@app.route(\"/file/delete\")\ndef delete_route():\n    target_file = request.args.get(\"file\")",
+        "detail": "app",
+        "documentation": {}
+    },
+    {
+        "label": "stream_file",
+        "kind": 2,
+        "importPath": "app",
+        "description": "app",
+        "peekOfCode": "def stream_file(file: str):\n    fileobj = BytesIO(fs.open(file).read())\n    return send_file(fileobj, attachment_filename=file)\n@app.route(\"/file/delete\")\ndef delete_route():\n    target_file = request.args.get(\"file\")\n    fs.remove(target_file)\n    return jsonify(status=\"success\", message=f\"file {target_file} deleted successful\")\n@app.route(\"/file/upload\", methods=[\"POST\"])\ndef upload_file():",
+        "detail": "app",
+        "documentation": {}
+    },
+    {
+        "label": "delete_route",
+        "kind": 2,
+        "importPath": "app",
+        "description": "app",
+        "peekOfCode": "def delete_route():\n    target_file = request.args.get(\"file\")\n    fs.remove(target_file)\n    return jsonify(status=\"success\", message=f\"file {target_file} deleted successful\")\n@app.route(\"/file/upload\", methods=[\"POST\"])\ndef upload_file():\n    file = request.files[\"file\"]\n    fs.put(file.filename, file.read())\n    return jsonify(status=\"success\", message=f\"file {file.filename} upload completed\")\n@app.route(\"/file/list\")",
+        "detail": "app",
+        "documentation": {}
+    },
+    {
+        "label": "upload_file",
+        "kind": 2,
+        "importPath": "app",
+        "description": "app",
+        "peekOfCode": "def upload_file():\n    file = request.files[\"file\"]\n    fs.put(file.filename, file.read())\n    return jsonify(status=\"success\", message=f\"file {file.filename} upload completed\")\n@app.route(\"/file/list\")\ndef list_files():\n    files = fs.ls()\n    return jsonify(files=files)",
+        "detail": "app",
+        "documentation": {}
+    },
+    {
+        "label": "list_files",
+        "kind": 2,
+        "importPath": "app",
+        "description": "app",
+        "peekOfCode": "def list_files():\n    files = fs.ls()\n    return jsonify(files=files)",
+        "detail": "app",
+        "documentation": {}
+    },
+    {
         "label": "app",
         "kind": 5,
         "importPath": "app",
         "description": "app",
-        "peekOfCode": "app = Quart(__name__)\nfs = DetaFs(\"c0a1xmuzlhz_9ukoxqAYL8nr8w9hPai2kPbyf7qnAaGC\")\n@app.route(\"/\")\nasync def index():\n    files = fs.ls()\n    return await render_template(\"index.html\", items=files)\n@app.route(\"/p/<file>\")\nasync def stream_file(file: str):\n    fileobj = BytesIO(fs.open(file).read())\n    return await send_file(fileobj, attachment_filename=file)",
+        "peekOfCode": "app = Flask(__name__)\nfs = DetaFs(\"c0Jtyij8pU2_5T5DgCv2L7G6SvpQXR8pU8ujNJbqbW7v\")\n@app.route(\"/\")\ndef index():\n    files = fs.ls()\n    return render_template(\"index.html\", items=files)\n@app.route(\"/p/\")\ndef stream_file(file: str):\n    fileobj = BytesIO(fs.open(file).read())\n    return send_file(fileobj, attachment_filename=file)",
         "detail": "app",
         "documentation": {}
     },
@@ -94,7 +139,7 @@
         "kind": 5,
         "importPath": "app",
         "description": "app",
-        "peekOfCode": "fs = DetaFs(\"c0a1xmuzlhz_9ukoxqAYL8nr8w9hPai2kPbyf7qnAaGC\")\n@app.route(\"/\")\nasync def index():\n    files = fs.ls()\n    return await render_template(\"index.html\", items=files)\n@app.route(\"/p/<file>\")\nasync def stream_file(file: str):\n    fileobj = BytesIO(fs.open(file).read())\n    return await send_file(fileobj, attachment_filename=file)\n@app.route(\"/file/delete\")",
+        "peekOfCode": "fs = DetaFs(\"c0Jtyij8pU2_5T5DgCv2L7G6SvpQXR8pU8ujNJbqbW7v\")\n@app.route(\"/\")\ndef index():\n    files = fs.ls()\n    return render_template(\"index.html\", items=files)\n@app.route(\"/p/\")\ndef stream_file(file: str):\n    fileobj = BytesIO(fs.open(file).read())\n    return send_file(fileobj, attachment_filename=file)\n@app.route(\"/file/delete\")",
         "detail": "app",
         "documentation": {}
     },
