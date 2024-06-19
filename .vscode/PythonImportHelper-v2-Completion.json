@@ -56,6 +56,46 @@
         "documentation": {}
     },
     {
+        "label": "Flask",
+        "importPath": "flask",
+        "description": "flask",
+        "isExtraImport": true,
+        "detail": "flask",
+        "documentation": {}
+    },
+    {
+        "label": "request",
+        "importPath": "flask",
+        "description": "flask",
+        "isExtraImport": true,
+        "detail": "flask",
+        "documentation": {}
+    },
+    {
+        "label": "jsonify",
+        "importPath": "flask",
+        "description": "flask",
+        "isExtraImport": true,
+        "detail": "flask",
+        "documentation": {}
+    },
+    {
+        "label": "send_file",
+        "importPath": "flask",
+        "description": "flask",
+        "isExtraImport": true,
+        "detail": "flask",
+        "documentation": {}
+    },
+    {
+        "label": "render_template",
+        "importPath": "flask",
+        "description": "flask",
+        "isExtraImport": true,
+        "detail": "flask",
+        "documentation": {}
+    },
+    {
         "label": "DetaFs",
         "importPath": "detafs",
         "description": "detafs",
@@ -74,73 +114,91 @@
     {
         "label": "DetaFs",
         "kind": 6,
-        "importPath": "detafs.core",
-        "description": "detafs.core",
+        "importPath": "collection.detafs.core",
+        "description": "collection.detafs.core",
         "peekOfCode": "class DetaFs:\n    def __init__(self, access_key: str, folder: str = \"files\") -> None:\n        self.deta = Deta(access_key)\n        self.fs = self.deta.Drive(folder)\n        self.db = self.deta.Base(\"detafs\")\n        if not self.db.get(folder):\n            self.db.put({\"key\": folder, \"list\": []})\n        self.folder = self.db.get(folder)\n    def open(self, file: str):\n        return self.fs.get(file)",
-        "detail": "detafs.core",
+        "detail": "collection.detafs.core",
         "documentation": {}
     },
     {
         "label": "index",
         "kind": 2,
-        "importPath": "app",
-        "description": "app",
+        "importPath": "collection.app",
+        "description": "collection.app",
         "peekOfCode": "def index():\n    files = fs.ls()\n    return render_template(\"index.html\", items=files)\n@app.route(\"/p/\")\ndef stream_file(file: str):\n    fileobj = BytesIO(fs.open(file).read())\n    return send_file(fileobj, attachment_filename=file)\n@app.route(\"/file/delete\")\ndef delete_route():\n    target_file = request.args.get(\"file\")",
-        "detail": "app",
+        "detail": "collection.app",
         "documentation": {}
     },
     {
         "label": "stream_file",
         "kind": 2,
-        "importPath": "app",
-        "description": "app",
+        "importPath": "collection.app",
+        "description": "collection.app",
         "peekOfCode": "def stream_file(file: str):\n    fileobj = BytesIO(fs.open(file).read())\n    return send_file(fileobj, attachment_filename=file)\n@app.route(\"/file/delete\")\ndef delete_route():\n    target_file = request.args.get(\"file\")\n    fs.remove(target_file)\n    return jsonify(status=\"success\", message=f\"file {target_file} deleted successful\")\n@app.route(\"/file/upload\", methods=[\"POST\"])\ndef upload_file():",
-        "detail": "app",
+        "detail": "collection.app",
         "documentation": {}
     },
     {
         "label": "delete_route",
         "kind": 2,
-        "importPath": "app",
-        "description": "app",
+        "importPath": "collection.app",
+        "description": "collection.app",
         "peekOfCode": "def delete_route():\n    target_file = request.args.get(\"file\")\n    fs.remove(target_file)\n    return jsonify(status=\"success\", message=f\"file {target_file} deleted successful\")\n@app.route(\"/file/upload\", methods=[\"POST\"])\ndef upload_file():\n    file = request.files[\"file\"]\n    fs.put(file.filename, file.read())\n    return jsonify(status=\"success\", message=f\"file {file.filename} upload completed\")\n@app.route(\"/file/list\")",
-        "detail": "app",
+        "detail": "collection.app",
         "documentation": {}
     },
     {
         "label": "upload_file",
         "kind": 2,
-        "importPath": "app",
-        "description": "app",
+        "importPath": "collection.app",
+        "description": "collection.app",
         "peekOfCode": "def upload_file():\n    file = request.files[\"file\"]\n    fs.put(file.filename, file.read())\n    return jsonify(status=\"success\", message=f\"file {file.filename} upload completed\")\n@app.route(\"/file/list\")\ndef list_files():\n    files = fs.ls()\n    return jsonify(files=files)",
-        "detail": "app",
+        "detail": "collection.app",
         "documentation": {}
     },
     {
         "label": "list_files",
         "kind": 2,
-        "importPath": "app",
-        "description": "app",
+        "importPath": "collection.app",
+        "description": "collection.app",
         "peekOfCode": "def list_files():\n    files = fs.ls()\n    return jsonify(files=files)",
-        "detail": "app",
+        "detail": "collection.app",
         "documentation": {}
     },
     {
         "label": "app",
         "kind": 5,
-        "importPath": "app",
-        "description": "app",
+        "importPath": "collection.app",
+        "description": "collection.app",
         "peekOfCode": "app = Flask(__name__)\nfs = DetaFs(\"c0Jtyij8pU2_5T5DgCv2L7G6SvpQXR8pU8ujNJbqbW7v\")\n@app.route(\"/\")\ndef index():\n    files = fs.ls()\n    return render_template(\"index.html\", items=files)\n@app.route(\"/p/\")\ndef stream_file(file: str):\n    fileobj = BytesIO(fs.open(file).read())\n    return send_file(fileobj, attachment_filename=file)",
-        "detail": "app",
+        "detail": "collection.app",
         "documentation": {}
     },
     {
         "label": "fs",
         "kind": 5,
-        "importPath": "app",
-        "description": "app",
+        "importPath": "collection.app",
+        "description": "collection.app",
         "peekOfCode": "fs = DetaFs(\"c0Jtyij8pU2_5T5DgCv2L7G6SvpQXR8pU8ujNJbqbW7v\")\n@app.route(\"/\")\ndef index():\n    files = fs.ls()\n    return render_template(\"index.html\", items=files)\n@app.route(\"/p/\")\ndef stream_file(file: str):\n    fileobj = BytesIO(fs.open(file).read())\n    return send_file(fileobj, attachment_filename=file)\n@app.route(\"/file/delete\")",
-        "detail": "app",
+        "detail": "collection.app",
+        "documentation": {}
+    },
+    {
+        "label": "home",
+        "kind": 2,
+        "importPath": "pictureweb.app",
+        "description": "pictureweb.app",
+        "peekOfCode": "def home():\n    return render_template(\"index.html\")",
+        "detail": "pictureweb.app",
+        "documentation": {}
+    },
+    {
+        "label": "app",
+        "kind": 5,
+        "importPath": "pictureweb.app",
+        "description": "pictureweb.app",
+        "peekOfCode": "app = Flask(__name__)\n@app.route(\"/\")\ndef home():\n    return render_template(\"index.html\")",
+        "detail": "pictureweb.app",
         "documentation": {}
     },
     {
