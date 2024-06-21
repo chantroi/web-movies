@@ -249,7 +249,7 @@
         "kind": 2,
         "importPath": "pictureweb.app",
         "description": "pictureweb.app",
-        "peekOfCode": "def home():\n    files = fs.ls(\"files\")\n    return render_template(\"index.html\", files=files, s3url=s3url)\n@app.route(\"/upload\", methods=[\"POST\"])\ndef upload_picture():\n    file = request.files[\"file\"]\n    with fs.open(f\"files/{file.filename}\") as f:\n        f.write(file.read())\n    return jsonify(status=\"success\", message=\"file upload successfully\")\n@app.route(\"/list\")",
+        "peekOfCode": "def home():\n    files = fs.ls(\"files\")\n    return render_template(\"index.html\", files=files, s3url=s3url)\n@app.route(\"/upload\", methods=[\"POST\"])\ndef upload_picture():\n    file = request.files[\"file\"]\n    with fs.open(f\"files/{file.filename}\", \"w\") as f:\n        f.write(file.read())\n    return jsonify(status=\"success\", message=\"file upload successfully\")\n@app.route(\"/list\")",
         "detail": "pictureweb.app",
         "documentation": {}
     },
@@ -258,7 +258,7 @@
         "kind": 2,
         "importPath": "pictureweb.app",
         "description": "pictureweb.app",
-        "peekOfCode": "def upload_picture():\n    file = request.files[\"file\"]\n    with fs.open(f\"files/{file.filename}\") as f:\n        f.write(file.read())\n    return jsonify(status=\"success\", message=\"file upload successfully\")\n@app.route(\"/list\")\ndef list_picture():\n    return jsonify(fs.ls(\"files\"))",
+        "peekOfCode": "def upload_picture():\n    file = request.files[\"file\"]\n    with fs.open(f\"files/{file.filename}\", \"w\") as f:\n        f.write(file.read())\n    return jsonify(status=\"success\", message=\"file upload successfully\")\n@app.route(\"/list\")\ndef list_picture():\n    return jsonify(fs.ls(\"files\"))",
         "detail": "pictureweb.app",
         "documentation": {}
     },

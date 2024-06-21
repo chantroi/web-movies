@@ -19,7 +19,7 @@ def home():
 @app.route("/upload", methods=["POST"])
 def upload_picture():
     file = request.files["file"]
-    with fs.open(f"files/{file.filename}") as f:
+    with fs.open(f"files/{file.filename}", "w") as f:
         f.write(file.read())
     return jsonify(status="success", message="file upload successfully")
 
