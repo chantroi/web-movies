@@ -1,5 +1,57 @@
 [
     {
+        "label": "sys",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "sys",
+        "description": "sys",
+        "detail": "sys",
+        "documentation": {}
+    },
+    {
+        "label": "json",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "json",
+        "description": "json",
+        "detail": "json",
+        "documentation": {}
+    },
+    {
+        "label": "argparse",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "argparse",
+        "description": "argparse",
+        "detail": "argparse",
+        "documentation": {}
+    },
+    {
+        "label": "pformat",
+        "importPath": "pprint",
+        "description": "pprint",
+        "isExtraImport": true,
+        "detail": "pprint",
+        "documentation": {}
+    },
+    {
+        "label": "jmespath",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "jmespath",
+        "description": "jmespath",
+        "detail": "jmespath",
+        "documentation": {}
+    },
+    {
+        "label": "exceptions",
+        "importPath": "jmespath",
+        "description": "jmespath",
+        "isExtraImport": true,
+        "detail": "jmespath",
+        "documentation": {}
+    },
+    {
         "label": "Deta",
         "importPath": "deta",
         "description": "deta",
@@ -80,14 +132,6 @@
         "documentation": {}
     },
     {
-        "label": "send_file",
-        "importPath": "flask",
-        "description": "flask",
-        "isExtraImport": true,
-        "detail": "flask",
-        "documentation": {}
-    },
-    {
         "label": "render_template",
         "importPath": "flask",
         "description": "flask",
@@ -109,6 +153,23 @@
         "description": "detafs",
         "isExtraImport": true,
         "detail": "detafs",
+        "documentation": {}
+    },
+    {
+        "label": "S3FileSystem",
+        "importPath": "s3fs",
+        "description": "s3fs",
+        "isExtraImport": true,
+        "detail": "s3fs",
+        "documentation": {}
+    },
+    {
+        "label": "main",
+        "kind": 2,
+        "importPath": ".venv.bin.jp",
+        "description": ".venv.bin.jp",
+        "peekOfCode": "def main():\n    parser = argparse.ArgumentParser()\n    parser.add_argument('expression')\n    parser.add_argument('-f', '--filename',\n                        help=('The filename containing the input data.  '\n                              'If a filename is not given then data is '\n                              'read from stdin.'))\n    parser.add_argument('--ast', action='store_true',\n                        help=('Pretty print the AST, do not search the data.'))\n    args = parser.parse_args()",
+        "detail": ".venv.bin.jp",
         "documentation": {}
     },
     {
@@ -188,7 +249,34 @@
         "kind": 2,
         "importPath": "pictureweb.app",
         "description": "pictureweb.app",
-        "peekOfCode": "def home():\n    return render_template(\"index.html\")",
+        "peekOfCode": "def home():\n    files = fs.ls(\"files\")\n    return render_template(\"index.html\", files=files, s3url=s3url)\n@app.route(\"/upload\", methods=[\"POST\"])\ndef upload_picture():\n    file = request.files[\"file\"]\n    with fs.open(f\"files/{file.filename}\") as f:\n        f.write(file.read())\n    return jsonify(status=\"success\", message=\"file upload successfully\")\n@app.route(\"/list\")",
+        "detail": "pictureweb.app",
+        "documentation": {}
+    },
+    {
+        "label": "upload_picture",
+        "kind": 2,
+        "importPath": "pictureweb.app",
+        "description": "pictureweb.app",
+        "peekOfCode": "def upload_picture():\n    file = request.files[\"file\"]\n    with fs.open(f\"files/{file.filename}\") as f:\n        f.write(file.read())\n    return jsonify(status=\"success\", message=\"file upload successfully\")\n@app.route(\"/list\")\ndef list_picture():\n    return jsonify(fs.ls(\"files\"))",
+        "detail": "pictureweb.app",
+        "documentation": {}
+    },
+    {
+        "label": "list_picture",
+        "kind": 2,
+        "importPath": "pictureweb.app",
+        "description": "pictureweb.app",
+        "peekOfCode": "def list_picture():\n    return jsonify(fs.ls(\"files\"))",
+        "detail": "pictureweb.app",
+        "documentation": {}
+    },
+    {
+        "label": "s3url",
+        "kind": 5,
+        "importPath": "pictureweb.app",
+        "description": "pictureweb.app",
+        "peekOfCode": "s3url = \"https://detas3server-1-d8694513.deta.app\"\napp = Flask(__name__)\nfs = S3FileSystem(\n    endpoint_url=s3url,\n    key=\"a1000\",\n    secret=\"c0Jtyij8pU2_5T5DgCv2L7G6SvpQXR8pU8ujNJbqbW7v\",\n)\n@app.route(\"/\")\ndef home():\n    files = fs.ls(\"files\")",
         "detail": "pictureweb.app",
         "documentation": {}
     },
@@ -197,7 +285,16 @@
         "kind": 5,
         "importPath": "pictureweb.app",
         "description": "pictureweb.app",
-        "peekOfCode": "app = Flask(__name__)\n@app.route(\"/\")\ndef home():\n    return render_template(\"index.html\")",
+        "peekOfCode": "app = Flask(__name__)\nfs = S3FileSystem(\n    endpoint_url=s3url,\n    key=\"a1000\",\n    secret=\"c0Jtyij8pU2_5T5DgCv2L7G6SvpQXR8pU8ujNJbqbW7v\",\n)\n@app.route(\"/\")\ndef home():\n    files = fs.ls(\"files\")\n    return render_template(\"index.html\", files=files, s3url=s3url)",
+        "detail": "pictureweb.app",
+        "documentation": {}
+    },
+    {
+        "label": "fs",
+        "kind": 5,
+        "importPath": "pictureweb.app",
+        "description": "pictureweb.app",
+        "peekOfCode": "fs = S3FileSystem(\n    endpoint_url=s3url,\n    key=\"a1000\",\n    secret=\"c0Jtyij8pU2_5T5DgCv2L7G6SvpQXR8pU8ujNJbqbW7v\",\n)\n@app.route(\"/\")\ndef home():\n    files = fs.ls(\"files\")\n    return render_template(\"index.html\", files=files, s3url=s3url)\n@app.route(\"/upload\", methods=[\"POST\"])",
         "detail": "pictureweb.app",
         "documentation": {}
     },
