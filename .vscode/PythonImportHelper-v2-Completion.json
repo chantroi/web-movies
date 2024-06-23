@@ -60,6 +60,49 @@
         "documentation": {}
     },
     {
+        "label": "os",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "os",
+        "description": "os",
+        "detail": "os",
+        "documentation": {}
+    },
+    {
+        "label": "datetime",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "datetime",
+        "description": "datetime",
+        "detail": "datetime",
+        "documentation": {}
+    },
+    {
+        "label": "pytz",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "pytz",
+        "description": "pytz",
+        "detail": "pytz",
+        "documentation": {}
+    },
+    {
+        "label": "List",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "DetaModel",
+        "importPath": "odetam",
+        "description": "odetam",
+        "isExtraImport": true,
+        "detail": "odetam",
+        "documentation": {}
+    },
+    {
         "label": "BytesIO",
         "importPath": "io",
         "description": "io",
@@ -108,38 +151,6 @@
         "documentation": {}
     },
     {
-        "label": "Flask",
-        "importPath": "flask",
-        "description": "flask",
-        "isExtraImport": true,
-        "detail": "flask",
-        "documentation": {}
-    },
-    {
-        "label": "request",
-        "importPath": "flask",
-        "description": "flask",
-        "isExtraImport": true,
-        "detail": "flask",
-        "documentation": {}
-    },
-    {
-        "label": "jsonify",
-        "importPath": "flask",
-        "description": "flask",
-        "isExtraImport": true,
-        "detail": "flask",
-        "documentation": {}
-    },
-    {
-        "label": "render_template",
-        "importPath": "flask",
-        "description": "flask",
-        "isExtraImport": true,
-        "detail": "flask",
-        "documentation": {}
-    },
-    {
         "label": "DetaFs",
         "importPath": "detafs",
         "description": "detafs",
@@ -148,19 +159,11 @@
         "documentation": {}
     },
     {
-        "label": "DetaFs",
-        "importPath": "detafs",
-        "description": "detafs",
+        "label": "BaseModel",
+        "importPath": "pydantic",
+        "description": "pydantic",
         "isExtraImport": true,
-        "detail": "detafs",
-        "documentation": {}
-    },
-    {
-        "label": "S3FileSystem",
-        "importPath": "s3fs",
-        "description": "s3fs",
-        "isExtraImport": true,
-        "detail": "s3fs",
+        "detail": "pydantic",
         "documentation": {}
     },
     {
@@ -175,144 +178,99 @@
     {
         "label": "DetaFs",
         "kind": 6,
-        "importPath": "collection.detafs.core",
-        "description": "collection.detafs.core",
+        "importPath": "src.detafs.core",
+        "description": "src.detafs.core",
         "peekOfCode": "class DetaFs:\n    def __init__(self, access_key: str, folder: str = \"files\") -> None:\n        self.deta = Deta(access_key)\n        self.fs = self.deta.Drive(folder)\n        self.db = self.deta.Base(\"detafs\")\n        if not self.db.get(folder):\n            self.db.put({\"key\": folder, \"list\": []})\n        self.folder = self.db.get(folder)\n    def open(self, file: str):\n        return self.fs.get(file)",
-        "detail": "collection.detafs.core",
+        "detail": "src.detafs.core",
+        "documentation": {}
+    },
+    {
+        "label": "Note",
+        "kind": 6,
+        "importPath": "src.odm.core",
+        "description": "src.odm.core",
+        "peekOfCode": "class Note(DetaModel):\n    name: str\n    created_at: datetime.date = datetime.datetime.now(vntz)\n    content: str = \"\"\n    urls: List[str]\n    class Config:\n        table_name = \"notebase\"\n        deta_key = os.environ[\"DETA_KEY\"]",
+        "detail": "src.odm.core",
+        "documentation": {}
+    },
+    {
+        "label": "vntz",
+        "kind": 5,
+        "importPath": "src.odm.core",
+        "description": "src.odm.core",
+        "peekOfCode": "vntz = pytz.timezone(\"Asia/Ho_Chi_minh\")\nclass Note(DetaModel):\n    name: str\n    created_at: datetime.date = datetime.datetime.now(vntz)\n    content: str = \"\"\n    urls: List[str]\n    class Config:\n        table_name = \"notebase\"\n        deta_key = os.environ[\"DETA_KEY\"]",
+        "detail": "src.odm.core",
         "documentation": {}
     },
     {
         "label": "index",
         "kind": 2,
-        "importPath": "collection.app",
-        "description": "collection.app",
+        "importPath": "src.app",
+        "description": "src.app",
         "peekOfCode": "def index():\n    files = fs.ls()\n    return render_template(\"index.html\", items=files)\n@app.route(\"/p/\")\ndef stream_file(file: str):\n    fileobj = BytesIO(fs.open(file).read())\n    return send_file(fileobj, attachment_filename=file)\n@app.route(\"/file/delete\")\ndef delete_route():\n    target_file = request.args.get(\"file\")",
-        "detail": "collection.app",
+        "detail": "src.app",
         "documentation": {}
     },
     {
         "label": "stream_file",
         "kind": 2,
-        "importPath": "collection.app",
-        "description": "collection.app",
+        "importPath": "src.app",
+        "description": "src.app",
         "peekOfCode": "def stream_file(file: str):\n    fileobj = BytesIO(fs.open(file).read())\n    return send_file(fileobj, attachment_filename=file)\n@app.route(\"/file/delete\")\ndef delete_route():\n    target_file = request.args.get(\"file\")\n    fs.remove(target_file)\n    return jsonify(status=\"success\", message=f\"file {target_file} deleted successful\")\n@app.route(\"/file/upload\", methods=[\"POST\"])\ndef upload_file():",
-        "detail": "collection.app",
+        "detail": "src.app",
         "documentation": {}
     },
     {
         "label": "delete_route",
         "kind": 2,
-        "importPath": "collection.app",
-        "description": "collection.app",
+        "importPath": "src.app",
+        "description": "src.app",
         "peekOfCode": "def delete_route():\n    target_file = request.args.get(\"file\")\n    fs.remove(target_file)\n    return jsonify(status=\"success\", message=f\"file {target_file} deleted successful\")\n@app.route(\"/file/upload\", methods=[\"POST\"])\ndef upload_file():\n    file = request.files[\"file\"]\n    fs.put(file.filename, file.read())\n    return jsonify(status=\"success\", message=f\"file {file.filename} upload completed\")\n@app.route(\"/file/list\")",
-        "detail": "collection.app",
+        "detail": "src.app",
         "documentation": {}
     },
     {
         "label": "upload_file",
         "kind": 2,
-        "importPath": "collection.app",
-        "description": "collection.app",
+        "importPath": "src.app",
+        "description": "src.app",
         "peekOfCode": "def upload_file():\n    file = request.files[\"file\"]\n    fs.put(file.filename, file.read())\n    return jsonify(status=\"success\", message=f\"file {file.filename} upload completed\")\n@app.route(\"/file/list\")\ndef list_files():\n    files = fs.ls()\n    return jsonify(files=files)",
-        "detail": "collection.app",
+        "detail": "src.app",
         "documentation": {}
     },
     {
         "label": "list_files",
         "kind": 2,
-        "importPath": "collection.app",
-        "description": "collection.app",
+        "importPath": "src.app",
+        "description": "src.app",
         "peekOfCode": "def list_files():\n    files = fs.ls()\n    return jsonify(files=files)",
-        "detail": "collection.app",
+        "detail": "src.app",
         "documentation": {}
     },
     {
         "label": "app",
         "kind": 5,
-        "importPath": "collection.app",
-        "description": "collection.app",
+        "importPath": "src.app",
+        "description": "src.app",
         "peekOfCode": "app = Flask(__name__)\nfs = DetaFs(\"c0Jtyij8pU2_5T5DgCv2L7G6SvpQXR8pU8ujNJbqbW7v\")\n@app.route(\"/\")\ndef index():\n    files = fs.ls()\n    return render_template(\"index.html\", items=files)\n@app.route(\"/p/\")\ndef stream_file(file: str):\n    fileobj = BytesIO(fs.open(file).read())\n    return send_file(fileobj, attachment_filename=file)",
-        "detail": "collection.app",
+        "detail": "src.app",
         "documentation": {}
     },
     {
         "label": "fs",
         "kind": 5,
-        "importPath": "collection.app",
-        "description": "collection.app",
+        "importPath": "src.app",
+        "description": "src.app",
         "peekOfCode": "fs = DetaFs(\"c0Jtyij8pU2_5T5DgCv2L7G6SvpQXR8pU8ujNJbqbW7v\")\n@app.route(\"/\")\ndef index():\n    files = fs.ls()\n    return render_template(\"index.html\", items=files)\n@app.route(\"/p/\")\ndef stream_file(file: str):\n    fileobj = BytesIO(fs.open(file).read())\n    return send_file(fileobj, attachment_filename=file)\n@app.route(\"/file/delete\")",
-        "detail": "collection.app",
+        "detail": "src.app",
         "documentation": {}
     },
     {
-        "label": "home",
-        "kind": 2,
-        "importPath": "pictureweb.app",
-        "description": "pictureweb.app",
-        "peekOfCode": "def home():\n    files = fs.ls(\"files\")\n    return render_template(\"index.html\", files=files, s3url=s3url)\n@app.route(\"/upload\", methods=[\"POST\"])\ndef upload_picture():\n    file = request.files[\"file\"]\n    with fs.open(f\"files/{file.filename}\", \"w\") as f:\n        f.write(file.read())\n    return jsonify(status=\"success\", message=\"file upload successfully\")\n@app.route(\"/list\")",
-        "detail": "pictureweb.app",
-        "documentation": {}
-    },
-    {
-        "label": "upload_picture",
-        "kind": 2,
-        "importPath": "pictureweb.app",
-        "description": "pictureweb.app",
-        "peekOfCode": "def upload_picture():\n    file = request.files[\"file\"]\n    with fs.open(f\"files/{file.filename}\", \"w\") as f:\n        f.write(file.read())\n    return jsonify(status=\"success\", message=\"file upload successfully\")\n@app.route(\"/list\")\ndef list_picture():\n    return jsonify(fs.ls(\"files\"))",
-        "detail": "pictureweb.app",
-        "documentation": {}
-    },
-    {
-        "label": "list_picture",
-        "kind": 2,
-        "importPath": "pictureweb.app",
-        "description": "pictureweb.app",
-        "peekOfCode": "def list_picture():\n    return jsonify(fs.ls(\"files\"))",
-        "detail": "pictureweb.app",
-        "documentation": {}
-    },
-    {
-        "label": "s3url",
-        "kind": 5,
-        "importPath": "pictureweb.app",
-        "description": "pictureweb.app",
-        "peekOfCode": "s3url = \"https://detas3server-1-d8694513.deta.app\"\napp = Flask(__name__)\nfs = S3FileSystem(\n    endpoint_url=s3url,\n    key=\"a1000\",\n    secret=\"c0Jtyij8pU2_5T5DgCv2L7G6SvpQXR8pU8ujNJbqbW7v\",\n)\n@app.route(\"/\")\ndef home():\n    files = fs.ls(\"files\")",
-        "detail": "pictureweb.app",
-        "documentation": {}
-    },
-    {
-        "label": "app",
-        "kind": 5,
-        "importPath": "pictureweb.app",
-        "description": "pictureweb.app",
-        "peekOfCode": "app = Flask(__name__)\nfs = S3FileSystem(\n    endpoint_url=s3url,\n    key=\"a1000\",\n    secret=\"c0Jtyij8pU2_5T5DgCv2L7G6SvpQXR8pU8ujNJbqbW7v\",\n)\n@app.route(\"/\")\ndef home():\n    files = fs.ls(\"files\")\n    return render_template(\"index.html\", files=files, s3url=s3url)",
-        "detail": "pictureweb.app",
-        "documentation": {}
-    },
-    {
-        "label": "fs",
-        "kind": 5,
-        "importPath": "pictureweb.app",
-        "description": "pictureweb.app",
-        "peekOfCode": "fs = S3FileSystem(\n    endpoint_url=s3url,\n    key=\"a1000\",\n    secret=\"c0Jtyij8pU2_5T5DgCv2L7G6SvpQXR8pU8ujNJbqbW7v\",\n)\n@app.route(\"/\")\ndef home():\n    files = fs.ls(\"files\")\n    return render_template(\"index.html\", files=files, s3url=s3url)\n@app.route(\"/upload\", methods=[\"POST\"])",
-        "detail": "pictureweb.app",
-        "documentation": {}
-    },
-    {
-        "label": "fs",
-        "kind": 5,
+        "label": "Object",
+        "kind": 6,
         "importPath": "test",
         "description": "test",
-        "peekOfCode": "fs = DetaFs(\"c0a1xmuzlhz_9ukoxqAYL8nr8w9hPai2kPbyf7qnAaGC\")\nf = fs.open(\"Áo Cưới.mp4\")\nwith open(\"video2.mp4\", \"wb\") as w:\n    w.write(f.read())",
-        "detail": "test",
-        "documentation": {}
-    },
-    {
-        "label": "f",
-        "kind": 5,
-        "importPath": "test",
-        "description": "test",
-        "peekOfCode": "f = fs.open(\"Áo Cưới.mp4\")\nwith open(\"video2.mp4\", \"wb\") as w:\n    w.write(f.read())",
+        "peekOfCode": "class Object(BaseModel):\n    name: str\n    age: int\n    gender: str\nprint(Object(name=\"Natasha\", age=\"28\", gender=\"female\").json())",
         "detail": "test",
         "documentation": {}
     }
