@@ -1,57 +1,5 @@
 [
     {
-        "label": "sys",
-        "kind": 6,
-        "isExtraImport": true,
-        "importPath": "sys",
-        "description": "sys",
-        "detail": "sys",
-        "documentation": {}
-    },
-    {
-        "label": "json",
-        "kind": 6,
-        "isExtraImport": true,
-        "importPath": "json",
-        "description": "json",
-        "detail": "json",
-        "documentation": {}
-    },
-    {
-        "label": "argparse",
-        "kind": 6,
-        "isExtraImport": true,
-        "importPath": "argparse",
-        "description": "argparse",
-        "detail": "argparse",
-        "documentation": {}
-    },
-    {
-        "label": "pformat",
-        "importPath": "pprint",
-        "description": "pprint",
-        "isExtraImport": true,
-        "detail": "pprint",
-        "documentation": {}
-    },
-    {
-        "label": "jmespath",
-        "kind": 6,
-        "isExtraImport": true,
-        "importPath": "jmespath",
-        "description": "jmespath",
-        "detail": "jmespath",
-        "documentation": {}
-    },
-    {
-        "label": "exceptions",
-        "importPath": "jmespath",
-        "description": "jmespath",
-        "isExtraImport": true,
-        "detail": "jmespath",
-        "documentation": {}
-    },
-    {
         "label": "Deta",
         "importPath": "deta",
         "description": "deta",
@@ -65,6 +13,14 @@
         "isExtraImport": true,
         "importPath": "os",
         "description": "os",
+        "detail": "os",
+        "documentation": {}
+    },
+    {
+        "label": "environ",
+        "importPath": "os",
+        "description": "os",
+        "isExtraImport": true,
         "detail": "os",
         "documentation": {}
     },
@@ -167,15 +123,6 @@
         "documentation": {}
     },
     {
-        "label": "main",
-        "kind": 2,
-        "importPath": ".venv.bin.jp",
-        "description": ".venv.bin.jp",
-        "peekOfCode": "def main():\n    parser = argparse.ArgumentParser()\n    parser.add_argument('expression')\n    parser.add_argument('-f', '--filename',\n                        help=('The filename containing the input data.  '\n                              'If a filename is not given then data is '\n                              'read from stdin.'))\n    parser.add_argument('--ast', action='store_true',\n                        help=('Pretty print the AST, do not search the data.'))\n    args = parser.parse_args()",
-        "detail": ".venv.bin.jp",
-        "documentation": {}
-    },
-    {
         "label": "DetaFs",
         "kind": 6,
         "importPath": "src.detafs.core",
@@ -225,7 +172,7 @@
         "kind": 2,
         "importPath": "src.app",
         "description": "src.app",
-        "peekOfCode": "def delete_route():\n    target_file = request.args.get(\"file\")\n    fs.remove(target_file)\n    return jsonify(status=\"success\", message=f\"file {target_file} deleted successful\")\n@app.route(\"/file/upload\", methods=[\"POST\"])\ndef upload_file():\n    file = request.files[\"file\"]\n    fs.put(file.filename, file.read())\n    return jsonify(status=\"success\", message=f\"file {file.filename} upload completed\")\n@app.route(\"/file/list\")",
+        "peekOfCode": "def delete_route():\n    target_file = request.args.get(\"file\")\n    fs.remove(target_file)\n    return jsonify(status=\"success\", message=f\"file {target_file} deleted successful\")\n@app.route(\"/file/upload\", methods=[\"POST\"])\ndef upload_file():\n    if request.files:\n        file = request.files[\"file\"]\n        fs.put(file.filename, file.read())\n        return jsonify(status=\"success\", message=f\"file {file.filename} upload completed\")",
         "detail": "src.app",
         "documentation": {}
     },
@@ -234,7 +181,7 @@
         "kind": 2,
         "importPath": "src.app",
         "description": "src.app",
-        "peekOfCode": "def upload_file():\n    file = request.files[\"file\"]\n    fs.put(file.filename, file.read())\n    return jsonify(status=\"success\", message=f\"file {file.filename} upload completed\")\n@app.route(\"/file/list\")\ndef list_files():\n    files = fs.ls()\n    return jsonify(files=files)",
+        "peekOfCode": "def upload_file():\n    if request.files:\n        file = request.files[\"file\"]\n        fs.put(file.filename, file.read())\n        return jsonify(status=\"success\", message=f\"file {file.filename} upload completed\")\n    else:\n        data = request.json\n        fs.put(data[\"name\"], data[\"content\"])\n        return jsonify(status=\"success\", message=f\"file {data['name']} upload completed\")\n@app.route(\"/file/list\")",
         "detail": "src.app",
         "documentation": {}
     },
@@ -252,7 +199,7 @@
         "kind": 5,
         "importPath": "src.app",
         "description": "src.app",
-        "peekOfCode": "app = Flask(__name__)\nfs = DetaFs(\"c0Jtyij8pU2_5T5DgCv2L7G6SvpQXR8pU8ujNJbqbW7v\")\n@app.route(\"/\")\ndef index():\n    files = fs.ls()\n    return render_template(\"index.html\", items=files)\n@app.route(\"/p/\")\ndef stream_file(file: str):\n    fileobj = BytesIO(fs.open(file).read())\n    return send_file(fileobj, attachment_filename=file)",
+        "peekOfCode": "app = Flask(__name__)\nfs = DetaFs(environ['DETA_KEY'])\n@app.route(\"/\")\ndef index():\n    files = fs.ls()\n    return render_template(\"index.html\", items=files)\n@app.route(\"/p/\")\ndef stream_file(file: str):\n    fileobj = BytesIO(fs.open(file).read())\n    return send_file(fileobj, attachment_filename=file)",
         "detail": "src.app",
         "documentation": {}
     },
@@ -261,16 +208,16 @@
         "kind": 5,
         "importPath": "src.app",
         "description": "src.app",
-        "peekOfCode": "fs = DetaFs(\"c0Jtyij8pU2_5T5DgCv2L7G6SvpQXR8pU8ujNJbqbW7v\")\n@app.route(\"/\")\ndef index():\n    files = fs.ls()\n    return render_template(\"index.html\", items=files)\n@app.route(\"/p/\")\ndef stream_file(file: str):\n    fileobj = BytesIO(fs.open(file).read())\n    return send_file(fileobj, attachment_filename=file)\n@app.route(\"/file/delete\")",
+        "peekOfCode": "fs = DetaFs(environ['DETA_KEY'])\n@app.route(\"/\")\ndef index():\n    files = fs.ls()\n    return render_template(\"index.html\", items=files)\n@app.route(\"/p/\")\ndef stream_file(file: str):\n    fileobj = BytesIO(fs.open(file).read())\n    return send_file(fileobj, attachment_filename=file)\n@app.route(\"/file/delete\")",
         "detail": "src.app",
         "documentation": {}
     },
     {
-        "label": "Object",
+        "label": "Movie",
         "kind": 6,
         "importPath": "test",
         "description": "test",
-        "peekOfCode": "class Object(BaseModel):\n    name: str\n    age: int\n    gender: str\nprint(Object(name=\"Natasha\", age=\"28\", gender=\"female\").json())",
+        "peekOfCode": "class Movie(BaseModel):\n    title: str\n    year: int\n    rating: float\n    director: str\n    actors: list[str]\n    genres: list[str]\n    plot: str",
         "detail": "test",
         "documentation": {}
     }

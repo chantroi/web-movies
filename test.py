@@ -1,10 +1,11 @@
 from pydantic import BaseModel
 
 
-class Object(BaseModel):
-    name: str
-    age: int
-    gender: str
-
-
-print(Object(name="Natasha", age="28", gender="female").json())
+class Movie(BaseModel):
+    title: str
+    year: int
+    rating: float
+    director: str
+    actors: list[str]
+    genres: list[str]
+    plot: str

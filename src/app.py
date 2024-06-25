@@ -1,9 +1,10 @@
 from io import BytesIO
+from os import environ
 from flask import Flask, request, send_file, render_template, jsonify
 from detafs import DetaFs
 
 app = Flask(__name__)
-fs = DetaFs("c0Jtyij8pU2_5T5DgCv2L7G6SvpQXR8pU8ujNJbqbW7v")
+fs = DetaFs(environ['DETA_KEY'])
 
 
 @app.route("/")
@@ -27,9 +28,16 @@ def delete_route():
 
 @app.route("/file/upload", methods=["POST"])
 def upload_file():
-    file = request.files["file"]
-    fs.put(file.filename, file.read())
-    return jsonify(status="success", message=f"file {file.filename} upload completed")
+    if request.files:
+        file = request.files["file"]
+        fs.put(file.filename, file.read())
+        return jsonify(status="success", message=f"file {file.filename} upload completed")
+    else:
+        data = request.json
+        fs.put(data["name"], data["content"])
+        return jsonify(status="success", message=f"file {data['name']} upload completed")
+
+
 
 
 @app.route("/file/list")
