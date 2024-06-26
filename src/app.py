@@ -1,4 +1,3 @@
-from io import BytesIO
 from os import environ
 from flask import Flask, request, Response, render_template, jsonify
 from detafs import DetaFs
@@ -16,10 +15,12 @@ def index():
 @app.route("/p/<file>")
 def stream_file(file: str):
     fileobj = fs.open(file).iter_chunks()
-    if file.endswith('.mp4'):
+    if file.endswith(".mp4"):
         return Response(fileobj, mimetype="video/mp4")
-    elif any(file.endswith(ext) for ext in ['.jpg', '.png', '.gif','.jpeg']):
+    elif any(file.endswith(ext) for ext in [".jpg", ".png", ".gif", ".jpeg"]):
         return Response(fileobj, mimetype="image/jpeg")
+    elif file.endswith(".mp3"):
+        return Response(fileobj, mimetype="audio/mpeg")
     else:
         return Response(fileobj, mimetype="text/plain")
 

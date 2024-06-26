@@ -59,14 +59,6 @@
         "documentation": {}
     },
     {
-        "label": "BytesIO",
-        "importPath": "io",
-        "description": "io",
-        "isExtraImport": true,
-        "detail": "io",
-        "documentation": {}
-    },
-    {
         "label": "Flask",
         "importPath": "flask",
         "description": "flask",
@@ -143,7 +135,7 @@
         "kind": 6,
         "importPath": "src.detafs.core",
         "description": "src.detafs.core",
-        "peekOfCode": "class DetaFs:\n    def __init__(self, access_key: str, folder: str = \"files\") -> None:\n        self.deta = Deta(access_key)\n        self.fs = self.deta.Drive(folder)\n        self.db = self.deta.Base(\"detafs\")\n        if not self.db.get(folder):\n            self.db.put({\"key\": folder, \"list\": []})\n        self.folder = self.db.get(folder)\n    def open(self, file: str):\n        return self.fs.get(file)",
+        "peekOfCode": "class DetaFs:\n    def __init__(self, access_key: str, folder: str = \"files\") -> None:\n        self.deta = Deta(access_key)\n        self.fs = self.deta.Drive(folder)\n    def open(self, file: str):\n        return self.fs.get(file)\n    def put(self, file: str, data: bytes):\n        return self.fs.put(file, data)\n    def remove(self, file: str):\n        return self.fs.delete(file)",
         "detail": "src.detafs.core",
         "documentation": {}
     },
@@ -170,7 +162,7 @@
         "kind": 2,
         "importPath": "src.app",
         "description": "src.app",
-        "peekOfCode": "def index():\n    files = fs.ls()\n    return render_template(\"index.html\", files=files)\n@app.route(\"/p/<file>\")\ndef stream_file(file: str):\n    fileobj = fs.open(file).iter_chunks()\n    if file.endswith('.mp4'):\n        return Response(fileobj, mimetype=\"video/mp4\")\n    elif any(file.endswith(ext) for ext in ['.jpg', '.png', '.gif','.jpeg']):\n        return Response(fileobj, mimetype=\"image/jpeg\")",
+        "peekOfCode": "def index():\n    files = fs.ls()\n    return render_template(\"index.html\", files=files)\n@app.route(\"/p/<file>\")\ndef stream_file(file: str):\n    fileobj = fs.open(file).iter_chunks()\n    if file.endswith(\".mp4\"):\n        return Response(fileobj, mimetype=\"video/mp4\")\n    elif any(file.endswith(ext) for ext in [\".jpg\", \".png\", \".gif\", \".jpeg\"]):\n        return Response(fileobj, mimetype=\"image/jpeg\")",
         "detail": "src.app",
         "documentation": {}
     },
@@ -179,7 +171,7 @@
         "kind": 2,
         "importPath": "src.app",
         "description": "src.app",
-        "peekOfCode": "def stream_file(file: str):\n    fileobj = fs.open(file).iter_chunks()\n    if file.endswith('.mp4'):\n        return Response(fileobj, mimetype=\"video/mp4\")\n    elif any(file.endswith(ext) for ext in ['.jpg', '.png', '.gif','.jpeg']):\n        return Response(fileobj, mimetype=\"image/jpeg\")\n    else:\n        return Response(fileobj, mimetype=\"text/plain\")\n@app.route(\"/file/delete\")\ndef delete_route():",
+        "peekOfCode": "def stream_file(file: str):\n    fileobj = fs.open(file).iter_chunks()\n    if file.endswith(\".mp4\"):\n        return Response(fileobj, mimetype=\"video/mp4\")\n    elif any(file.endswith(ext) for ext in [\".jpg\", \".png\", \".gif\", \".jpeg\"]):\n        return Response(fileobj, mimetype=\"image/jpeg\")\n    elif file.endswith(\".mp3\"):\n        return Response(fileobj, mimetype=\"audio/mpeg\")\n    else:\n        return Response(fileobj, mimetype=\"text/plain\")",
         "detail": "src.app",
         "documentation": {}
     },
@@ -215,7 +207,7 @@
         "kind": 5,
         "importPath": "src.app",
         "description": "src.app",
-        "peekOfCode": "app = Flask(__name__)\nfs = DetaFs(environ[\"DETA_KEY\"])\n@app.route(\"/\")\ndef index():\n    files = fs.ls()\n    return render_template(\"index.html\", files=files)\n@app.route(\"/p/<file>\")\ndef stream_file(file: str):\n    fileobj = fs.open(file).iter_chunks()\n    if file.endswith('.mp4'):",
+        "peekOfCode": "app = Flask(__name__)\nfs = DetaFs(environ[\"DETA_KEY\"])\n@app.route(\"/\")\ndef index():\n    files = fs.ls()\n    return render_template(\"index.html\", files=files)\n@app.route(\"/p/<file>\")\ndef stream_file(file: str):\n    fileobj = fs.open(file).iter_chunks()\n    if file.endswith(\".mp4\"):",
         "detail": "src.app",
         "documentation": {}
     },
@@ -224,7 +216,7 @@
         "kind": 5,
         "importPath": "src.app",
         "description": "src.app",
-        "peekOfCode": "fs = DetaFs(environ[\"DETA_KEY\"])\n@app.route(\"/\")\ndef index():\n    files = fs.ls()\n    return render_template(\"index.html\", files=files)\n@app.route(\"/p/<file>\")\ndef stream_file(file: str):\n    fileobj = fs.open(file).iter_chunks()\n    if file.endswith('.mp4'):\n        return Response(fileobj, mimetype=\"video/mp4\")",
+        "peekOfCode": "fs = DetaFs(environ[\"DETA_KEY\"])\n@app.route(\"/\")\ndef index():\n    files = fs.ls()\n    return render_template(\"index.html\", files=files)\n@app.route(\"/p/<file>\")\ndef stream_file(file: str):\n    fileobj = fs.open(file).iter_chunks()\n    if file.endswith(\".mp4\"):\n        return Response(fileobj, mimetype=\"video/mp4\")",
         "detail": "src.app",
         "documentation": {}
     },
