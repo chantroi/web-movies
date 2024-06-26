@@ -21,5 +21,6 @@ for i in range(0, 908):
         fs.put(filename, data)
         print(filename, " saved")
         app.send_message(5665225938, filename + " Saved")
-    except:
+    except Exception as e:
+        print(e)
         continue
