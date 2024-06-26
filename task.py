@@ -1,14 +1,13 @@
 import os
 import boto3
 from src.detafs import DetaFs
-from src.detafs.core import DetaFs
-from src.app import upload_file
 
 endpoint = os.environ["S3_URL"]
 key = os.environ["S3_KEY"]
 secret = os.environ["S3_SECRET"]
 
 fs = DetaFs(os.environ["DETA_KEY"])
+
 s3 = boto3.Session(aws_access_key_id=key, aws_secret_access_key=secret).client(
     "s3", endpoint_url=endpoint
 )
@@ -23,7 +22,10 @@ for filename in fs.ls():
     if filename.endswith(".mp3"):
         data = fs.open(filename).read()
         s3.upload_fileobj(
-            data, "storage", f"audio/{filename}", ExtraArgs={"ContentType": "audio/mpeg"}
+            data,
+            "storage",
+            f"audio/{filename}",
+            ExtraArgs={"ContentType": "audio/mpeg"},
         )
 
     elif any(filename.endswith(ext) for ext in [".jpg", ".png"]):

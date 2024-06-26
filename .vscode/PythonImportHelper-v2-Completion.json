@@ -124,22 +124,6 @@
         "documentation": {}
     },
     {
-        "label": "DetaFs",
-        "importPath": "src.detafs.core",
-        "description": "src.detafs.core",
-        "isExtraImport": true,
-        "detail": "src.detafs.core",
-        "documentation": {}
-    },
-    {
-        "label": "upload_file",
-        "importPath": "src.app",
-        "description": "src.app",
-        "isExtraImport": true,
-        "detail": "src.app",
-        "documentation": {}
-    },
-    {
         "label": "BaseModel",
         "importPath": "pydantic",
         "description": "pydantic",
