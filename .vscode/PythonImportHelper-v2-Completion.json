@@ -242,7 +242,7 @@
         "kind": 5,
         "importPath": "tgdl",
         "description": "tgdl",
-        "peekOfCode": "app = Client(\n    \"tgdl\",\n    21021245,\n    \"7b32ea92719781c5e22ede319c5dbde5\",\n    bot_token=os.environ[\"BOT_TOKEN\"],\n)\nfs = DetaFs(os.environ[\"DETA_KEY\"])\nfor i in range(0, 908):\n    try:\n        m = app.get_messages(\"contentdownload\", i)",
+        "peekOfCode": "app = Client(\n    \"tgdl\",\n    21021245,\n    \"7b32ea92719781c5e22ede319c5dbde5\",\n    bot_token=os.environ[\"BOT_TOKEN\"],\n)\nfs = DetaFs(os.environ[\"DETA_KEY\"])\nwith app:\n    for i in range(0, 908):\n        try:",
         "detail": "tgdl",
         "documentation": {}
     },
@@ -251,7 +251,7 @@
         "kind": 5,
         "importPath": "tgdl",
         "description": "tgdl",
-        "peekOfCode": "fs = DetaFs(os.environ[\"DETA_KEY\"])\nfor i in range(0, 908):\n    try:\n        m = app.get_messages(\"contentdownload\", i)\n        if not m:\n            raise\n        media = app.download_media(m, in_memory=True)\n        filename = media.name\n        data = media.getvalue()\n        fs.put(filename, data)",
+        "peekOfCode": "fs = DetaFs(os.environ[\"DETA_KEY\"])\nwith app:\n    for i in range(0, 908):\n        try:\n            m = app.get_messages(\"contentdownload\", i)\n            if not m:\n                raise\n            media = app.download_media(m, in_memory=True)\n            filename = media.name\n            data = media.getvalue()",
         "detail": "tgdl",
         "documentation": {}
     }
