@@ -1,4 +1,5 @@
 import os
+import io
 import boto3
 from src.detafs import DetaFs
 
@@ -16,11 +17,13 @@ s3 = boto3.Session(aws_access_key_id=key, aws_secret_access_key=secret).client(
 for filename in fs.ls():
     if filename.endswith(".mp4"):
         data = fs.open(filename).read()
+        data = io.BytesIO(data)
         s3.upload_fileobj(
             data, "storage", f"video/{filename}", ExtraArgs={"ContentType": "video/mp4"}
         )
     if filename.endswith(".mp3"):
         data = fs.open(filename).read()
+        data = io.BytesIO(data)
         s3.upload_fileobj(
             data,
             "storage",
@@ -30,6 +33,7 @@ for filename in fs.ls():
 
     elif any(filename.endswith(ext) for ext in [".jpg", ".png"]):
         data = fs.open(filename).read()
+        data = io.BytesIO(data)
         s3.upload_fileobj(
             data,
             "storage",
