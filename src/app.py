@@ -10,7 +10,7 @@ fs = DetaFs(environ['DETA_KEY'])
 @app.route("/")
 def index():
     files = fs.ls()
-    return render_template("index.html", items=files)
+    return render_template("index.html", files=files)
 
 
 @app.route("/p/")
