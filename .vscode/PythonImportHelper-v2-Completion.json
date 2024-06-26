@@ -115,19 +115,27 @@
         "documentation": {}
     },
     {
-        "label": "Client",
-        "importPath": "pyrogram",
-        "description": "pyrogram",
-        "isExtraImport": true,
-        "detail": "pyrogram",
-        "documentation": {}
-    },
-    {
         "label": "DetaFs",
         "importPath": "src.detafs",
         "description": "src.detafs",
         "isExtraImport": true,
         "detail": "src.detafs",
+        "documentation": {}
+    },
+    {
+        "label": "DetaFs",
+        "importPath": "src.detafs.core",
+        "description": "src.detafs.core",
+        "isExtraImport": true,
+        "detail": "src.detafs.core",
+        "documentation": {}
+    },
+    {
+        "label": "S3FileSystem",
+        "importPath": "s3fs",
+        "description": "s3fs",
+        "isExtraImport": true,
+        "detail": "s3fs",
         "documentation": {}
     },
     {
@@ -230,11 +238,29 @@
         "documentation": {}
     },
     {
-        "label": "app",
+        "label": "endpoint",
         "kind": 5,
         "importPath": "tgdl",
         "description": "tgdl",
-        "peekOfCode": "app = Client(\n    \"tgdl\",\n    21021245,\n    \"7b32ea92719781c5e22ede319c5dbde5\",\n    bot_token=os.environ[\"BOT_TOKEN\"],\n)\nfs = DetaFs(os.environ[\"DETA_KEY\"])\nwith app:\n    for i in range(0, 908):\n        try:",
+        "peekOfCode": "endpoint = os.environ[\"S3_URL\"]\nkey = os.environ[\"S3_KEY\"]\nsecret = os.environ[\"S3_SECRET\"]\nfs = DetaFs(os.environ[\"DETA_KEY\"])\ns3 = S3FileSystem(endpoint_url=endpoint, key=key, secret=secret)",
+        "detail": "tgdl",
+        "documentation": {}
+    },
+    {
+        "label": "key",
+        "kind": 5,
+        "importPath": "tgdl",
+        "description": "tgdl",
+        "peekOfCode": "key = os.environ[\"S3_KEY\"]\nsecret = os.environ[\"S3_SECRET\"]\nfs = DetaFs(os.environ[\"DETA_KEY\"])\ns3 = S3FileSystem(endpoint_url=endpoint, key=key, secret=secret)",
+        "detail": "tgdl",
+        "documentation": {}
+    },
+    {
+        "label": "secret",
+        "kind": 5,
+        "importPath": "tgdl",
+        "description": "tgdl",
+        "peekOfCode": "secret = os.environ[\"S3_SECRET\"]\nfs = DetaFs(os.environ[\"DETA_KEY\"])\ns3 = S3FileSystem(endpoint_url=endpoint, key=key, secret=secret)",
         "detail": "tgdl",
         "documentation": {}
     },
@@ -243,7 +269,16 @@
         "kind": 5,
         "importPath": "tgdl",
         "description": "tgdl",
-        "peekOfCode": "fs = DetaFs(os.environ[\"DETA_KEY\"])\nwith app:\n    for i in range(0, 908):\n        try:\n            m = app.get_messages(\"contentdownload\", i)\n            if not m:\n                raise\n            media = app.download_media(m, in_memory=True)\n            filename = media.name\n            data = media.getvalue()",
+        "peekOfCode": "fs = DetaFs(os.environ[\"DETA_KEY\"])\ns3 = S3FileSystem(endpoint_url=endpoint, key=key, secret=secret)",
+        "detail": "tgdl",
+        "documentation": {}
+    },
+    {
+        "label": "s3",
+        "kind": 5,
+        "importPath": "tgdl",
+        "description": "tgdl",
+        "peekOfCode": "s3 = S3FileSystem(endpoint_url=endpoint, key=key, secret=secret)",
         "detail": "tgdl",
         "documentation": {}
     }
