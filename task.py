@@ -1,32 +1,40 @@
 import os
+import boto3
 from src.detafs import DetaFs
 from src.detafs.core import DetaFs
-from s3fs import S3FileSystem
+from src.app import upload_file
 
 endpoint = os.environ["S3_URL"]
 key = os.environ["S3_KEY"]
 secret = os.environ["S3_SECRET"]
 
 fs = DetaFs(os.environ["DETA_KEY"])
-s3 = S3FileSystem(endpoint_url=endpoint, key=key, secret=secret)
+s3 = boto3.Session(aws_access_key_id=key, aws_secret_access_key=secret).client(
+    "s3", endpoint_url=endpoint
+)
+
 
 for filename in fs.ls():
     if filename.endswith(".mp4"):
-        with s3.open(f"storage/video/{filename}", "wb") as f:
-            f.__setattr__(name="content_type", value="video/mp4")
-            data = fs.open(filename).read()
-            f.write(data)
+        data = fs.open(filename).read()
+        s3.upload_fileobj(
+            data, "storage", f"video/{filename}", ExtraArgs={"ContentType": "video/mp4"}
+        )
     if filename.endswith(".mp3"):
-        with s3.open(f"storage/music/{filename}", "wb") as f:
-            f.__setattr__(name="content_type", value="audio/mpeg")
-            data = fs.open(filename).read()
-            f.write(data)
+        data = fs.open(filename).read()
+        s3.upload_fileobj(
+            data, "storage", f"audio/{filename}", ExtraArgs={"ContentType": "audio/mpeg"}
+        )
 
     elif any(filename.endswith(ext) for ext in [".jpg", ".png"]):
-        with s3.open(f"storage/image/{filename}", "wb") as f:
-            f.__setattr__(name="content_type", value="image/jpeg")
-            data = fs.open(filename).read()
-            f.write(data)
+        data = fs.open(filename).read()
+        s3.upload_fileobj(
+            data,
+            "storage",
+            f"images/{filename}",
+            ExtraArgs={"ContentType": "image/jpeg"},
+        )
+
     print(f"File {filename} uploaded to S3.")
 
 
