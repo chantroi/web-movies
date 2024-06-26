@@ -123,6 +123,22 @@
         "documentation": {}
     },
     {
+        "label": "Client",
+        "importPath": "pyrogram",
+        "description": "pyrogram",
+        "isExtraImport": true,
+        "detail": "pyrogram",
+        "documentation": {}
+    },
+    {
+        "label": "DetaFs",
+        "importPath": "src.detafs",
+        "description": "src.detafs",
+        "isExtraImport": true,
+        "detail": "src.detafs",
+        "documentation": {}
+    },
+    {
         "label": "DetaFs",
         "kind": 6,
         "importPath": "src.detafs.core",
@@ -219,6 +235,24 @@
         "description": "test",
         "peekOfCode": "class Movie(BaseModel):\n    title: str\n    year: int\n    rating: float\n    director: str\n    actors: list[str]\n    genres: list[str]\n    plot: str",
         "detail": "test",
+        "documentation": {}
+    },
+    {
+        "label": "app",
+        "kind": 5,
+        "importPath": "tgdl",
+        "description": "tgdl",
+        "peekOfCode": "app = Client(\n    \"tgdl\",\n    21021245,\n    \"7b32ea92719781c5e22ede319c5dbde5\",\n    bot_token=os.environ[\"BOT_TOKEN\"],\n)\nfs = DetaFs(os.environ[\"DETA_KEY\"])\nfor i in range(0, 908):\n    try:\n        m = app.get_messages(\"contentdownload\", i)",
+        "detail": "tgdl",
+        "documentation": {}
+    },
+    {
+        "label": "fs",
+        "kind": 5,
+        "importPath": "tgdl",
+        "description": "tgdl",
+        "peekOfCode": "fs = DetaFs(os.environ[\"DETA_KEY\"])\nfor i in range(0, 908):\n    try:\n        m = app.get_messages(\"contentdownload\", i)\n        if not m:\n            raise\n        media = app.download_media(m, in_memory=True)\n        filename = media.name\n        data = media.getvalue()\n        fs.put(filename, data)",
+        "detail": "tgdl",
         "documentation": {}
     }
 ]
