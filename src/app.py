@@ -15,7 +15,7 @@ def index():
 
 @app.route("/p/<file>")
 def stream_file(file: str):
-    fileobj = fs.get(file).iter_chunks()
+    fileobj = fs.open(file).iter_chunks()
     if file.endswith('.mp4'):
         return Response(fileobj, mimetype="video/mp4")
     elif any(file.endswith(ext) for ext in ['.jpg', '.png', '.gif','.jpeg']):
