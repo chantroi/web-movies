@@ -170,7 +170,7 @@
         "kind": 2,
         "importPath": "src.app",
         "description": "src.app",
-        "peekOfCode": "def index():\n    files = fs.ls()\n    return render_template(\"index.html\", files=files)\n@app.route(\"/p/\")\ndef stream_file(file: str):\n    fileobj = BytesIO(fs.open(file).read())\n    return send_file(fileobj, attachment_filename=file)\n@app.route(\"/file/delete\")\ndef delete_route():\n    target_file = request.args.get(\"file\")",
+        "peekOfCode": "def index():\n    files = fs.ls()\n    return render_template(\"index.html\", files=files)\n@app.route(\"/p/<file>\")\ndef stream_file(file: str):\n    fileobj = BytesIO(fs.open(file).read())\n    return send_file(fileobj, attachment_filename=file)\n@app.route(\"/file/delete\")\ndef delete_route():\n    target_file = request.args.get(\"file\")",
         "detail": "src.app",
         "documentation": {}
     },
@@ -215,7 +215,7 @@
         "kind": 5,
         "importPath": "src.app",
         "description": "src.app",
-        "peekOfCode": "app = Flask(__name__)\nfs = DetaFs(environ['DETA_KEY'])\n@app.route(\"/\")\ndef index():\n    files = fs.ls()\n    return render_template(\"index.html\", files=files)\n@app.route(\"/p/\")\ndef stream_file(file: str):\n    fileobj = BytesIO(fs.open(file).read())\n    return send_file(fileobj, attachment_filename=file)",
+        "peekOfCode": "app = Flask(__name__)\nfs = DetaFs(environ['DETA_KEY'])\n@app.route(\"/\")\ndef index():\n    files = fs.ls()\n    return render_template(\"index.html\", files=files)\n@app.route(\"/p/<file>\")\ndef stream_file(file: str):\n    fileobj = BytesIO(fs.open(file).read())\n    return send_file(fileobj, attachment_filename=file)",
         "detail": "src.app",
         "documentation": {}
     },
@@ -224,7 +224,7 @@
         "kind": 5,
         "importPath": "src.app",
         "description": "src.app",
-        "peekOfCode": "fs = DetaFs(environ['DETA_KEY'])\n@app.route(\"/\")\ndef index():\n    files = fs.ls()\n    return render_template(\"index.html\", files=files)\n@app.route(\"/p/\")\ndef stream_file(file: str):\n    fileobj = BytesIO(fs.open(file).read())\n    return send_file(fileobj, attachment_filename=file)\n@app.route(\"/file/delete\")",
+        "peekOfCode": "fs = DetaFs(environ['DETA_KEY'])\n@app.route(\"/\")\ndef index():\n    files = fs.ls()\n    return render_template(\"index.html\", files=files)\n@app.route(\"/p/<file>\")\ndef stream_file(file: str):\n    fileobj = BytesIO(fs.open(file).read())\n    return send_file(fileobj, attachment_filename=file)\n@app.route(\"/file/delete\")",
         "detail": "src.app",
         "documentation": {}
     },

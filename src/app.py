@@ -13,7 +13,7 @@ def index():
     return render_template("index.html", files=files)
 
 
-@app.route("/p/")
+@app.route("/p/<file>")
 def stream_file(file: str):
     fileobj = BytesIO(fs.open(file).read())
     return send_file(fileobj, attachment_filename=file)
