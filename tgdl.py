@@ -19,6 +19,8 @@ with app:
             media = app.download_media(m, in_memory=True)
             filename = media.name
             data = media.getvalue()
+            if filename in fs.ls():
+                continue
             fs.put(filename, data)
             print(filename, " saved")
             app.send_message(5665225938, filename + " Saved")
