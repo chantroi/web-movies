@@ -107,14 +107,6 @@
         "documentation": {}
     },
     {
-        "label": "BaseModel",
-        "importPath": "pydantic",
-        "description": "pydantic",
-        "isExtraImport": true,
-        "detail": "pydantic",
-        "documentation": {}
-    },
-    {
         "label": "DetaFs",
         "importPath": "src.detafs",
         "description": "src.detafs",
@@ -136,6 +128,14 @@
         "description": "s3fs",
         "isExtraImport": true,
         "detail": "s3fs",
+        "documentation": {}
+    },
+    {
+        "label": "BaseModel",
+        "importPath": "pydantic",
+        "description": "pydantic",
+        "isExtraImport": true,
+        "detail": "pydantic",
         "documentation": {}
     },
     {
@@ -229,57 +229,57 @@
         "documentation": {}
     },
     {
+        "label": "endpoint",
+        "kind": 5,
+        "importPath": "task",
+        "description": "task",
+        "peekOfCode": "endpoint = os.environ[\"S3_URL\"]\nkey = os.environ[\"S3_KEY\"]\nsecret = os.environ[\"S3_SECRET\"]\nfs = DetaFs(os.environ[\"DETA_KEY\"])\ns3 = S3FileSystem(endpoint_url=endpoint, key=key, secret=secret)\nfor filename in fs.ls():\n    if filename.endswith(\".mp4\"):\n        with s3.open(f\"storage/video/{filename}\", \"wb\") as f:\n            f.__setattr__(name=\"content_type\", value=\"video/mp4\")\n            data = fs.open(filename).read()",
+        "detail": "task",
+        "documentation": {}
+    },
+    {
+        "label": "key",
+        "kind": 5,
+        "importPath": "task",
+        "description": "task",
+        "peekOfCode": "key = os.environ[\"S3_KEY\"]\nsecret = os.environ[\"S3_SECRET\"]\nfs = DetaFs(os.environ[\"DETA_KEY\"])\ns3 = S3FileSystem(endpoint_url=endpoint, key=key, secret=secret)\nfor filename in fs.ls():\n    if filename.endswith(\".mp4\"):\n        with s3.open(f\"storage/video/{filename}\", \"wb\") as f:\n            f.__setattr__(name=\"content_type\", value=\"video/mp4\")\n            data = fs.open(filename).read()\n            f.write(data)",
+        "detail": "task",
+        "documentation": {}
+    },
+    {
+        "label": "secret",
+        "kind": 5,
+        "importPath": "task",
+        "description": "task",
+        "peekOfCode": "secret = os.environ[\"S3_SECRET\"]\nfs = DetaFs(os.environ[\"DETA_KEY\"])\ns3 = S3FileSystem(endpoint_url=endpoint, key=key, secret=secret)\nfor filename in fs.ls():\n    if filename.endswith(\".mp4\"):\n        with s3.open(f\"storage/video/{filename}\", \"wb\") as f:\n            f.__setattr__(name=\"content_type\", value=\"video/mp4\")\n            data = fs.open(filename).read()\n            f.write(data)\n    if filename.endswith(\".mp3\"):",
+        "detail": "task",
+        "documentation": {}
+    },
+    {
+        "label": "fs",
+        "kind": 5,
+        "importPath": "task",
+        "description": "task",
+        "peekOfCode": "fs = DetaFs(os.environ[\"DETA_KEY\"])\ns3 = S3FileSystem(endpoint_url=endpoint, key=key, secret=secret)\nfor filename in fs.ls():\n    if filename.endswith(\".mp4\"):\n        with s3.open(f\"storage/video/{filename}\", \"wb\") as f:\n            f.__setattr__(name=\"content_type\", value=\"video/mp4\")\n            data = fs.open(filename).read()\n            f.write(data)\n    if filename.endswith(\".mp3\"):\n        with s3.open(f\"storage/music/{filename}\", \"wb\") as f:",
+        "detail": "task",
+        "documentation": {}
+    },
+    {
+        "label": "s3",
+        "kind": 5,
+        "importPath": "task",
+        "description": "task",
+        "peekOfCode": "s3 = S3FileSystem(endpoint_url=endpoint, key=key, secret=secret)\nfor filename in fs.ls():\n    if filename.endswith(\".mp4\"):\n        with s3.open(f\"storage/video/{filename}\", \"wb\") as f:\n            f.__setattr__(name=\"content_type\", value=\"video/mp4\")\n            data = fs.open(filename).read()\n            f.write(data)\n    if filename.endswith(\".mp3\"):\n        with s3.open(f\"storage/music/{filename}\", \"wb\") as f:\n            f.__setattr__(name=\"content_type\", value=\"audio/mpeg\")",
+        "detail": "task",
+        "documentation": {}
+    },
+    {
         "label": "Movie",
         "kind": 6,
         "importPath": "test",
         "description": "test",
         "peekOfCode": "class Movie(BaseModel):\n    title: str\n    year: int\n    rating: float\n    director: str\n    actors: list[str]\n    genres: list[str]\n    plot: str",
         "detail": "test",
-        "documentation": {}
-    },
-    {
-        "label": "endpoint",
-        "kind": 5,
-        "importPath": "tgdl",
-        "description": "tgdl",
-        "peekOfCode": "endpoint = os.environ[\"S3_URL\"]\nkey = os.environ[\"S3_KEY\"]\nsecret = os.environ[\"S3_SECRET\"]\nfs = DetaFs(os.environ[\"DETA_KEY\"])\ns3 = S3FileSystem(endpoint_url=endpoint, key=key, secret=secret)",
-        "detail": "tgdl",
-        "documentation": {}
-    },
-    {
-        "label": "key",
-        "kind": 5,
-        "importPath": "tgdl",
-        "description": "tgdl",
-        "peekOfCode": "key = os.environ[\"S3_KEY\"]\nsecret = os.environ[\"S3_SECRET\"]\nfs = DetaFs(os.environ[\"DETA_KEY\"])\ns3 = S3FileSystem(endpoint_url=endpoint, key=key, secret=secret)",
-        "detail": "tgdl",
-        "documentation": {}
-    },
-    {
-        "label": "secret",
-        "kind": 5,
-        "importPath": "tgdl",
-        "description": "tgdl",
-        "peekOfCode": "secret = os.environ[\"S3_SECRET\"]\nfs = DetaFs(os.environ[\"DETA_KEY\"])\ns3 = S3FileSystem(endpoint_url=endpoint, key=key, secret=secret)",
-        "detail": "tgdl",
-        "documentation": {}
-    },
-    {
-        "label": "fs",
-        "kind": 5,
-        "importPath": "tgdl",
-        "description": "tgdl",
-        "peekOfCode": "fs = DetaFs(os.environ[\"DETA_KEY\"])\ns3 = S3FileSystem(endpoint_url=endpoint, key=key, secret=secret)",
-        "detail": "tgdl",
-        "documentation": {}
-    },
-    {
-        "label": "s3",
-        "kind": 5,
-        "importPath": "tgdl",
-        "description": "tgdl",
-        "peekOfCode": "s3 = S3FileSystem(endpoint_url=endpoint, key=key, secret=secret)",
-        "detail": "tgdl",
         "documentation": {}
     }
 ]

@@ -13,15 +13,18 @@ s3 = S3FileSystem(endpoint_url=endpoint, key=key, secret=secret)
 for filename in fs.ls():
     if filename.endswith(".mp4"):
         with s3.open(f"storage/video/{filename}", "wb") as f:
+            f.__setattr__(name="content_type", value="video/mp4")
             data = fs.open(filename).read()
             f.write(data)
     if filename.endswith(".mp3"):
         with s3.open(f"storage/music/{filename}", "wb") as f:
+            f.__setattr__(name="content_type", value="audio/mpeg")
             data = fs.open(filename).read()
             f.write(data)
 
-    elif any(filename.endswith(ext) for ext in [".jpg", ".png", ".gif"]):
+    elif any(filename.endswith(ext) for ext in [".jpg", ".png"]):
         with s3.open(f"storage/image/{filename}", "wb") as f:
+            f.__setattr__(name="content_type", value="image/jpeg")
             data = fs.open(filename).read()
             f.write(data)
     print(f"File {filename} uploaded to S3.")
