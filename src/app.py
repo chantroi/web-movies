@@ -1,10 +1,10 @@
 from io import BytesIO
 from os import environ
-from flask import Flask, request, send_file, render_template, jsonify
+from flask import Flask, request, Response, render_template, jsonify
 from detafs import DetaFs
 
 app = Flask(__name__)
-fs = DetaFs(environ['DETA_KEY'])
+fs = DetaFs(environ["DETA_KEY"])
 
 
 @app.route("/")
@@ -15,8 +15,13 @@ def index():
 
 @app.route("/p/<file>")
 def stream_file(file: str):
-    fileobj = BytesIO(fs.open(file).read())
-    return send_file(fileobj, attachment_filename=file)
+    fileobj = fs.get(file).iter_chunks()
+    if file.endswith('.mp4'):
+        return Response(fileobj, mimetype="video/mp4")
+    elif any(file.endswith(ext) for ext in ['.jpg', '.png', '.gif','.jpeg'])):
+        return Response(fileobj, mimetype="image/jpeg")
+    else:
+        return Response(fileobj, mimetype="text/plain")
 
 
 @app.route("/file/delete")
@@ -31,13 +36,15 @@ def upload_file():
     if request.files:
         file = request.files["file"]
         fs.put(file.filename, file.read())
-        return jsonify(status="success", message=f"file {file.filename} upload completed")
+        return jsonify(
+            status="success", message=f"file {file.filename} upload completed"
+        )
     else:
         data = request.json
         fs.put(data["name"], data["content"])
-        return jsonify(status="success", message=f"file {data['name']} upload completed")
-
-
+        return jsonify(
+            status="success", message=f"file {data['name']} upload completed"
+        )
 
 
 @app.route("/file/list")

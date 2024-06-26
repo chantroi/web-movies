@@ -83,7 +83,7 @@
         "documentation": {}
     },
     {
-        "label": "send_file",
+        "label": "Response",
         "importPath": "flask",
         "description": "flask",
         "isExtraImport": true,
@@ -170,7 +170,7 @@
         "kind": 2,
         "importPath": "src.app",
         "description": "src.app",
-        "peekOfCode": "def index():\n    files = fs.ls()\n    return render_template(\"index.html\", files=files)\n@app.route(\"/p/<file>\")\ndef stream_file(file: str):\n    fileobj = BytesIO(fs.open(file).read())\n    return send_file(fileobj, attachment_filename=file)\n@app.route(\"/file/delete\")\ndef delete_route():\n    target_file = request.args.get(\"file\")",
+        "peekOfCode": "def index():\n    files = fs.ls()\n    return render_template(\"index.html\", files=files)\n@app.route(\"/p/<file>\")\ndef stream_file(file: str):\n    fileobj = fs.get(file).iter_chunks()\n    if file.endswith('.mp4'):\n        return Response(fileobj, mimetype=\"video/mp4\")\n    elif any(file.endswith(ext) for ext in ['.jpg', '.png', '.gif','.jpeg'])):\n        return Response(fileobj, mimetype=\"image/jpeg\")",
         "detail": "src.app",
         "documentation": {}
     },
@@ -179,7 +179,7 @@
         "kind": 2,
         "importPath": "src.app",
         "description": "src.app",
-        "peekOfCode": "def stream_file(file: str):\n    fileobj = BytesIO(fs.open(file).read())\n    return send_file(fileobj, attachment_filename=file)\n@app.route(\"/file/delete\")\ndef delete_route():\n    target_file = request.args.get(\"file\")\n    fs.remove(target_file)\n    return jsonify(status=\"success\", message=f\"file {target_file} deleted successful\")\n@app.route(\"/file/upload\", methods=[\"POST\"])\ndef upload_file():",
+        "peekOfCode": "def stream_file(file: str):\n    fileobj = fs.get(file).iter_chunks()\n    if file.endswith('.mp4'):\n        return Response(fileobj, mimetype=\"video/mp4\")\n    elif any(file.endswith(ext) for ext in ['.jpg', '.png', '.gif','.jpeg'])):\n        return Response(fileobj, mimetype=\"image/jpeg\")\n    else:\n        return Response(fileobj, mimetype=\"text/plain\")\n@app.route(\"/file/delete\")\ndef delete_route():",
         "detail": "src.app",
         "documentation": {}
     },
@@ -188,7 +188,7 @@
         "kind": 2,
         "importPath": "src.app",
         "description": "src.app",
-        "peekOfCode": "def delete_route():\n    target_file = request.args.get(\"file\")\n    fs.remove(target_file)\n    return jsonify(status=\"success\", message=f\"file {target_file} deleted successful\")\n@app.route(\"/file/upload\", methods=[\"POST\"])\ndef upload_file():\n    if request.files:\n        file = request.files[\"file\"]\n        fs.put(file.filename, file.read())\n        return jsonify(status=\"success\", message=f\"file {file.filename} upload completed\")",
+        "peekOfCode": "def delete_route():\n    target_file = request.args.get(\"file\")\n    fs.remove(target_file)\n    return jsonify(status=\"success\", message=f\"file {target_file} deleted successful\")\n@app.route(\"/file/upload\", methods=[\"POST\"])\ndef upload_file():\n    if request.files:\n        file = request.files[\"file\"]\n        fs.put(file.filename, file.read())\n        return jsonify(",
         "detail": "src.app",
         "documentation": {}
     },
@@ -197,7 +197,7 @@
         "kind": 2,
         "importPath": "src.app",
         "description": "src.app",
-        "peekOfCode": "def upload_file():\n    if request.files:\n        file = request.files[\"file\"]\n        fs.put(file.filename, file.read())\n        return jsonify(status=\"success\", message=f\"file {file.filename} upload completed\")\n    else:\n        data = request.json\n        fs.put(data[\"name\"], data[\"content\"])\n        return jsonify(status=\"success\", message=f\"file {data['name']} upload completed\")\n@app.route(\"/file/list\")",
+        "peekOfCode": "def upload_file():\n    if request.files:\n        file = request.files[\"file\"]\n        fs.put(file.filename, file.read())\n        return jsonify(\n            status=\"success\", message=f\"file {file.filename} upload completed\"\n        )\n    else:\n        data = request.json\n        fs.put(data[\"name\"], data[\"content\"])",
         "detail": "src.app",
         "documentation": {}
     },
@@ -215,7 +215,7 @@
         "kind": 5,
         "importPath": "src.app",
         "description": "src.app",
-        "peekOfCode": "app = Flask(__name__)\nfs = DetaFs(environ['DETA_KEY'])\n@app.route(\"/\")\ndef index():\n    files = fs.ls()\n    return render_template(\"index.html\", files=files)\n@app.route(\"/p/<file>\")\ndef stream_file(file: str):\n    fileobj = BytesIO(fs.open(file).read())\n    return send_file(fileobj, attachment_filename=file)",
+        "peekOfCode": "app = Flask(__name__)\nfs = DetaFs(environ[\"DETA_KEY\"])\n@app.route(\"/\")\ndef index():\n    files = fs.ls()\n    return render_template(\"index.html\", files=files)\n@app.route(\"/p/<file>\")\ndef stream_file(file: str):\n    fileobj = fs.get(file).iter_chunks()\n    if file.endswith('.mp4'):",
         "detail": "src.app",
         "documentation": {}
     },
@@ -224,7 +224,7 @@
         "kind": 5,
         "importPath": "src.app",
         "description": "src.app",
-        "peekOfCode": "fs = DetaFs(environ['DETA_KEY'])\n@app.route(\"/\")\ndef index():\n    files = fs.ls()\n    return render_template(\"index.html\", files=files)\n@app.route(\"/p/<file>\")\ndef stream_file(file: str):\n    fileobj = BytesIO(fs.open(file).read())\n    return send_file(fileobj, attachment_filename=file)\n@app.route(\"/file/delete\")",
+        "peekOfCode": "fs = DetaFs(environ[\"DETA_KEY\"])\n@app.route(\"/\")\ndef index():\n    files = fs.ls()\n    return render_template(\"index.html\", files=files)\n@app.route(\"/p/<file>\")\ndef stream_file(file: str):\n    fileobj = fs.get(file).iter_chunks()\n    if file.endswith('.mp4'):\n        return Response(fileobj, mimetype=\"video/mp4\")",
         "detail": "src.app",
         "documentation": {}
     },
