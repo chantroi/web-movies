@@ -170,7 +170,7 @@
         "kind": 2,
         "importPath": "src.app",
         "description": "src.app",
-        "peekOfCode": "def index():\n    files = fs.ls()\n    return render_template(\"index.html\", files=files)\n@app.route(\"/p/<file>\")\ndef stream_file(file: str):\n    fileobj = fs.get(file).iter_chunks()\n    if file.endswith('.mp4'):\n        return Response(fileobj, mimetype=\"video/mp4\")\n    elif any(file.endswith(ext) for ext in ['.jpg', '.png', '.gif','.jpeg'])):\n        return Response(fileobj, mimetype=\"image/jpeg\")",
+        "peekOfCode": "def index():\n    files = fs.ls()\n    return render_template(\"index.html\", files=files)\n@app.route(\"/p/<file>\")\ndef stream_file(file: str):\n    fileobj = fs.get(file).iter_chunks()\n    if file.endswith('.mp4'):\n        return Response(fileobj, mimetype=\"video/mp4\")\n    elif any(file.endswith(ext) for ext in ['.jpg', '.png', '.gif','.jpeg']):\n        return Response(fileobj, mimetype=\"image/jpeg\")",
         "detail": "src.app",
         "documentation": {}
     },
@@ -179,7 +179,7 @@
         "kind": 2,
         "importPath": "src.app",
         "description": "src.app",
-        "peekOfCode": "def stream_file(file: str):\n    fileobj = fs.get(file).iter_chunks()\n    if file.endswith('.mp4'):\n        return Response(fileobj, mimetype=\"video/mp4\")\n    elif any(file.endswith(ext) for ext in ['.jpg', '.png', '.gif','.jpeg'])):\n        return Response(fileobj, mimetype=\"image/jpeg\")\n    else:\n        return Response(fileobj, mimetype=\"text/plain\")\n@app.route(\"/file/delete\")\ndef delete_route():",
+        "peekOfCode": "def stream_file(file: str):\n    fileobj = fs.get(file).iter_chunks()\n    if file.endswith('.mp4'):\n        return Response(fileobj, mimetype=\"video/mp4\")\n    elif any(file.endswith(ext) for ext in ['.jpg', '.png', '.gif','.jpeg']):\n        return Response(fileobj, mimetype=\"image/jpeg\")\n    else:\n        return Response(fileobj, mimetype=\"text/plain\")\n@app.route(\"/file/delete\")\ndef delete_route():",
         "detail": "src.app",
         "documentation": {}
     },

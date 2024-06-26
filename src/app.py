@@ -18,7 +18,7 @@ def stream_file(file: str):
     fileobj = fs.get(file).iter_chunks()
     if file.endswith('.mp4'):
         return Response(fileobj, mimetype="video/mp4")
-    elif any(file.endswith(ext) for ext in ['.jpg', '.png', '.gif','.jpeg'])):
+    elif any(file.endswith(ext) for ext in ['.jpg', '.png', '.gif','.jpeg']):
         return Response(fileobj, mimetype="image/jpeg")
     else:
         return Response(fileobj, mimetype="text/plain")
