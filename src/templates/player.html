@@ -2,6 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{{ filename }}</title>
     <script src="//cdn.jsdelivr.net/npm/eruda"></script>
     <script>
@@ -9,8 +10,6 @@
     </script>
   </head>
   <body>
-    <h1>Play Video from Deta Drive</h1>
-
     <video width="100%" id="videoPlayer" controls autoplay>
       <p>Your browser doesn't support video playback.</p>
     </video>
@@ -20,7 +19,7 @@
       const deta = Deta("{{ deta_key }}");
 
       async function downloadAndPlayVideo() {
-        const drive = deta.Drive();
+        const drive = deta.Drive("files");
         const fileId = "your_file_id";
 
         try {
