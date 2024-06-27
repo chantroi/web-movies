@@ -467,7 +467,7 @@
         "kind": 5,
         "importPath": "task",
         "description": "task",
-        "peekOfCode": "fs = deta.Deta(deta_key).Drive(\"files\")\ns3 = s3fs.S3FileSystem(\n    key=s3_key, secret=s3_secret, client_kwargs={\"endpoint_url\": s3_endpoint}\n)\nprint(s3.ls())\nfor file in s3.ls(\"storage/video\"):\n    name = \"video/\" + file\n    with s3.open(\"storage/\" + name, \"rb\") as f:\n        data = f.read()\n    fs.put(name, data, content_type=\"video/mp4\")",
+        "peekOfCode": "fs = deta.Deta(deta_key).Drive(\"files\")\ns3 = s3fs.S3FileSystem(\n    key=s3_key, secret=s3_secret, client_kwargs={\"endpoint_url\": s3_endpoint}\n)\nprint(s3.ls(\"storage\"))\nfor file in s3.ls(\"storage/video\"):\n    name = \"video/\" + file\n    with s3.open(\"storage/\" + name, \"rb\") as f:\n        data = f.read()\n    fs.put(name, data, content_type=\"video/mp4\")",
         "detail": "task",
         "documentation": {}
     },
@@ -476,7 +476,7 @@
         "kind": 5,
         "importPath": "task",
         "description": "task",
-        "peekOfCode": "s3 = s3fs.S3FileSystem(\n    key=s3_key, secret=s3_secret, client_kwargs={\"endpoint_url\": s3_endpoint}\n)\nprint(s3.ls())\nfor file in s3.ls(\"storage/video\"):\n    name = \"video/\" + file\n    with s3.open(\"storage/\" + name, \"rb\") as f:\n        data = f.read()\n    fs.put(name, data, content_type=\"video/mp4\")\n    print(f\"Uploaded {name} to {name}\")",
+        "peekOfCode": "s3 = s3fs.S3FileSystem(\n    key=s3_key, secret=s3_secret, client_kwargs={\"endpoint_url\": s3_endpoint}\n)\nprint(s3.ls(\"storage\"))\nfor file in s3.ls(\"storage/video\"):\n    name = \"video/\" + file\n    with s3.open(\"storage/\" + name, \"rb\") as f:\n        data = f.read()\n    fs.put(name, data, content_type=\"video/mp4\")\n    print(f\"Uploaded {name} to {name}\")",
         "detail": "task",
         "documentation": {}
     }
