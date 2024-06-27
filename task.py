@@ -14,6 +14,6 @@ s3 = boto3.Session(aws_access_key_id=key, aws_secret_access_key=secret).client(
 
 for file in s3.list_objects(Bucket="storage")["Contents"]:
     path = file["Key"]
-    data = s3.get_object(Bucket="files", Key=file["Key"])["Body"].read()
+    data = s3.get_object(Bucket="storage", Key=file["Key"])["Body"].read()
     fs.put(path, data)
     print(f"Uploaded {file['Key']} to {path}")
