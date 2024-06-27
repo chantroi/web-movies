@@ -5,27 +5,17 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Redirecting...</title>
-    <script>
-      const headers = new Headers();
-      headers.append("X-API-Key", "{{ deta_key }}");
-
-      fetch("{{ res_url }}", {
-        method: "GET",
-        headers: headers,
-        redirect: "follow",
-      })
-        .then((response) => {
-          if (response.redirected) {
-            window.location.href = response.url;
-          } else {
-            console.error("Request was not redirected.");
-          }
-        })
-        .catch((error) => {
-          console.error(error);
-        });
-    </script>
+    <script
+      src="https://unpkg.com/htmx.org@2.0.0"
+      integrity="sha384-wS5l5IKJBvK6sPTKa2WZ1js3d947pvWXbPJ1OmWfEuxLgeHcEbjUUA5i9V5ZkpCw"
+      crossorigin="anonymous"
+    ></script>
   </head>
+  <div
+    hx-get="{{ res_url }}"
+    hx-headers='{"X-API-Key": "{{ deta_key }}"}'
+    hx-push-url="true"
+  ></div>
 
   <body>
     <p>Redirecting...</p>
