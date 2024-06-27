@@ -1,5 +1,23 @@
 [
     {
+        "label": "boto3",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "boto3",
+        "description": "boto3",
+        "detail": "boto3",
+        "documentation": {}
+    },
+    {
+        "label": "deta",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "deta",
+        "description": "deta",
+        "detail": "deta",
+        "documentation": {}
+    },
+    {
         "label": "Deta",
         "importPath": "deta",
         "description": "deta",
@@ -8,19 +26,123 @@
         "documentation": {}
     },
     {
+        "label": "Client",
+        "importPath": "pyrogram",
+        "description": "pyrogram",
+        "isExtraImport": true,
+        "detail": "pyrogram",
+        "documentation": {}
+    },
+    {
+        "label": "filters",
+        "importPath": "pyrogram",
+        "description": "pyrogram",
+        "isExtraImport": true,
+        "detail": "pyrogram",
+        "documentation": {}
+    },
+    {
+        "label": "Message",
+        "importPath": "pyrogram.types",
+        "description": "pyrogram.types",
+        "isExtraImport": true,
+        "detail": "pyrogram.types",
+        "documentation": {}
+    },
+    {
+        "label": "deta_key",
+        "importPath": "environment",
+        "description": "environment",
+        "isExtraImport": true,
+        "detail": "environment",
+        "documentation": {}
+    },
+    {
+        "label": "s3_endpoint",
+        "importPath": "environment",
+        "description": "environment",
+        "isExtraImport": true,
+        "detail": "environment",
+        "documentation": {}
+    },
+    {
+        "label": "s3_key",
+        "importPath": "environment",
+        "description": "environment",
+        "isExtraImport": true,
+        "detail": "environment",
+        "documentation": {}
+    },
+    {
+        "label": "s3_secret",
+        "importPath": "environment",
+        "description": "environment",
+        "isExtraImport": true,
+        "detail": "environment",
+        "documentation": {}
+    },
+    {
+        "label": "bot_token",
+        "importPath": "environment",
+        "description": "environment",
+        "isExtraImport": true,
+        "detail": "environment",
+        "documentation": {}
+    },
+    {
+        "label": "deta_key",
+        "importPath": "environment",
+        "description": "environment",
+        "isExtraImport": true,
+        "detail": "environment",
+        "documentation": {}
+    },
+    {
+        "label": "project_id",
+        "importPath": "environment",
+        "description": "environment",
+        "isExtraImport": true,
+        "detail": "environment",
+        "documentation": {}
+    },
+    {
+        "label": "s3_endpoint",
+        "importPath": "environment",
+        "description": "environment",
+        "isExtraImport": true,
+        "detail": "environment",
+        "documentation": {}
+    },
+    {
+        "label": "s3_key",
+        "importPath": "environment",
+        "description": "environment",
+        "isExtraImport": true,
+        "detail": "environment",
+        "documentation": {}
+    },
+    {
+        "label": "s3_secret",
+        "importPath": "environment",
+        "description": "environment",
+        "isExtraImport": true,
+        "detail": "environment",
+        "documentation": {}
+    },
+    {
+        "label": "deta_key",
+        "importPath": "environment",
+        "description": "environment",
+        "isExtraImport": true,
+        "detail": "environment",
+        "documentation": {}
+    },
+    {
         "label": "os",
         "kind": 6,
         "isExtraImport": true,
         "importPath": "os",
         "description": "os",
-        "detail": "os",
-        "documentation": {}
-    },
-    {
-        "label": "environ",
-        "importPath": "os",
-        "description": "os",
-        "isExtraImport": true,
         "detail": "os",
         "documentation": {}
     },
@@ -75,7 +197,7 @@
         "documentation": {}
     },
     {
-        "label": "Response",
+        "label": "redirect",
         "importPath": "flask",
         "description": "flask",
         "isExtraImport": true,
@@ -99,37 +221,65 @@
         "documentation": {}
     },
     {
-        "label": "DetaFs",
-        "importPath": "detafs",
-        "description": "detafs",
-        "isExtraImport": true,
-        "detail": "detafs",
-        "documentation": {}
-    },
-    {
-        "label": "boto3",
+        "label": "requests",
         "kind": 6,
         "isExtraImport": true,
-        "importPath": "boto3",
-        "description": "boto3",
-        "detail": "boto3",
+        "importPath": "requests",
+        "description": "requests",
+        "detail": "requests",
         "documentation": {}
     },
     {
-        "label": "DetaFs",
-        "importPath": "src.detafs",
-        "description": "src.detafs",
+        "label": "app",
+        "importPath": "src.app",
+        "description": "src.app",
         "isExtraImport": true,
-        "detail": "src.detafs",
+        "detail": "src.app",
         "documentation": {}
     },
     {
-        "label": "DetaFs",
+        "label": "s3fs",
         "kind": 6,
-        "importPath": "src.detafs.core",
-        "description": "src.detafs.core",
-        "peekOfCode": "class DetaFs:\n    def __init__(self, access_key: str, folder: str = \"files\") -> None:\n        self.deta = Deta(access_key)\n        self.fs = self.deta.Drive(folder)\n    def open(self, file: str):\n        return self.fs.get(file)\n    def put(self, file: str, data: bytes):\n        return self.fs.put(file, data)\n    def remove(self, file: str):\n        return self.fs.delete(file)",
-        "detail": "src.detafs.core",
+        "isExtraImport": true,
+        "importPath": "s3fs",
+        "description": "s3fs",
+        "detail": "s3fs",
+        "documentation": {}
+    },
+    {
+        "label": "download_video",
+        "kind": 2,
+        "importPath": "bot.run",
+        "description": "bot.run",
+        "peekOfCode": "def download_video(c: Client, m: Message):\n    file = c.download_media(m, in_memory=True)\n    fs.put(\"video/\" + file.name, file.getvalue())\n    s3.upload_fileobj(\n        Fileobj=file,\n        Bucket=\"storage\",\n        Key=\"video/\" + file.name,\n        ExtraArgs={\"ACL\": \"public-read\", \"ContentType\": \"video/mp4\"},\n    )\n    print(f\"Uploaded {file.name} to {file.name}\")",
+        "detail": "bot.run",
+        "documentation": {}
+    },
+    {
+        "label": "bot",
+        "kind": 5,
+        "importPath": "bot.run",
+        "description": "bot.run",
+        "peekOfCode": "bot = Client(\n    \"bot\",\n    21021245,\n    \"7b32ea92719781c5e22ede319c5dbde5\",\n    bot_token=bot_token,\n)\nfs = deta.Deta(deta_key).Drive(\"files\")\ns3 = boto3.client(\n    \"s3\",\n    endpoint_url=s3_endpoint,",
+        "detail": "bot.run",
+        "documentation": {}
+    },
+    {
+        "label": "fs",
+        "kind": 5,
+        "importPath": "bot.run",
+        "description": "bot.run",
+        "peekOfCode": "fs = deta.Deta(deta_key).Drive(\"files\")\ns3 = boto3.client(\n    \"s3\",\n    endpoint_url=s3_endpoint,\n    aws_access_key_id=s3_key,\n    aws_secret_access_key=s3_secret,\n)\n@bot.on_message(filters.chat(\"contentdownload\") & filters.video)\ndef download_video(c: Client, m: Message):\n    file = c.download_media(m, in_memory=True)",
+        "detail": "bot.run",
+        "documentation": {}
+    },
+    {
+        "label": "s3",
+        "kind": 5,
+        "importPath": "bot.run",
+        "description": "bot.run",
+        "peekOfCode": "s3 = boto3.client(\n    \"s3\",\n    endpoint_url=s3_endpoint,\n    aws_access_key_id=s3_key,\n    aws_secret_access_key=s3_secret,\n)\n@bot.on_message(filters.chat(\"contentdownload\") & filters.video)\ndef download_video(c: Client, m: Message):\n    file = c.download_media(m, in_memory=True)\n    fs.put(\"video/\" + file.name, file.getvalue())",
+        "detail": "bot.run",
         "documentation": {}
     },
     {
@@ -155,7 +305,7 @@
         "kind": 2,
         "importPath": "src.app",
         "description": "src.app",
-        "peekOfCode": "def index():\n    files = fs.ls()\n    return render_template(\"index.html\", files=files)\n@app.route(\"/p/<file>\")\ndef stream_file(file: str):\n    fileobj = fs.open(file).iter_chunks()\n    if file.endswith(\".mp4\"):\n        return Response(fileobj, mimetype=\"video/mp4\")\n    elif any(file.endswith(ext) for ext in [\".jpg\", \".png\", \".gif\", \".jpeg\"]):\n        return Response(fileobj, mimetype=\"image/jpeg\")",
+        "peekOfCode": "def index():\n    files = fs.list()\n    [\"names\"]\n    return render_template(\"index.html\", files=files)\n@app.route(\"/p/<file>\")\ndef stream_file(file: str):\n    res_url = f\"{api_url}/files?name={file}\"\n    response = redirect(res_url, code=302)\n    response.headers[\"Content-Type\"] = \"video/mp4\"\n    return response",
         "detail": "src.app",
         "documentation": {}
     },
@@ -164,7 +314,7 @@
         "kind": 2,
         "importPath": "src.app",
         "description": "src.app",
-        "peekOfCode": "def stream_file(file: str):\n    fileobj = fs.open(file).iter_chunks()\n    if file.endswith(\".mp4\"):\n        return Response(fileobj, mimetype=\"video/mp4\")\n    elif any(file.endswith(ext) for ext in [\".jpg\", \".png\", \".gif\", \".jpeg\"]):\n        return Response(fileobj, mimetype=\"image/jpeg\")\n    elif file.endswith(\".mp3\"):\n        return Response(fileobj, mimetype=\"audio/mpeg\")\n    else:\n        return Response(fileobj, mimetype=\"text/plain\")",
+        "peekOfCode": "def stream_file(file: str):\n    res_url = f\"{api_url}/files?name={file}\"\n    response = redirect(res_url, code=302)\n    response.headers[\"Content-Type\"] = \"video/mp4\"\n    return response\n@app.route(\"/file/delete\")\ndef delete_route():\n    target_file = request.args.get(\"file\")\n    fs.delete(target_file)\n    return jsonify(status=\"success\", message=f\"file {target_file} deleted successful\")",
         "detail": "src.app",
         "documentation": {}
     },
@@ -173,7 +323,7 @@
         "kind": 2,
         "importPath": "src.app",
         "description": "src.app",
-        "peekOfCode": "def delete_route():\n    target_file = request.args.get(\"file\")\n    fs.remove(target_file)\n    return jsonify(status=\"success\", message=f\"file {target_file} deleted successful\")\n@app.route(\"/file/upload\", methods=[\"POST\"])\ndef upload_file():\n    if request.files:\n        file = request.files[\"file\"]\n        fs.put(file.filename, file.read())\n        return jsonify(",
+        "peekOfCode": "def delete_route():\n    target_file = request.args.get(\"file\")\n    fs.delete(target_file)\n    return jsonify(status=\"success\", message=f\"file {target_file} deleted successful\")\n@app.route(\"/file/upload\", methods=[\"POST\"])\ndef upload_file():\n    if request.files:\n        file = request.files[\"file\"]\n        fs.put(file.filename, file.read())\n        return jsonify(",
         "detail": "src.app",
         "documentation": {}
     },
@@ -191,7 +341,7 @@
         "kind": 2,
         "importPath": "src.app",
         "description": "src.app",
-        "peekOfCode": "def list_files():\n    files = fs.ls()\n    return jsonify(files=files)",
+        "peekOfCode": "def list_files():\n    files = fs.list()[\"names\"]\n    return jsonify(files=files)",
         "detail": "src.app",
         "documentation": {}
     },
@@ -200,7 +350,7 @@
         "kind": 5,
         "importPath": "src.app",
         "description": "src.app",
-        "peekOfCode": "app = Flask(__name__)\nfs = DetaFs(environ[\"DETA_KEY\"])\n@app.route(\"/\")\ndef index():\n    files = fs.ls()\n    return render_template(\"index.html\", files=files)\n@app.route(\"/p/<file>\")\ndef stream_file(file: str):\n    fileobj = fs.open(file).iter_chunks()\n    if file.endswith(\".mp4\"):",
+        "peekOfCode": "app = Flask(__name__)\nfs = Deta(deta_key).Drive(\"files\")\napi_url = f\"https://drive.deta.sh/v1/{project_id}/files\"\n@app.route(\"/\")\ndef index():\n    files = fs.list()\n    [\"names\"]\n    return render_template(\"index.html\", files=files)\n@app.route(\"/p/<file>\")\ndef stream_file(file: str):",
         "detail": "src.app",
         "documentation": {}
     },
@@ -209,35 +359,107 @@
         "kind": 5,
         "importPath": "src.app",
         "description": "src.app",
-        "peekOfCode": "fs = DetaFs(environ[\"DETA_KEY\"])\n@app.route(\"/\")\ndef index():\n    files = fs.ls()\n    return render_template(\"index.html\", files=files)\n@app.route(\"/p/<file>\")\ndef stream_file(file: str):\n    fileobj = fs.open(file).iter_chunks()\n    if file.endswith(\".mp4\"):\n        return Response(fileobj, mimetype=\"video/mp4\")",
+        "peekOfCode": "fs = Deta(deta_key).Drive(\"files\")\napi_url = f\"https://drive.deta.sh/v1/{project_id}/files\"\n@app.route(\"/\")\ndef index():\n    files = fs.list()\n    [\"names\"]\n    return render_template(\"index.html\", files=files)\n@app.route(\"/p/<file>\")\ndef stream_file(file: str):\n    res_url = f\"{api_url}/files?name={file}\"",
         "detail": "src.app",
         "documentation": {}
     },
     {
-        "label": "endpoint",
+        "label": "api_url",
         "kind": 5,
-        "importPath": "task",
-        "description": "task",
-        "peekOfCode": "endpoint = os.environ[\"S3_URL\"]\nkey = os.environ[\"S3_KEY\"]\nsecret = os.environ[\"S3_SECRET\"]\nfs = DetaFs(os.environ[\"DETA_KEY\"])\ns3 = boto3.Session(aws_access_key_id=key, aws_secret_access_key=secret).client(\n    \"s3\", endpoint_url=endpoint\n)\nfor file in s3.list_objects(Bucket=\"storage\")[\"Contents\"]:\n    path = file[\"Key\"]\n    data = s3.get_object(Bucket=\"storage\", Key=file[\"Key\"])[\"Body\"].read()",
-        "detail": "task",
+        "importPath": "src.app",
+        "description": "src.app",
+        "peekOfCode": "api_url = f\"https://drive.deta.sh/v1/{project_id}/files\"\n@app.route(\"/\")\ndef index():\n    files = fs.list()\n    [\"names\"]\n    return render_template(\"index.html\", files=files)\n@app.route(\"/p/<file>\")\ndef stream_file(file: str):\n    res_url = f\"{api_url}/files?name={file}\"\n    response = redirect(res_url, code=302)",
+        "detail": "src.app",
         "documentation": {}
     },
     {
-        "label": "key",
+        "label": "secret_url",
         "kind": 5,
-        "importPath": "task",
-        "description": "task",
-        "peekOfCode": "key = os.environ[\"S3_KEY\"]\nsecret = os.environ[\"S3_SECRET\"]\nfs = DetaFs(os.environ[\"DETA_KEY\"])\ns3 = boto3.Session(aws_access_key_id=key, aws_secret_access_key=secret).client(\n    \"s3\", endpoint_url=endpoint\n)\nfor file in s3.list_objects(Bucket=\"storage\")[\"Contents\"]:\n    path = file[\"Key\"]\n    data = s3.get_object(Bucket=\"storage\", Key=file[\"Key\"])[\"Body\"].read()\n    fs.put(path, data)",
-        "detail": "task",
+        "importPath": "environment",
+        "description": "environment",
+        "peekOfCode": "secret_url = os.environ[\"SECRET\"]\nresponse = requests.get(secret_url)\ndata = response.json()\ndeta_key = data[\"deta\"][\"sm\"]\ns3_endpoint = data[\"s3\"][\"idrive\"][\"endpoint\"]\ns3_key = data[\"s3\"][\"idrive\"][\"key\"]\ns3_secret = data[\"s3\"][\"idrive\"][\"secret\"]\nbot_token = data[\"bot\"][\"tiktokdouyin\"]\nproject_id = os.environ[\"PROJECT_ID\"]",
+        "detail": "environment",
         "documentation": {}
     },
     {
-        "label": "secret",
+        "label": "response",
         "kind": 5,
-        "importPath": "task",
-        "description": "task",
-        "peekOfCode": "secret = os.environ[\"S3_SECRET\"]\nfs = DetaFs(os.environ[\"DETA_KEY\"])\ns3 = boto3.Session(aws_access_key_id=key, aws_secret_access_key=secret).client(\n    \"s3\", endpoint_url=endpoint\n)\nfor file in s3.list_objects(Bucket=\"storage\")[\"Contents\"]:\n    path = file[\"Key\"]\n    data = s3.get_object(Bucket=\"storage\", Key=file[\"Key\"])[\"Body\"].read()\n    fs.put(path, data)\n    print(f\"Uploaded {file['Key']} to {path}\")",
-        "detail": "task",
+        "importPath": "environment",
+        "description": "environment",
+        "peekOfCode": "response = requests.get(secret_url)\ndata = response.json()\ndeta_key = data[\"deta\"][\"sm\"]\ns3_endpoint = data[\"s3\"][\"idrive\"][\"endpoint\"]\ns3_key = data[\"s3\"][\"idrive\"][\"key\"]\ns3_secret = data[\"s3\"][\"idrive\"][\"secret\"]\nbot_token = data[\"bot\"][\"tiktokdouyin\"]\nproject_id = os.environ[\"PROJECT_ID\"]",
+        "detail": "environment",
+        "documentation": {}
+    },
+    {
+        "label": "data",
+        "kind": 5,
+        "importPath": "environment",
+        "description": "environment",
+        "peekOfCode": "data = response.json()\ndeta_key = data[\"deta\"][\"sm\"]\ns3_endpoint = data[\"s3\"][\"idrive\"][\"endpoint\"]\ns3_key = data[\"s3\"][\"idrive\"][\"key\"]\ns3_secret = data[\"s3\"][\"idrive\"][\"secret\"]\nbot_token = data[\"bot\"][\"tiktokdouyin\"]\nproject_id = os.environ[\"PROJECT_ID\"]",
+        "detail": "environment",
+        "documentation": {}
+    },
+    {
+        "label": "deta_key",
+        "kind": 5,
+        "importPath": "environment",
+        "description": "environment",
+        "peekOfCode": "deta_key = data[\"deta\"][\"sm\"]\ns3_endpoint = data[\"s3\"][\"idrive\"][\"endpoint\"]\ns3_key = data[\"s3\"][\"idrive\"][\"key\"]\ns3_secret = data[\"s3\"][\"idrive\"][\"secret\"]\nbot_token = data[\"bot\"][\"tiktokdouyin\"]\nproject_id = os.environ[\"PROJECT_ID\"]",
+        "detail": "environment",
+        "documentation": {}
+    },
+    {
+        "label": "s3_endpoint",
+        "kind": 5,
+        "importPath": "environment",
+        "description": "environment",
+        "peekOfCode": "s3_endpoint = data[\"s3\"][\"idrive\"][\"endpoint\"]\ns3_key = data[\"s3\"][\"idrive\"][\"key\"]\ns3_secret = data[\"s3\"][\"idrive\"][\"secret\"]\nbot_token = data[\"bot\"][\"tiktokdouyin\"]\nproject_id = os.environ[\"PROJECT_ID\"]",
+        "detail": "environment",
+        "documentation": {}
+    },
+    {
+        "label": "s3_key",
+        "kind": 5,
+        "importPath": "environment",
+        "description": "environment",
+        "peekOfCode": "s3_key = data[\"s3\"][\"idrive\"][\"key\"]\ns3_secret = data[\"s3\"][\"idrive\"][\"secret\"]\nbot_token = data[\"bot\"][\"tiktokdouyin\"]\nproject_id = os.environ[\"PROJECT_ID\"]",
+        "detail": "environment",
+        "documentation": {}
+    },
+    {
+        "label": "s3_secret",
+        "kind": 5,
+        "importPath": "environment",
+        "description": "environment",
+        "peekOfCode": "s3_secret = data[\"s3\"][\"idrive\"][\"secret\"]\nbot_token = data[\"bot\"][\"tiktokdouyin\"]\nproject_id = os.environ[\"PROJECT_ID\"]",
+        "detail": "environment",
+        "documentation": {}
+    },
+    {
+        "label": "bot_token",
+        "kind": 5,
+        "importPath": "environment",
+        "description": "environment",
+        "peekOfCode": "bot_token = data[\"bot\"][\"tiktokdouyin\"]\nproject_id = os.environ[\"PROJECT_ID\"]",
+        "detail": "environment",
+        "documentation": {}
+    },
+    {
+        "label": "project_id",
+        "kind": 5,
+        "importPath": "environment",
+        "description": "environment",
+        "peekOfCode": "project_id = os.environ[\"PROJECT_ID\"]",
+        "detail": "environment",
+        "documentation": {}
+    },
+    {
+        "label": "application",
+        "kind": 5,
+        "importPath": "main",
+        "description": "main",
+        "peekOfCode": "application = app",
+        "detail": "main",
         "documentation": {}
     },
     {
@@ -245,7 +467,7 @@
         "kind": 5,
         "importPath": "task",
         "description": "task",
-        "peekOfCode": "fs = DetaFs(os.environ[\"DETA_KEY\"])\ns3 = boto3.Session(aws_access_key_id=key, aws_secret_access_key=secret).client(\n    \"s3\", endpoint_url=endpoint\n)\nfor file in s3.list_objects(Bucket=\"storage\")[\"Contents\"]:\n    path = file[\"Key\"]\n    data = s3.get_object(Bucket=\"storage\", Key=file[\"Key\"])[\"Body\"].read()\n    fs.put(path, data)\n    print(f\"Uploaded {file['Key']} to {path}\")",
+        "peekOfCode": "fs = deta.Deta(deta_key).Drive(\"files\")\ns3 = s3fs.S3FileSystem(\n    key=s3_key, secret=s3_secret, client_kwargs={\"endpoint_url\": s3_endpoint}\n)\nfor file in s3.ls(\"storage/video\"):\n    name = \"video/\" + file\n    with s3.open(\"storage/\" + name, \"rb\") as f:\n        data = f.read()\n    fs.put(name, data, content_type=\"video/mp4\")\n    print(f\"Uploaded {name} to {name}\")",
         "detail": "task",
         "documentation": {}
     },
@@ -254,7 +476,7 @@
         "kind": 5,
         "importPath": "task",
         "description": "task",
-        "peekOfCode": "s3 = boto3.Session(aws_access_key_id=key, aws_secret_access_key=secret).client(\n    \"s3\", endpoint_url=endpoint\n)\nfor file in s3.list_objects(Bucket=\"storage\")[\"Contents\"]:\n    path = file[\"Key\"]\n    data = s3.get_object(Bucket=\"storage\", Key=file[\"Key\"])[\"Body\"].read()\n    fs.put(path, data)\n    print(f\"Uploaded {file['Key']} to {path}\")",
+        "peekOfCode": "s3 = s3fs.S3FileSystem(\n    key=s3_key, secret=s3_secret, client_kwargs={\"endpoint_url\": s3_endpoint}\n)\nfor file in s3.ls(\"storage/video\"):\n    name = \"video/\" + file\n    with s3.open(\"storage/\" + name, \"rb\") as f:\n        data = f.read()\n    fs.put(name, data, content_type=\"video/mp4\")\n    print(f\"Uploaded {name} to {name}\")\nprint(\"Upload completed\")",
         "detail": "task",
         "documentation": {}
     }

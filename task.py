@@ -1,23 +1,18 @@
 import os
-import boto3
-from src.detafs import DetaFs
+import s3fs
+import deta
+from environment import s3_endpoint, s3_key, s3_secret, deta_key
 
-endpoint = os.environ["S3_URL"]
-key = os.environ["S3_KEY"]
-secret = os.environ["S3_SECRET"]
-
-fs = DetaFs(os.environ["DETA_KEY"])
-
-s3 = boto3.Session(aws_access_key_id=key, aws_secret_access_key=secret).client(
-    "s3", endpoint_url=endpoint
+fs = deta.Deta(deta_key).Drive("files")
+s3 = s3fs.S3FileSystem(
+    key=s3_key, secret=s3_secret, client_kwargs={"endpoint_url": s3_endpoint}
 )
 
-for file in s3.list_objects(Bucket="storage")["Contents"]:
-    try:
-        if file["Key"].endswith(".mp4"):
-            path = file["Key"]
-            data = s3.get_object(Bucket="storage", Key=file["Key"])["Body"].read()
-            fs.put(path, data)
-            print(f"Uploaded {file['Key']} to {path}")
-    except Exception as e:
-            print(e)
+for file in s3.ls("storage/video"):
+    name = "video/" + file
+    with s3.open("storage/" + name, "rb") as f:
+        data = f.read()
+    fs.put(name, data, content_type="video/mp4")
+    print(f"Uploaded {name} to {name}")
+
+print("Upload completed")

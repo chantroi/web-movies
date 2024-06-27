@@ -1,23 +1,22 @@
-import os
 import boto3
+import deta
 from pyrogram import Client, filters
 from pyrogram.types import Message
-from src.detafs import DetaFs
-
-endpoint = os.environ["S3_URL"]
-key = os.environ["S3_KEY"]
-secret = os.environ["S3_SECRET"]
+from environment import deta_key, s3_endpoint, s3_key, s3_secret, bot_token
 
 bot = Client(
     "bot",
     21021245,
     "7b32ea92719781c5e22ede319c5dbde5",
-    bot_token=os.environ["BOT_TOKEN"],
+    bot_token=bot_token,
 )
 
-fs = DetaFs(os.environ["DETA_KEY"])
-s3 = boto3.Session(aws_access_key_id=key, aws_secret_access_key=secret).client(
-    "s3", endpoint_url=endpoint
+fs = deta.Deta(deta_key).Drive("files")
+s3 = boto3.client(
+    "s3",
+    endpoint_url=s3_endpoint,
+    aws_access_key_id=s3_key,
+    aws_secret_access_key=s3_secret,
 )
 
 
@@ -34,4 +33,5 @@ def download_video(c: Client, m: Message):
     print(f"Uploaded {file.name} to {file.name}")
 
 
+print("Bot started")
 bot.run()

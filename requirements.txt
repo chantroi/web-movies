@@ -2,3 +2,7 @@ pyrogram
 tgcrypto
 deta
 boto3
+s3fs
+requests
+flask
+gunicorn

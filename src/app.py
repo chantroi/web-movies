@@ -1,34 +1,31 @@
-from os import environ
-from flask import Flask, request, Response, render_template, jsonify
-from detafs import DetaFs
+from flask import Flask, request, redirect, render_template, jsonify
+from deta import Deta
+from environment import deta_key, project_id
 
 app = Flask(__name__)
-fs = DetaFs(environ["DETA_KEY"])
+fs = Deta(deta_key).Drive("files")
+api_url = f"https://drive.deta.sh/v1/{project_id}/files"
 
 
 @app.route("/")
 def index():
-    files = fs.ls()
+    files = fs.list()
+    ["names"]
     return render_template("index.html", files=files)
 
 
 @app.route("/p/<file>")
 def stream_file(file: str):
-    fileobj = fs.open(file).iter_chunks()
-    if file.endswith(".mp4"):
-        return Response(fileobj, mimetype="video/mp4")
-    elif any(file.endswith(ext) for ext in [".jpg", ".png", ".gif", ".jpeg"]):
-        return Response(fileobj, mimetype="image/jpeg")
-    elif file.endswith(".mp3"):
-        return Response(fileobj, mimetype="audio/mpeg")
-    else:
-        return Response(fileobj, mimetype="text/plain")
+    res_url = f"{api_url}/files?name={file}"
+    response = redirect(res_url, code=302)
+    response.headers["Content-Type"] = "video/mp4"
+    return response
 
 
 @app.route("/file/delete")
 def delete_route():
     target_file = request.args.get("file")
-    fs.remove(target_file)
+    fs.delete(target_file)
     return jsonify(status="success", message=f"file {target_file} deleted successful")
 
 
@@ -50,5 +47,5 @@ def upload_file():
 
 @app.route("/file/list")
 def list_files():
-    files = fs.ls()
+    files = fs.list()["names"]
     return jsonify(files=files)
