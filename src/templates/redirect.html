@@ -12,9 +12,13 @@
       fetch("{{ res_url }}", {
         method: "GET",
         headers: headers,
-      }).then((response) => {
-        window.location.href = response.url;
-      });
+      })
+        .then((response) => {
+          window.location.href = response.url;
+        })
+        .catch((error) => {
+          console.error(error);
+        });
     </script>
   </head>
 
