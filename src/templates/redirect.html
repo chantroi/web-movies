@@ -12,9 +12,14 @@
       fetch("{{ res_url }}", {
         method: "GET",
         headers: headers,
+        redirect: "follow",
       })
         .then((response) => {
-          window.location.href = response.url;
+          if (response.redirected) {
+            window.location.href = response.url;
+          } else {
+            console.error("Request was not redirected.");
+          }
         })
         .catch((error) => {
           console.error(error);
