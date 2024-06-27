@@ -18,7 +18,7 @@ def index():
 def stream_file(file: str):
     res_url = f"{api_url}/files?name={file}"
     response = redirect(res_url, code=302)
-    response.headers["Content-Type"] = "video/mp4"
+    response.headers["X-API-Key"] = deta_key
     return response
 
 

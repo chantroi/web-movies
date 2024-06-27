@@ -269,7 +269,7 @@
         "kind": 2,
         "importPath": "src.app",
         "description": "src.app",
-        "peekOfCode": "def index():\n    files = fs.list()\n    [\"names\"]\n    return render_template(\"index.html\", files=files)\n@app.route(\"/p/<file>\")\ndef stream_file(file: str):\n    res_url = f\"{api_url}/files?name={file}\"\n    response = redirect(res_url, code=302)\n    response.headers[\"Content-Type\"] = \"video/mp4\"\n    return response",
+        "peekOfCode": "def index():\n    files = fs.list()\n    [\"names\"]\n    return render_template(\"index.html\", files=files)\n@app.route(\"/p/<file>\")\ndef stream_file(file: str):\n    res_url = f\"{api_url}/files?name={file}\"\n    response = redirect(res_url, code=302)\n    response.headers[\"X-API-Key\"] = deta_key\n    return response",
         "detail": "src.app",
         "documentation": {}
     },
@@ -278,7 +278,7 @@
         "kind": 2,
         "importPath": "src.app",
         "description": "src.app",
-        "peekOfCode": "def stream_file(file: str):\n    res_url = f\"{api_url}/files?name={file}\"\n    response = redirect(res_url, code=302)\n    response.headers[\"Content-Type\"] = \"video/mp4\"\n    return response\n@app.route(\"/file/delete\")\ndef delete_route():\n    target_file = request.args.get(\"file\")\n    fs.delete(target_file)\n    return jsonify(status=\"success\", message=f\"file {target_file} deleted successful\")",
+        "peekOfCode": "def stream_file(file: str):\n    res_url = f\"{api_url}/files?name={file}\"\n    response = redirect(res_url, code=302)\n    response.headers[\"X-API-Key\"] = deta_key\n    return response\n@app.route(\"/file/delete\")\ndef delete_route():\n    target_file = request.args.get(\"file\")\n    fs.delete(target_file)\n    return jsonify(status=\"success\", message=f\"file {target_file} deleted successful\")",
         "detail": "src.app",
         "documentation": {}
     },
