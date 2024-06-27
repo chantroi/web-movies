@@ -1,5 +1,4 @@
 import os
-import io
 import boto3
 from src.detafs import DetaFs
 
@@ -13,35 +12,15 @@ s3 = boto3.Session(aws_access_key_id=key, aws_secret_access_key=secret).client(
     "s3", endpoint_url=endpoint
 )
 
-
-for filename in fs.ls():
-    if filename.endswith(".mp4"):
-        data = fs.open(filename).read()
-        data = io.BytesIO(data)
-        s3.upload_fileobj(
-            data, "storage", f"video/{filename}", ExtraArgs={"ContentType": "video/mp4"}
-        )
-    if filename.endswith(".mp3"):
-        data = fs.open(filename).read()
-        data = io.BytesIO(data)
-        s3.upload_fileobj(
-            data,
-            "storage",
-            f"audio/{filename}",
-            ExtraArgs={"ContentType": "audio/mpeg"},
-        )
-
-    elif any(filename.endswith(ext) for ext in [".jpg", ".png"]):
-        data = fs.open(filename).read()
-        data = io.BytesIO(data)
-        s3.upload_fileobj(
-            data,
-            "storage",
-            f"images/{filename}",
-            ExtraArgs={"ContentType": "image/jpeg"},
-        )
-
-    print(f"File {filename} uploaded to S3.")
-
-
-print("Files uploaded successfully!")
+for file in s3.list_objects(Bucket="files")["Contents"]:
+    if file["Key"].endswith(".mp4"):
+        path = f'videos/{file["Key"]}'
+    elif file["Key"].endswith(".jpg"):
+        path = f'images/{file["Key"]}'
+    elif file["Key"].endswith(".mp3"):
+        path = f'music/{file["Key"]}'
+    else:
+        path = f'texts/{file["Key"]}'
+    data = s3.get_object(Bucket="files", Key=file["Key"])["Body"].read()
+    fs.put(path, data)
+    print(f"Uploaded {file['Key']} to {path}")
