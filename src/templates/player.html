@@ -3,6 +3,17 @@
   <head>
     <meta charset="UTF-8" />
     <title>{{ filename }}</title>
+    <script src="//cdn.jsdelivr.net/npm/eruda"></script>
+    <script>
+      eruda.init();
+    </script>
+  </head>
+  <body>
+    <h1>Play Video from Deta Drive</h1>
+
+    <video width="100%" id="videoPlayer" controls autoplay>
+      <p>Your browser doesn't support video playback.</p>
+    </video>
     <script type="module">
       import { Deta } from "https://cdn.deta.space/js/deta@latest/deta.mjs";
 
@@ -27,12 +38,5 @@
 
       downloadAndPlayVideo();
     </script>
-  </head>
-  <body>
-    <h1>Play Video from Deta Drive</h1>
-
-    <video width="100%" id="videoPlayer" controls autoplay>
-      <p>Your browser doesn't support video playback.</p>
-    </video>
   </body>
 </html>
