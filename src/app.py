@@ -17,9 +17,7 @@ def index():
 def stream_file():
     file = request.args.get("file")
     res_url = f"{api_url}/files?name={file}"
-    response = redirect(res_url, code=302)
-    response.headers["X-API-Key"] = deta_key
-    return response
+    return render_template("redirect.html", res_url=res_url, deta_key=deta_key)
 
 
 @app.route("/file/delete")
