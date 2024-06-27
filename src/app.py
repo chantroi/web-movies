@@ -4,15 +4,21 @@ from environment import deta_key, project_id
 
 app = Flask(__name__)
 fs = Deta(deta_key).Drive("files")
-api_url = f"https://drive.deta.sh/v1/{project_id}/files"
 
 
 @app.route("/")
 def index():
     files = fs.list()["names"]
     return render_template(
-        "index.html", files=files, api_url=api_url, deta_key=deta_key
+        "index.html",
+        files=files,
     )
+
+
+@app.route("/file/play", methods=["GET"])
+def play_file():
+    target_file = request.args.get("file")
+    return render_template("player.html", filename=target_file, deta_key=deta_key)
 
 
 @app.route("/file/delete")

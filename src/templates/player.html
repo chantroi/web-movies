@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>{{ filename }}</title>
+    <script type="module">
+      import { Deta } from "https://cdn.deta.space/js/deta@latest/deta.mjs";
+
+      const deta = Deta("{{ deta_key }}");
+
+      async function downloadAndPlayVideo() {
+        const drive = deta.Drive();
+        const fileId = "your_file_id";
+
+        try {
+          const response = await drive.get(fileId);
+          const fileBlob = new Blob([response]);
+          const videoUrl = URL.createObjectURL(fileBlob);
+
+          const videoElement = document.getElementById("videoPlayer");
+          videoElement.src = videoUrl;
+          videoElement.play();
+        } catch (error) {
+          console.error("Error:", error);
+        }
+      }
+
+      downloadAndPlayVideo();
+    </script>
+  </head>
+  <body>
+    <h1>Play Video from Deta Drive</h1>
+
+    <video width="100%" id="videoPlayer" controls autoplay>
+      <p>Your browser doesn't support video playback.</p>
+    </video>
+  </body>
+</html>

@@ -269,7 +269,16 @@
         "kind": 2,
         "importPath": "src.app",
         "description": "src.app",
-        "peekOfCode": "def index():\n    files = fs.list()[\"names\"]\n    return render_template(\n        \"index.html\", files=files, api_url=api_url, deta_key=deta_key\n    )\n@app.route(\"/file/delete\")\ndef delete_route():\n    target_file = request.args.get(\"file\")\n    fs.delete(target_file)\n    return jsonify(status=\"success\", message=f\"file {target_file} deleted successful\")",
+        "peekOfCode": "def index():\n    files = fs.list()[\"names\"]\n    return render_template(\n        \"index.html\",\n        files=files,\n    )\n@app.route(\"/file/play\", methods=[\"GET\"])\ndef play_file():\n    target_file = request.args.get(\"file\")\n    return render_template(\"player.html\", filename=target_file, deta_key=deta_key)",
+        "detail": "src.app",
+        "documentation": {}
+    },
+    {
+        "label": "play_file",
+        "kind": 2,
+        "importPath": "src.app",
+        "description": "src.app",
+        "peekOfCode": "def play_file():\n    target_file = request.args.get(\"file\")\n    return render_template(\"player.html\", filename=target_file, deta_key=deta_key)\n@app.route(\"/file/delete\")\ndef delete_route():\n    target_file = request.args.get(\"file\")\n    fs.delete(target_file)\n    return jsonify(status=\"success\", message=f\"file {target_file} deleted successful\")\n@app.route(\"/file/upload\", methods=[\"POST\"])\ndef upload_file():",
         "detail": "src.app",
         "documentation": {}
     },
@@ -305,7 +314,7 @@
         "kind": 5,
         "importPath": "src.app",
         "description": "src.app",
-        "peekOfCode": "app = Flask(__name__)\nfs = Deta(deta_key).Drive(\"files\")\napi_url = f\"https://drive.deta.sh/v1/{project_id}/files\"\n@app.route(\"/\")\ndef index():\n    files = fs.list()[\"names\"]\n    return render_template(\n        \"index.html\", files=files, api_url=api_url, deta_key=deta_key\n    )\n@app.route(\"/file/delete\")",
+        "peekOfCode": "app = Flask(__name__)\nfs = Deta(deta_key).Drive(\"files\")\n@app.route(\"/\")\ndef index():\n    files = fs.list()[\"names\"]\n    return render_template(\n        \"index.html\",\n        files=files,\n    )\n@app.route(\"/file/play\", methods=[\"GET\"])",
         "detail": "src.app",
         "documentation": {}
     },
@@ -314,16 +323,7 @@
         "kind": 5,
         "importPath": "src.app",
         "description": "src.app",
-        "peekOfCode": "fs = Deta(deta_key).Drive(\"files\")\napi_url = f\"https://drive.deta.sh/v1/{project_id}/files\"\n@app.route(\"/\")\ndef index():\n    files = fs.list()[\"names\"]\n    return render_template(\n        \"index.html\", files=files, api_url=api_url, deta_key=deta_key\n    )\n@app.route(\"/file/delete\")\ndef delete_route():",
-        "detail": "src.app",
-        "documentation": {}
-    },
-    {
-        "label": "api_url",
-        "kind": 5,
-        "importPath": "src.app",
-        "description": "src.app",
-        "peekOfCode": "api_url = f\"https://drive.deta.sh/v1/{project_id}/files\"\n@app.route(\"/\")\ndef index():\n    files = fs.list()[\"names\"]\n    return render_template(\n        \"index.html\", files=files, api_url=api_url, deta_key=deta_key\n    )\n@app.route(\"/file/delete\")\ndef delete_route():\n    target_file = request.args.get(\"file\")",
+        "peekOfCode": "fs = Deta(deta_key).Drive(\"files\")\n@app.route(\"/\")\ndef index():\n    files = fs.list()[\"names\"]\n    return render_template(\n        \"index.html\",\n        files=files,\n    )\n@app.route(\"/file/play\", methods=[\"GET\"])\ndef play_file():",
         "detail": "src.app",
         "documentation": {}
     },
