@@ -12,8 +12,12 @@ s3 = boto3.Session(aws_access_key_id=key, aws_secret_access_key=secret).client(
     "s3", endpoint_url=endpoint
 )
 
+for file in fs.ls():
+    if 'uptime-kuma' in file:
+        fs.remove(file)
+
 for file in s3.list_objects(Bucket="storage")["Contents"]:
-    if any(folder in file["Key"] for folder in ["images/", "videos/", "music/"]):
+    if any(folder in file["Key"] for folder in ["images/", "video/", "music/"]):
         path = file["Key"]
         data = s3.get_object(Bucket="storage", Key=file["Key"])["Body"].read()
         fs.put(path, data)
