@@ -13,12 +13,14 @@
             'X-API-Key': '{{ deta_key }}'
         };
 
-        const request = new Request(url, {
+        fetch(url, {
             method: 'GET',
             headers: headers
-        });
+        })
+            .then(response => {
 
-        window.location.href = request.url;
+                window.location.href = response.url;
+            });
     </script>
 </head>
 
