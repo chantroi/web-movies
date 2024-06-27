@@ -20,7 +20,7 @@
 
       async function downloadAndPlayVideo() {
         const drive = deta.Drive("files");
-        const fileId = "your_file_id";
+        const fileId = "{{ filename }}";
 
         try {
           const response = await drive.get(fileId);
