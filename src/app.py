@@ -10,14 +10,9 @@ api_url = f"https://drive.deta.sh/v1/{project_id}/files"
 @app.route("/")
 def index():
     files = fs.list()["names"]
-    return render_template("index.html", files=files)
-
-
-@app.route("/p")
-def stream_file():
-    file = request.args.get("file")
-    res_url = f"{api_url}/files/download?name={file}"
-    return render_template("redirect.html", res_url=res_url, deta_key=deta_key)
+    return render_template(
+        "index.html", files=files, api_url=api_url, deta_key=deta_key
+    )
 
 
 @app.route("/file/delete")
