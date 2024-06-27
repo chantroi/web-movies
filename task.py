@@ -18,7 +18,10 @@ for file in fs.ls():
 
 for file in s3.list_objects(Bucket="storage")["Contents"]:
     if any(folder in file["Key"] for folder in ["images/", "video/", "music/"]):
-        path = file["Key"]
-        data = s3.get_object(Bucket="storage", Key=file["Key"])["Body"].read()
-        fs.put(path, data)
-        print(f"Uploaded {file['Key']} to {path}")
+        try:
+            path = file["Key"]
+            data = s3.get_object(Bucket="storage", Key=file["Key"])["Body"].read()
+            fs.put(path, data)
+            print(f"Uploaded {file['Key']} to {path}")
+        except Exception as e:
+            print(e)
