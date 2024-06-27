@@ -1,6 +1,6 @@
 import { Deta } from "https://cdn.deta.space/js/deta@latest/deta.mjs";
 
-const deta = Deta(process.env.DETA_KEY);
+const deta = Deta("c0kEEGmHJte_YjH9AKDzdmP4tm6Zyge3Fme9KyMRNwXB");
 const drive = deta.Base("files");
 
 async function listFiles() {
