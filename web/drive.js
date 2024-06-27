@@ -24,7 +24,7 @@ async function listFiles() {
 async function playVideo(file) {
   const player = document.createElement("video");
   player.setAttribute("id", "player-div");
-  document.getElementById("root").appendChild(player);
+  document.getElementById("header").appendChild(player);
   const result = await drive.get(file);
   const blob = new Blob([result]);
   const url = URL.createObjectURL(blob);
