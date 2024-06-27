@@ -1,48 +1,5 @@
 [
     {
-        "label": "os",
-        "kind": 6,
-        "isExtraImport": true,
-        "importPath": "os",
-        "description": "os",
-        "detail": "os",
-        "documentation": {}
-    },
-    {
-        "label": "datetime",
-        "kind": 6,
-        "isExtraImport": true,
-        "importPath": "datetime",
-        "description": "datetime",
-        "detail": "datetime",
-        "documentation": {}
-    },
-    {
-        "label": "pytz",
-        "kind": 6,
-        "isExtraImport": true,
-        "importPath": "pytz",
-        "description": "pytz",
-        "detail": "pytz",
-        "documentation": {}
-    },
-    {
-        "label": "List",
-        "importPath": "typing",
-        "description": "typing",
-        "isExtraImport": true,
-        "detail": "typing",
-        "documentation": {}
-    },
-    {
-        "label": "DetaModel",
-        "importPath": "odetam",
-        "description": "odetam",
-        "isExtraImport": true,
-        "detail": "odetam",
-        "documentation": {}
-    },
-    {
         "label": "Flask",
         "importPath": "flask",
         "description": "flask",
@@ -221,6 +178,15 @@
         "documentation": {}
     },
     {
+        "label": "os",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "os",
+        "description": "os",
+        "detail": "os",
+        "documentation": {}
+    },
+    {
         "label": "requests",
         "kind": 6,
         "isExtraImport": true,
@@ -244,24 +210,6 @@
         "importPath": "s3fs",
         "description": "s3fs",
         "detail": "s3fs",
-        "documentation": {}
-    },
-    {
-        "label": "Note",
-        "kind": 6,
-        "importPath": "src.odm.core",
-        "description": "src.odm.core",
-        "peekOfCode": "class Note(DetaModel):\n    name: str\n    created_at: datetime.date = datetime.datetime.now(vntz)\n    content: str = \"\"\n    urls: List[str]\n    class Config:\n        table_name = \"notebase\"\n        deta_key = os.environ[\"DETA_KEY\"]",
-        "detail": "src.odm.core",
-        "documentation": {}
-    },
-    {
-        "label": "vntz",
-        "kind": 5,
-        "importPath": "src.odm.core",
-        "description": "src.odm.core",
-        "peekOfCode": "vntz = pytz.timezone(\"Asia/Ho_Chi_minh\")\nclass Note(DetaModel):\n    name: str\n    created_at: datetime.date = datetime.datetime.now(vntz)\n    content: str = \"\"\n    urls: List[str]\n    class Config:\n        table_name = \"notebase\"\n        deta_key = os.environ[\"DETA_KEY\"]",
-        "detail": "src.odm.core",
         "documentation": {}
     },
     {
