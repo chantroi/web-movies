@@ -14,7 +14,7 @@ s3 = boto3.Session(aws_access_key_id=key, aws_secret_access_key=secret).client(
 
 for file in s3.list_objects(Bucket="storage")["Contents"]:
     try:
-        if any(folder in file["Key"] for folder in ["images/", "video/", "music/"]):
+        if file["Key"].endswith(".mp4"):
             path = file["Key"]
             data = s3.get_object(Bucket="storage", Key=file["Key"])["Body"].read()
             fs.put(path, data)
