@@ -7,7 +7,7 @@ fs = deta.Deta(deta_key).Drive("files")
 s3 = s3fs.S3FileSystem(
     key=s3_key, secret=s3_secret, client_kwargs={"endpoint_url": s3_endpoint}
 )
-print(s3.ls("storage"))
+print(s3.ls("storage/video"))
 for file in s3.ls("storage/video"):
     name = "video/" + file
     with s3.open("storage/" + name, "rb") as f:
