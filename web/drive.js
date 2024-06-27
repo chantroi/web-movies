@@ -8,7 +8,7 @@ async function listFiles() {
   const files = result.names;
   const ulTag = document.createElement("ul");
   ulTag.setAttribute("class", "collection");
-  for (file of files) {
+  files.forEach((file) => {
     const liTag = document.createElement("li");
     liTag.setAttribute("class", "collection-item");
     const aTag = document.createElement("a");
@@ -17,7 +17,7 @@ async function listFiles() {
     aTag.innerText = file;
     liTag.appendChild(aTag);
     ulTag.appendChild(liTag);
-  }
+  });
   document.getElementById("root").appendChild(ulTag);
 }
 
