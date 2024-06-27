@@ -1,143 +1,5 @@
 [
     {
-        "label": "boto3",
-        "kind": 6,
-        "isExtraImport": true,
-        "importPath": "boto3",
-        "description": "boto3",
-        "detail": "boto3",
-        "documentation": {}
-    },
-    {
-        "label": "deta",
-        "kind": 6,
-        "isExtraImport": true,
-        "importPath": "deta",
-        "description": "deta",
-        "detail": "deta",
-        "documentation": {}
-    },
-    {
-        "label": "Deta",
-        "importPath": "deta",
-        "description": "deta",
-        "isExtraImport": true,
-        "detail": "deta",
-        "documentation": {}
-    },
-    {
-        "label": "Client",
-        "importPath": "pyrogram",
-        "description": "pyrogram",
-        "isExtraImport": true,
-        "detail": "pyrogram",
-        "documentation": {}
-    },
-    {
-        "label": "filters",
-        "importPath": "pyrogram",
-        "description": "pyrogram",
-        "isExtraImport": true,
-        "detail": "pyrogram",
-        "documentation": {}
-    },
-    {
-        "label": "Message",
-        "importPath": "pyrogram.types",
-        "description": "pyrogram.types",
-        "isExtraImport": true,
-        "detail": "pyrogram.types",
-        "documentation": {}
-    },
-    {
-        "label": "deta_key",
-        "importPath": "environment",
-        "description": "environment",
-        "isExtraImport": true,
-        "detail": "environment",
-        "documentation": {}
-    },
-    {
-        "label": "s3_endpoint",
-        "importPath": "environment",
-        "description": "environment",
-        "isExtraImport": true,
-        "detail": "environment",
-        "documentation": {}
-    },
-    {
-        "label": "s3_key",
-        "importPath": "environment",
-        "description": "environment",
-        "isExtraImport": true,
-        "detail": "environment",
-        "documentation": {}
-    },
-    {
-        "label": "s3_secret",
-        "importPath": "environment",
-        "description": "environment",
-        "isExtraImport": true,
-        "detail": "environment",
-        "documentation": {}
-    },
-    {
-        "label": "bot_token",
-        "importPath": "environment",
-        "description": "environment",
-        "isExtraImport": true,
-        "detail": "environment",
-        "documentation": {}
-    },
-    {
-        "label": "deta_key",
-        "importPath": "environment",
-        "description": "environment",
-        "isExtraImport": true,
-        "detail": "environment",
-        "documentation": {}
-    },
-    {
-        "label": "project_id",
-        "importPath": "environment",
-        "description": "environment",
-        "isExtraImport": true,
-        "detail": "environment",
-        "documentation": {}
-    },
-    {
-        "label": "s3_endpoint",
-        "importPath": "environment",
-        "description": "environment",
-        "isExtraImport": true,
-        "detail": "environment",
-        "documentation": {}
-    },
-    {
-        "label": "s3_key",
-        "importPath": "environment",
-        "description": "environment",
-        "isExtraImport": true,
-        "detail": "environment",
-        "documentation": {}
-    },
-    {
-        "label": "s3_secret",
-        "importPath": "environment",
-        "description": "environment",
-        "isExtraImport": true,
-        "detail": "environment",
-        "documentation": {}
-    },
-    {
-        "label": "deta_key",
-        "importPath": "environment",
-        "description": "environment",
-        "isExtraImport": true,
-        "detail": "environment",
-        "documentation": {}
-    },
-    {
         "label": "os",
         "kind": 6,
         "isExtraImport": true,
@@ -221,6 +83,144 @@
         "documentation": {}
     },
     {
+        "label": "deta",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "deta",
+        "description": "deta",
+        "detail": "deta",
+        "documentation": {}
+    },
+    {
+        "label": "Deta",
+        "importPath": "deta",
+        "description": "deta",
+        "isExtraImport": true,
+        "detail": "deta",
+        "documentation": {}
+    },
+    {
+        "label": "deta_key",
+        "importPath": "environment",
+        "description": "environment",
+        "isExtraImport": true,
+        "detail": "environment",
+        "documentation": {}
+    },
+    {
+        "label": "project_id",
+        "importPath": "environment",
+        "description": "environment",
+        "isExtraImport": true,
+        "detail": "environment",
+        "documentation": {}
+    },
+    {
+        "label": "deta_key",
+        "importPath": "environment",
+        "description": "environment",
+        "isExtraImport": true,
+        "detail": "environment",
+        "documentation": {}
+    },
+    {
+        "label": "s3_endpoint",
+        "importPath": "environment",
+        "description": "environment",
+        "isExtraImport": true,
+        "detail": "environment",
+        "documentation": {}
+    },
+    {
+        "label": "s3_key",
+        "importPath": "environment",
+        "description": "environment",
+        "isExtraImport": true,
+        "detail": "environment",
+        "documentation": {}
+    },
+    {
+        "label": "s3_secret",
+        "importPath": "environment",
+        "description": "environment",
+        "isExtraImport": true,
+        "detail": "environment",
+        "documentation": {}
+    },
+    {
+        "label": "bot_token",
+        "importPath": "environment",
+        "description": "environment",
+        "isExtraImport": true,
+        "detail": "environment",
+        "documentation": {}
+    },
+    {
+        "label": "s3_endpoint",
+        "importPath": "environment",
+        "description": "environment",
+        "isExtraImport": true,
+        "detail": "environment",
+        "documentation": {}
+    },
+    {
+        "label": "s3_key",
+        "importPath": "environment",
+        "description": "environment",
+        "isExtraImport": true,
+        "detail": "environment",
+        "documentation": {}
+    },
+    {
+        "label": "s3_secret",
+        "importPath": "environment",
+        "description": "environment",
+        "isExtraImport": true,
+        "detail": "environment",
+        "documentation": {}
+    },
+    {
+        "label": "deta_key",
+        "importPath": "environment",
+        "description": "environment",
+        "isExtraImport": true,
+        "detail": "environment",
+        "documentation": {}
+    },
+    {
+        "label": "boto3",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "boto3",
+        "description": "boto3",
+        "detail": "boto3",
+        "documentation": {}
+    },
+    {
+        "label": "Client",
+        "importPath": "pyrogram",
+        "description": "pyrogram",
+        "isExtraImport": true,
+        "detail": "pyrogram",
+        "documentation": {}
+    },
+    {
+        "label": "filters",
+        "importPath": "pyrogram",
+        "description": "pyrogram",
+        "isExtraImport": true,
+        "detail": "pyrogram",
+        "documentation": {}
+    },
+    {
+        "label": "Message",
+        "importPath": "pyrogram.types",
+        "description": "pyrogram.types",
+        "isExtraImport": true,
+        "detail": "pyrogram.types",
+        "documentation": {}
+    },
+    {
         "label": "requests",
         "kind": 6,
         "isExtraImport": true,
@@ -244,42 +244,6 @@
         "importPath": "s3fs",
         "description": "s3fs",
         "detail": "s3fs",
-        "documentation": {}
-    },
-    {
-        "label": "download_video",
-        "kind": 2,
-        "importPath": "bot.run",
-        "description": "bot.run",
-        "peekOfCode": "def download_video(c: Client, m: Message):\n    file = c.download_media(m, in_memory=True)\n    fs.put(\"video/\" + file.name, file.getvalue())\n    s3.upload_fileobj(\n        Fileobj=file,\n        Bucket=\"storage\",\n        Key=\"video/\" + file.name,\n        ExtraArgs={\"ACL\": \"public-read\", \"ContentType\": \"video/mp4\"},\n    )\n    print(f\"Uploaded {file.name} to {file.name}\")",
-        "detail": "bot.run",
-        "documentation": {}
-    },
-    {
-        "label": "bot",
-        "kind": 5,
-        "importPath": "bot.run",
-        "description": "bot.run",
-        "peekOfCode": "bot = Client(\n    \"bot\",\n    21021245,\n    \"7b32ea92719781c5e22ede319c5dbde5\",\n    bot_token=bot_token,\n)\nfs = deta.Deta(deta_key).Drive(\"files\")\ns3 = boto3.client(\n    \"s3\",\n    endpoint_url=s3_endpoint,",
-        "detail": "bot.run",
-        "documentation": {}
-    },
-    {
-        "label": "fs",
-        "kind": 5,
-        "importPath": "bot.run",
-        "description": "bot.run",
-        "peekOfCode": "fs = deta.Deta(deta_key).Drive(\"files\")\ns3 = boto3.client(\n    \"s3\",\n    endpoint_url=s3_endpoint,\n    aws_access_key_id=s3_key,\n    aws_secret_access_key=s3_secret,\n)\n@bot.on_message(filters.chat(\"contentdownload\") & filters.video)\ndef download_video(c: Client, m: Message):\n    file = c.download_media(m, in_memory=True)",
-        "detail": "bot.run",
-        "documentation": {}
-    },
-    {
-        "label": "s3",
-        "kind": 5,
-        "importPath": "bot.run",
-        "description": "bot.run",
-        "peekOfCode": "s3 = boto3.client(\n    \"s3\",\n    endpoint_url=s3_endpoint,\n    aws_access_key_id=s3_key,\n    aws_secret_access_key=s3_secret,\n)\n@bot.on_message(filters.chat(\"contentdownload\") & filters.video)\ndef download_video(c: Client, m: Message):\n    file = c.download_media(m, in_memory=True)\n    fs.put(\"video/\" + file.name, file.getvalue())",
-        "detail": "bot.run",
         "documentation": {}
     },
     {
@@ -370,6 +334,42 @@
         "description": "src.app",
         "peekOfCode": "api_url = f\"https://drive.deta.sh/v1/{project_id}/files\"\n@app.route(\"/\")\ndef index():\n    files = fs.list()\n    [\"names\"]\n    return render_template(\"index.html\", files=files)\n@app.route(\"/p/<file>\")\ndef stream_file(file: str):\n    res_url = f\"{api_url}/files?name={file}\"\n    response = redirect(res_url, code=302)",
         "detail": "src.app",
+        "documentation": {}
+    },
+    {
+        "label": "download_video",
+        "kind": 2,
+        "importPath": "bot",
+        "description": "bot",
+        "peekOfCode": "def download_video(c: Client, m: Message):\n    file = c.download_media(m, in_memory=True)\n    fs.put(\"video/\" + file.name, file.getvalue())\n    s3.upload_fileobj(\n        Fileobj=file,\n        Bucket=\"storage\",\n        Key=\"video/\" + file.name,\n        ExtraArgs={\"ACL\": \"public-read\", \"ContentType\": \"video/mp4\"},\n    )\n    print(f\"Uploaded {file.name} to {file.name}\")",
+        "detail": "bot",
+        "documentation": {}
+    },
+    {
+        "label": "bot",
+        "kind": 5,
+        "importPath": "bot",
+        "description": "bot",
+        "peekOfCode": "bot = Client(\n    \"bot\",\n    21021245,\n    \"7b32ea92719781c5e22ede319c5dbde5\",\n    bot_token=bot_token,\n)\nfs = deta.Deta(deta_key).Drive(\"files\")\ns3 = boto3.client(\n    \"s3\",\n    endpoint_url=s3_endpoint,",
+        "detail": "bot",
+        "documentation": {}
+    },
+    {
+        "label": "fs",
+        "kind": 5,
+        "importPath": "bot",
+        "description": "bot",
+        "peekOfCode": "fs = deta.Deta(deta_key).Drive(\"files\")\ns3 = boto3.client(\n    \"s3\",\n    endpoint_url=s3_endpoint,\n    aws_access_key_id=s3_key,\n    aws_secret_access_key=s3_secret,\n)\n@bot.on_message(filters.chat(\"contentdownload\") & filters.video)\ndef download_video(c: Client, m: Message):\n    file = c.download_media(m, in_memory=True)",
+        "detail": "bot",
+        "documentation": {}
+    },
+    {
+        "label": "s3",
+        "kind": 5,
+        "importPath": "bot",
+        "description": "bot",
+        "peekOfCode": "s3 = boto3.client(\n    \"s3\",\n    endpoint_url=s3_endpoint,\n    aws_access_key_id=s3_key,\n    aws_secret_access_key=s3_secret,\n)\n@bot.on_message(filters.chat(\"contentdownload\") & filters.video)\ndef download_video(c: Client, m: Message):\n    file = c.download_media(m, in_memory=True)\n    fs.put(\"video/\" + file.name, file.getvalue())",
+        "detail": "bot",
         "documentation": {}
     },
     {
