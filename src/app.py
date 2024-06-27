@@ -16,7 +16,7 @@ def index():
 @app.route("/p")
 def stream_file():
     file = request.args.get("file")
-    res_url = f"{api_url}/files?name={file}"
+    res_url = f"{api_url}/files/download?name={file}"
     return render_template("redirect.html", res_url=res_url, deta_key=deta_key)
 
 
