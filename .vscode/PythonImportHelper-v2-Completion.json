@@ -467,7 +467,7 @@
         "kind": 5,
         "importPath": "task",
         "description": "task",
-        "peekOfCode": "fs = deta.Deta(deta_key).Drive(\"files\")\ns3 = s3fs.S3FileSystem(\n    key=s3_key, secret=s3_secret, client_kwargs={\"endpoint_url\": s3_endpoint}\n)\nfiles = fs.list()[\"names\"]\nfor file in s3.ls(\"storage/video\"):\n    if file in files:\n        continue\n    with s3.open(file, \"rb\") as f:\n        data = f.read()",
+        "peekOfCode": "fs = deta.Deta(deta_key).Drive(\"files\")\ns3 = s3fs.S3FileSystem(\n    key=s3_key, secret=s3_secret, client_kwargs={\"endpoint_url\": s3_endpoint}\n)\nfiles = fs.list()[\"names\"]\nfor file in s3.ls(\"storage/video\"):\n    name = file.split(\"/\", 1)[1]\n    if name in files:\n        continue\n    with s3.open(file, \"rb\") as f:",
         "detail": "task",
         "documentation": {}
     },
@@ -476,7 +476,7 @@
         "kind": 5,
         "importPath": "task",
         "description": "task",
-        "peekOfCode": "s3 = s3fs.S3FileSystem(\n    key=s3_key, secret=s3_secret, client_kwargs={\"endpoint_url\": s3_endpoint}\n)\nfiles = fs.list()[\"names\"]\nfor file in s3.ls(\"storage/video\"):\n    if file in files:\n        continue\n    with s3.open(file, \"rb\") as f:\n        data = f.read()\n    name = file.split(\"/\", 1)[1]",
+        "peekOfCode": "s3 = s3fs.S3FileSystem(\n    key=s3_key, secret=s3_secret, client_kwargs={\"endpoint_url\": s3_endpoint}\n)\nfiles = fs.list()[\"names\"]\nfor file in s3.ls(\"storage/video\"):\n    name = file.split(\"/\", 1)[1]\n    if name in files:\n        continue\n    with s3.open(file, \"rb\") as f:\n        data = f.read()",
         "detail": "task",
         "documentation": {}
     },
@@ -485,7 +485,7 @@
         "kind": 5,
         "importPath": "task",
         "description": "task",
-        "peekOfCode": "files = fs.list()[\"names\"]\nfor file in s3.ls(\"storage/video\"):\n    if file in files:\n        continue\n    with s3.open(file, \"rb\") as f:\n        data = f.read()\n    name = file.split(\"/\", 1)[1]\n    fs.put(name, data, content_type=\"video/mp4\")\n    print(f\"Uploaded {name} to {name}\")\nprint(\"Upload completed\")",
+        "peekOfCode": "files = fs.list()[\"names\"]\nfor file in s3.ls(\"storage/video\"):\n    name = file.split(\"/\", 1)[1]\n    if name in files:\n        continue\n    with s3.open(file, \"rb\") as f:\n        data = f.read()\n    fs.put(name, data, content_type=\"video/mp4\")\n    print(f\"Uploaded {name} to {name}\")\nprint(\"Upload completed\")",
         "detail": "task",
         "documentation": {}
     }
