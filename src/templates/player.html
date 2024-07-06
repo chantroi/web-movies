@@ -36,6 +36,7 @@
         max-height: 100%;
         width: auto;
         height: auto;
+        object-fit: contain;
       }
     </style>
   </head>
@@ -50,6 +51,7 @@
     <script type="module">
       import { Deta } from "https://cdn.deta.space/js/deta@latest/deta.mjs";
       const deta = Deta("{{ deta_key }}");
+
       async function downloadAndPlayVideo() {
         const drive = deta.Drive("files");
         const fileId = "{{ filename }}";
@@ -60,10 +62,36 @@
           const videoElement = document.getElementById("videoPlayer");
           videoElement.src = videoUrl;
           videoElement.play();
+
+          // Add event listener for loadedmetadata
+          videoElement.addEventListener("loadedmetadata", adjustVideoSize);
+
+          // Add event listener for window resize
+          window.addEventListener("resize", adjustVideoSize);
         } catch (error) {
           console.error("Error:", error);
         }
       }
+
+      function adjustVideoSize() {
+        const videoElement = document.getElementById("videoPlayer");
+        const windowHeight = window.innerHeight;
+        const windowWidth = window.innerWidth;
+        const videoAspectRatio =
+          videoElement.videoWidth / videoElement.videoHeight;
+
+        if (videoElement.videoHeight > windowHeight) {
+          videoElement.style.height = windowHeight + "px";
+          videoElement.style.width = windowHeight * videoAspectRatio + "px";
+        } else if (videoElement.videoWidth > windowWidth) {
+          videoElement.style.width = windowWidth + "px";
+          videoElement.style.height = windowWidth / videoAspectRatio + "px";
+        } else {
+          videoElement.style.width = videoElement.videoWidth + "px";
+          videoElement.style.height = videoElement.videoHeight + "px";
+        }
+      }
+
       downloadAndPlayVideo();
     </script>
   </body>
