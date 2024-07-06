@@ -41,6 +41,8 @@
         background-color: var(--item-bg);
         border-radius: 5px;
         box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        max-width: 100%;
+        width: 400px; /* Adjust this value as needed */
       }
       .file-item {
         padding: 10px 15px;
@@ -61,12 +63,19 @@
         color: var(--text-color);
         display: flex;
         align-items: center;
+        overflow: hidden;
       }
       .file-link:hover {
         background-color: var(--item-hover);
       }
       .file-icon {
         margin-right: 10px;
+        flex-shrink: 0;
+      }
+      .file-name {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
       }
     </style>
   </head>
@@ -76,7 +85,7 @@
       <li class="file-item">
         <a href="/file/play?file={{ file }}" class="file-link">
           <span class="material-icons file-icon">description</span>
-          {{ file.split('/')[-1] }}
+          <span class="file-name">{{ file.split('/')[-1] }}</span>
         </a>
       </li>
       {% endfor %}
