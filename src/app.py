@@ -1,6 +1,6 @@
 from flask import Flask, request, redirect, render_template, jsonify
 from deta import Deta
-from environment import deta_key, project_id
+from environment import deta_key
 
 app = Flask(__name__)
 fs = Deta(deta_key).Drive("files")
