@@ -15,9 +15,9 @@ def index():
     )
 
 
-@app.route("/file/play", methods=["GET"])
-def play_file():
-    target_file = request.args.get("file")
+@app.route("/file/<folder>/<file>", methods=["GET"])
+def play_file(folder, file):
+    target_file = folder + "/" + file
     return render_template("player.html", filename=target_file, deta_key=deta_key)
 
 
