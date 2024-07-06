@@ -83,7 +83,7 @@
     <ul class="file-list">
       {% for file in files %}
       <li class="file-item">
-        <a href="/file/play?file={{ file }}" class="file-link">
+        <a href="/file/{{ file }}" class="file-link">
           <span class="material-icons file-icon">description</span>
           <span class="file-name">{{ file.split('/')[-1] }}</span>
         </a>
