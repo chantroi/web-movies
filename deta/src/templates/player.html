@@ -62,11 +62,7 @@
           const videoElement = document.getElementById("videoPlayer");
           videoElement.src = videoUrl;
           videoElement.play();
-
-          // Add event listener for loadedmetadata
           videoElement.addEventListener("loadedmetadata", adjustVideoSize);
-
-          // Add event listener for window resize
           window.addEventListener("resize", adjustVideoSize);
         } catch (error) {
           console.error("Error:", error);
@@ -93,6 +89,46 @@
       }
 
       downloadAndPlayVideo();
+    </script>
+    <script>
+      let touchstartX = 0;
+      let touchendX = 0;
+
+      function checkDirection() {
+        if (touchendX < touchstartX) {
+          // {% if next_file %}
+          window.location.replace("/{{ drive }}/{{ next_file }}");
+          // {% endif %}
+        }
+        if (touchendX > touchstartX) {
+          // {% if pre_file %}
+          window.location.replace("/{{ drive }}/{{ pre_file }}");
+          // {% endif %}
+        }
+        touchstartX = 0;
+        touchendX = 0;
+      }
+
+      document.addEventListener("touchstart", (e) => {
+        touchstartX = e.changedTouches[0].screenX;
+      });
+
+      document.addEventListener("touchend", (e) => {
+        touchendX = e.changedTouches[0].screenX;
+        checkDirection();
+      });
+
+      document.addEventListener("keydown", function (event) {
+        if (event.key === "ArrowLeft") {
+          // {% if pre_file %}
+          window.location.replace("/{{ drive }}/{{ pre_file }}");
+          // {% endif %}
+        } else if (event.key === "ArrowRight") {
+          // {% if next_file %}
+          window.location.replace("/{{ drive }}/{{ next_file }}");
+          // {% endif %}
+        }
+      });
     </script>
   </body>
 </html>

@@ -9,6 +9,16 @@ app = Flask(__name__)
 deta = Deta(DETA_KEY)
 
 
+def get_neighbors(lst, element):
+    if element in lst:
+        indx = lst.index(element)
+        return lst[indx - 1] if indx > 0 else None, (
+            lst[indx + 1] if indx < len(lst) - 1 else None
+        )
+    else:
+        return None, None
+
+
 @app.route("/")
 @app.route("/<drive>")
 def index(drive="files"):
@@ -20,8 +30,16 @@ def index(drive="files"):
 @app.route("/<drive>/<folder>/<file>", methods=["GET"])
 def play_file(drive, folder, file):
     target_file = folder + "/" + file
+    fs = deta.Drive(drive)
+    files = fs.list()["names"]
+    pre_file, next_file = get_neighbors(files, target_file)
     return render_template(
-        "player.html", drive=drive, filename=target_file, deta_key=DETA_KEY
+        "player.html",
+        drive=drive,
+        filename=target_file,
+        deta_key=DETA_KEY,
+        pre_file=pre_file,
+        next_file=next_file,
     )
 
 

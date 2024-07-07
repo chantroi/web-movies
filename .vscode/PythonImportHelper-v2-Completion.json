@@ -237,11 +237,20 @@
         "documentation": {}
     },
     {
+        "label": "get_neighbors",
+        "kind": 2,
+        "importPath": "deta.src.app",
+        "description": "deta.src.app",
+        "peekOfCode": "def get_neighbors(lst, element):\n    if element in lst:\n        indx = lst.index(element)\n        return lst[indx - 1] if indx > 0 else None, (\n            lst[indx + 1] if indx < len(lst) - 1 else None\n        )\n    else:\n        return None, None\n@app.route(\"/\")\n@app.route(\"/<drive>\")",
+        "detail": "deta.src.app",
+        "documentation": {}
+    },
+    {
         "label": "index",
         "kind": 2,
         "importPath": "deta.src.app",
         "description": "deta.src.app",
-        "peekOfCode": "def index(drive=\"files\"):\n    fs = deta.Drive(drive)\n    files = fs.list()[\"names\"]\n    return render_template(\"index.html\", files=files, drive=drive)\n@app.route(\"/<drive>/<folder>/<file>\", methods=[\"GET\"])\ndef play_file(drive, folder, file):\n    target_file = folder + \"/\" + file\n    return render_template(\n        \"player.html\", drive=drive, filename=target_file, deta_key=DETA_KEY\n    )",
+        "peekOfCode": "def index(drive=\"files\"):\n    fs = deta.Drive(drive)\n    files = fs.list()[\"names\"]\n    return render_template(\"index.html\", files=files, drive=drive)\n@app.route(\"/<drive>/<folder>/<file>\", methods=[\"GET\"])\ndef play_file(drive, folder, file):\n    target_file = folder + \"/\" + file\n    fs = deta.Drive(drive)\n    files = fs.list()[\"names\"]\n    pre_file, next_file = get_neighbors(files, target_file)",
         "detail": "deta.src.app",
         "documentation": {}
     },
@@ -250,7 +259,7 @@
         "kind": 2,
         "importPath": "deta.src.app",
         "description": "deta.src.app",
-        "peekOfCode": "def play_file(drive, folder, file):\n    target_file = folder + \"/\" + file\n    return render_template(\n        \"player.html\", drive=drive, filename=target_file, deta_key=DETA_KEY\n    )\n@app.route(\"/<drive>/<folder>/<file>\", methods=[\"DELETE\"])\ndef delete_route(drive, folder, file):\n    target_file = folder + \"/\" + file\n    fs = deta.Drive(drive)\n    fs.delete(target_file)",
+        "peekOfCode": "def play_file(drive, folder, file):\n    target_file = folder + \"/\" + file\n    fs = deta.Drive(drive)\n    files = fs.list()[\"names\"]\n    pre_file, next_file = get_neighbors(files, target_file)\n    return render_template(\n        \"player.html\",\n        drive=drive,\n        filename=target_file,\n        deta_key=DETA_KEY,",
         "detail": "deta.src.app",
         "documentation": {}
     },
@@ -277,7 +286,7 @@
         "kind": 5,
         "importPath": "deta.src.app",
         "description": "deta.src.app",
-        "peekOfCode": "DETA_PROJECT_KEY = os.environ[\"DETA_PROJECT_KEY\"]\nDETA_KEY = os.getenv(\"DETA_KEY\", DETA_PROJECT_KEY)\napp = Flask(__name__)\ndeta = Deta(DETA_KEY)\n@app.route(\"/\")\n@app.route(\"/<drive>\")\ndef index(drive=\"files\"):\n    fs = deta.Drive(drive)\n    files = fs.list()[\"names\"]\n    return render_template(\"index.html\", files=files, drive=drive)",
+        "peekOfCode": "DETA_PROJECT_KEY = os.environ[\"DETA_PROJECT_KEY\"]\nDETA_KEY = os.getenv(\"DETA_KEY\", DETA_PROJECT_KEY)\napp = Flask(__name__)\ndeta = Deta(DETA_KEY)\ndef get_neighbors(lst, element):\n    if element in lst:\n        indx = lst.index(element)\n        return lst[indx - 1] if indx > 0 else None, (\n            lst[indx + 1] if indx < len(lst) - 1 else None\n        )",
         "detail": "deta.src.app",
         "documentation": {}
     },
@@ -286,7 +295,7 @@
         "kind": 5,
         "importPath": "deta.src.app",
         "description": "deta.src.app",
-        "peekOfCode": "DETA_KEY = os.getenv(\"DETA_KEY\", DETA_PROJECT_KEY)\napp = Flask(__name__)\ndeta = Deta(DETA_KEY)\n@app.route(\"/\")\n@app.route(\"/<drive>\")\ndef index(drive=\"files\"):\n    fs = deta.Drive(drive)\n    files = fs.list()[\"names\"]\n    return render_template(\"index.html\", files=files, drive=drive)\n@app.route(\"/<drive>/<folder>/<file>\", methods=[\"GET\"])",
+        "peekOfCode": "DETA_KEY = os.getenv(\"DETA_KEY\", DETA_PROJECT_KEY)\napp = Flask(__name__)\ndeta = Deta(DETA_KEY)\ndef get_neighbors(lst, element):\n    if element in lst:\n        indx = lst.index(element)\n        return lst[indx - 1] if indx > 0 else None, (\n            lst[indx + 1] if indx < len(lst) - 1 else None\n        )\n    else:",
         "detail": "deta.src.app",
         "documentation": {}
     },
@@ -295,7 +304,7 @@
         "kind": 5,
         "importPath": "deta.src.app",
         "description": "deta.src.app",
-        "peekOfCode": "app = Flask(__name__)\ndeta = Deta(DETA_KEY)\n@app.route(\"/\")\n@app.route(\"/<drive>\")\ndef index(drive=\"files\"):\n    fs = deta.Drive(drive)\n    files = fs.list()[\"names\"]\n    return render_template(\"index.html\", files=files, drive=drive)\n@app.route(\"/<drive>/<folder>/<file>\", methods=[\"GET\"])\ndef play_file(drive, folder, file):",
+        "peekOfCode": "app = Flask(__name__)\ndeta = Deta(DETA_KEY)\ndef get_neighbors(lst, element):\n    if element in lst:\n        indx = lst.index(element)\n        return lst[indx - 1] if indx > 0 else None, (\n            lst[indx + 1] if indx < len(lst) - 1 else None\n        )\n    else:\n        return None, None",
         "detail": "deta.src.app",
         "documentation": {}
     },
@@ -304,7 +313,7 @@
         "kind": 5,
         "importPath": "deta.src.app",
         "description": "deta.src.app",
-        "peekOfCode": "deta = Deta(DETA_KEY)\n@app.route(\"/\")\n@app.route(\"/<drive>\")\ndef index(drive=\"files\"):\n    fs = deta.Drive(drive)\n    files = fs.list()[\"names\"]\n    return render_template(\"index.html\", files=files, drive=drive)\n@app.route(\"/<drive>/<folder>/<file>\", methods=[\"GET\"])\ndef play_file(drive, folder, file):\n    target_file = folder + \"/\" + file",
+        "peekOfCode": "deta = Deta(DETA_KEY)\ndef get_neighbors(lst, element):\n    if element in lst:\n        indx = lst.index(element)\n        return lst[indx - 1] if indx > 0 else None, (\n            lst[indx + 1] if indx < len(lst) - 1 else None\n        )\n    else:\n        return None, None\n@app.route(\"/\")",
         "detail": "deta.src.app",
         "documentation": {}
     },
@@ -318,11 +327,20 @@
         "documentation": {}
     },
     {
+        "label": "get_neighbors",
+        "kind": 2,
+        "importPath": "src.app",
+        "description": "src.app",
+        "peekOfCode": "def get_neighbors(lst, element):\n    if element in lst:\n        indx = lst.index(element)\n        return lst[indx - 1] if indx > 0 else None, (\n            lst[indx + 1] if indx < len(lst) - 1 else None\n        )\n    else:\n        return None, None\n@app.route(\"/\")\n@app.route(\"/<drive>\")",
+        "detail": "src.app",
+        "documentation": {}
+    },
+    {
         "label": "index",
         "kind": 2,
         "importPath": "src.app",
         "description": "src.app",
-        "peekOfCode": "def index(drive=\"files\"):\n    fs = deta.Drive(drive)\n    files = fs.list()[\"names\"]\n    return render_template(\"index.html\", files=files, drive=drive)\n@app.route(\"/<drive>/<folder>/<file>\", methods=[\"GET\"])\ndef play_file(drive, folder, file):\n    target_file = folder + \"/\" + file\n    return render_template(\n        \"player.html\", drive=drive, filename=target_file, deta_key=deta_key\n    )",
+        "peekOfCode": "def index(drive=\"files\"):\n    fs = deta.Drive(drive)\n    files = fs.list()[\"names\"]\n    return render_template(\"index.html\", files=files, drive=drive)\n@app.route(\"/<drive>/<folder>/<file>\", methods=[\"GET\"])\ndef play_file(drive, folder, file):\n    target_file = folder + \"/\" + file\n    fs = deta.Drive(drive)\n    files = fs.list()[\"names\"]\n    pre_file, next_file = get_neighbors(files, target_file)",
         "detail": "src.app",
         "documentation": {}
     },
@@ -331,7 +349,7 @@
         "kind": 2,
         "importPath": "src.app",
         "description": "src.app",
-        "peekOfCode": "def play_file(drive, folder, file):\n    target_file = folder + \"/\" + file\n    return render_template(\n        \"player.html\", drive=drive, filename=target_file, deta_key=deta_key\n    )\n@app.route(\"/<drive>/<folder>/<filename>\", methods=[\"DELETE\"])\ndef delete_route(drive, folder, filename):\n    fs = deta.Drive(drive)\n    target_file = folder + \"/\" + filename\n    fs.delete(target_file)",
+        "peekOfCode": "def play_file(drive, folder, file):\n    target_file = folder + \"/\" + file\n    fs = deta.Drive(drive)\n    files = fs.list()[\"names\"]\n    pre_file, next_file = get_neighbors(files, target_file)\n    return render_template(\n        \"player.html\",\n        drive=drive,\n        filename=target_file,\n        deta_key=DETA_KEY,",
         "detail": "src.app",
         "documentation": {}
     },
@@ -367,7 +385,7 @@
         "kind": 5,
         "importPath": "src.app",
         "description": "src.app",
-        "peekOfCode": "app = Flask(__name__)\ndeta = Deta(deta_key)\n@app.route(\"/\")\n@app.route(\"/<drive>\")\ndef index(drive=\"files\"):\n    fs = deta.Drive(drive)\n    files = fs.list()[\"names\"]\n    return render_template(\"index.html\", files=files, drive=drive)\n@app.route(\"/<drive>/<folder>/<file>\", methods=[\"GET\"])\ndef play_file(drive, folder, file):",
+        "peekOfCode": "app = Flask(__name__)\ndeta = Deta(deta_key)\ndef get_neighbors(lst, element):\n    if element in lst:\n        indx = lst.index(element)\n        return lst[indx - 1] if indx > 0 else None, (\n            lst[indx + 1] if indx < len(lst) - 1 else None\n        )\n    else:\n        return None, None",
         "detail": "src.app",
         "documentation": {}
     },
@@ -376,7 +394,7 @@
         "kind": 5,
         "importPath": "src.app",
         "description": "src.app",
-        "peekOfCode": "deta = Deta(deta_key)\n@app.route(\"/\")\n@app.route(\"/<drive>\")\ndef index(drive=\"files\"):\n    fs = deta.Drive(drive)\n    files = fs.list()[\"names\"]\n    return render_template(\"index.html\", files=files, drive=drive)\n@app.route(\"/<drive>/<folder>/<file>\", methods=[\"GET\"])\ndef play_file(drive, folder, file):\n    target_file = folder + \"/\" + file",
+        "peekOfCode": "deta = Deta(deta_key)\ndef get_neighbors(lst, element):\n    if element in lst:\n        indx = lst.index(element)\n        return lst[indx - 1] if indx > 0 else None, (\n            lst[indx + 1] if indx < len(lst) - 1 else None\n        )\n    else:\n        return None, None\n@app.route(\"/\")",
         "detail": "src.app",
         "documentation": {}
     },
