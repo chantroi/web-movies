@@ -34,7 +34,7 @@ def play_file(drive, folder, file):
         "player.html",
         drive=drive,
         filename=target_file,
-        deta_key=DETA_KEY,
+        deta_key=deta_key,
         pre_file=pre_file,
         next_file=next_file,
     )

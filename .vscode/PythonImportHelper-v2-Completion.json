@@ -349,7 +349,7 @@
         "kind": 2,
         "importPath": "src.app",
         "description": "src.app",
-        "peekOfCode": "def play_file(drive, folder, file):\n    target_file = folder + \"/\" + file\n    fs = deta.Drive(drive)\n    files = fs.list()[\"names\"]\n    pre_file, next_file = get_neighbors(files, target_file)\n    return render_template(\n        \"player.html\",\n        drive=drive,\n        filename=target_file,\n        deta_key=DETA_KEY,",
+        "peekOfCode": "def play_file(drive, folder, file):\n    target_file = folder + \"/\" + file\n    fs = deta.Drive(drive)\n    files = fs.list()[\"names\"]\n    pre_file, next_file = get_neighbors(files, target_file)\n    return render_template(\n        \"player.html\",\n        drive=drive,\n        filename=target_file,\n        deta_key=deta_key,",
         "detail": "src.app",
         "documentation": {}
     },
