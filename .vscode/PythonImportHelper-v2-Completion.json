@@ -1,5 +1,38 @@
 [
     {
+        "label": "os",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "os",
+        "description": "os",
+        "detail": "os",
+        "documentation": {}
+    },
+    {
+        "label": "Flask",
+        "importPath": "flask",
+        "description": "flask",
+        "isExtraImport": true,
+        "detail": "flask",
+        "documentation": {}
+    },
+    {
+        "label": "render_template",
+        "importPath": "flask",
+        "description": "flask",
+        "isExtraImport": true,
+        "detail": "flask",
+        "documentation": {}
+    },
+    {
+        "label": "jsonify",
+        "importPath": "flask",
+        "description": "flask",
+        "isExtraImport": true,
+        "detail": "flask",
+        "documentation": {}
+    },
+    {
         "label": "Flask",
         "importPath": "flask",
         "description": "flask",
@@ -9,14 +42,6 @@
     },
     {
         "label": "request",
-        "importPath": "flask",
-        "description": "flask",
-        "isExtraImport": true,
-        "detail": "flask",
-        "documentation": {}
-    },
-    {
-        "label": "redirect",
         "importPath": "flask",
         "description": "flask",
         "isExtraImport": true,
@@ -57,15 +82,31 @@
         "documentation": {}
     },
     {
-        "label": "deta_key",
-        "importPath": "environment",
-        "description": "environment",
+        "label": "Deta",
+        "importPath": "deta",
+        "description": "deta",
         "isExtraImport": true,
-        "detail": "environment",
+        "detail": "deta",
         "documentation": {}
     },
     {
-        "label": "project_id",
+        "label": "app",
+        "importPath": "src.app",
+        "description": "src.app",
+        "isExtraImport": true,
+        "detail": "src.app",
+        "documentation": {}
+    },
+    {
+        "label": "app",
+        "importPath": "src.app",
+        "description": "src.app",
+        "isExtraImport": true,
+        "detail": "src.app",
+        "documentation": {}
+    },
+    {
+        "label": "deta_key",
         "importPath": "environment",
         "description": "environment",
         "isExtraImport": true,
@@ -178,29 +219,12 @@
         "documentation": {}
     },
     {
-        "label": "os",
-        "kind": 6,
-        "isExtraImport": true,
-        "importPath": "os",
-        "description": "os",
-        "detail": "os",
-        "documentation": {}
-    },
-    {
         "label": "requests",
         "kind": 6,
         "isExtraImport": true,
         "importPath": "requests",
         "description": "requests",
         "detail": "requests",
-        "documentation": {}
-    },
-    {
-        "label": "app",
-        "importPath": "src.app",
-        "description": "src.app",
-        "isExtraImport": true,
-        "detail": "src.app",
         "documentation": {}
     },
     {
@@ -215,9 +239,90 @@
     {
         "label": "index",
         "kind": 2,
+        "importPath": "deta.src.app",
+        "description": "deta.src.app",
+        "peekOfCode": "def index(drive=\"files\"):\n    fs = deta.Drive(drive)\n    files = fs.list()[\"names\"]\n    return render_template(\"index.html\", files=files, drive=drive)\n@app.route(\"/<drive>/<folder>/<file>\", methods=[\"GET\"])\ndef play_file(drive, folder, file):\n    target_file = folder + \"/\" + file\n    return render_template(\n        \"player.html\", drive=drive, filename=target_file, deta_key=DETA_KEY\n    )",
+        "detail": "deta.src.app",
+        "documentation": {}
+    },
+    {
+        "label": "play_file",
+        "kind": 2,
+        "importPath": "deta.src.app",
+        "description": "deta.src.app",
+        "peekOfCode": "def play_file(drive, folder, file):\n    target_file = folder + \"/\" + file\n    return render_template(\n        \"player.html\", drive=drive, filename=target_file, deta_key=DETA_KEY\n    )\n@app.route(\"/<drive>/<folder>/<file>\", methods=[\"DELETE\"])\ndef delete_route(drive, folder, file):\n    target_file = folder + \"/\" + file\n    fs = deta.Drive(drive)\n    fs.delete(target_file)",
+        "detail": "deta.src.app",
+        "documentation": {}
+    },
+    {
+        "label": "delete_route",
+        "kind": 2,
+        "importPath": "deta.src.app",
+        "description": "deta.src.app",
+        "peekOfCode": "def delete_route(drive, folder, file):\n    target_file = folder + \"/\" + file\n    fs = deta.Drive(drive)\n    fs.delete(target_file)\n    return jsonify(status=\"success\", message=f\"file {target_file} deleted successful\")\n@app.route(\"/<drive>/<folder>\", methods=[\"GET\"])\ndef list_files(drive, folder):\n    fs = deta.Drive(drive)\n    files = fs.list()[\"names\"]\n    files = [file for file in files if file.startswith(folder)]",
+        "detail": "deta.src.app",
+        "documentation": {}
+    },
+    {
+        "label": "list_files",
+        "kind": 2,
+        "importPath": "deta.src.app",
+        "description": "deta.src.app",
+        "peekOfCode": "def list_files(drive, folder):\n    fs = deta.Drive(drive)\n    files = fs.list()[\"names\"]\n    files = [file for file in files if file.startswith(folder)]\n    return jsonify(files=files)",
+        "detail": "deta.src.app",
+        "documentation": {}
+    },
+    {
+        "label": "DETA_PROJECT_KEY",
+        "kind": 5,
+        "importPath": "deta.src.app",
+        "description": "deta.src.app",
+        "peekOfCode": "DETA_PROJECT_KEY = os.environ[\"DETA_PROJECT_KEY\"]\nDETA_KEY = os.getenv(\"DETA_KEY\", DETA_PROJECT_KEY)\napp = Flask(__name__)\ndeta = Deta(DETA_KEY)\n@app.route(\"/\")\n@app.route(\"/<drive>\")\ndef index(drive=\"files\"):\n    fs = deta.Drive(drive)\n    files = fs.list()[\"names\"]\n    return render_template(\"index.html\", files=files, drive=drive)",
+        "detail": "deta.src.app",
+        "documentation": {}
+    },
+    {
+        "label": "DETA_KEY",
+        "kind": 5,
+        "importPath": "deta.src.app",
+        "description": "deta.src.app",
+        "peekOfCode": "DETA_KEY = os.getenv(\"DETA_KEY\", DETA_PROJECT_KEY)\napp = Flask(__name__)\ndeta = Deta(DETA_KEY)\n@app.route(\"/\")\n@app.route(\"/<drive>\")\ndef index(drive=\"files\"):\n    fs = deta.Drive(drive)\n    files = fs.list()[\"names\"]\n    return render_template(\"index.html\", files=files, drive=drive)\n@app.route(\"/<drive>/<folder>/<file>\", methods=[\"GET\"])",
+        "detail": "deta.src.app",
+        "documentation": {}
+    },
+    {
+        "label": "app",
+        "kind": 5,
+        "importPath": "deta.src.app",
+        "description": "deta.src.app",
+        "peekOfCode": "app = Flask(__name__)\ndeta = Deta(DETA_KEY)\n@app.route(\"/\")\n@app.route(\"/<drive>\")\ndef index(drive=\"files\"):\n    fs = deta.Drive(drive)\n    files = fs.list()[\"names\"]\n    return render_template(\"index.html\", files=files, drive=drive)\n@app.route(\"/<drive>/<folder>/<file>\", methods=[\"GET\"])\ndef play_file(drive, folder, file):",
+        "detail": "deta.src.app",
+        "documentation": {}
+    },
+    {
+        "label": "deta",
+        "kind": 5,
+        "importPath": "deta.src.app",
+        "description": "deta.src.app",
+        "peekOfCode": "deta = Deta(DETA_KEY)\n@app.route(\"/\")\n@app.route(\"/<drive>\")\ndef index(drive=\"files\"):\n    fs = deta.Drive(drive)\n    files = fs.list()[\"names\"]\n    return render_template(\"index.html\", files=files, drive=drive)\n@app.route(\"/<drive>/<folder>/<file>\", methods=[\"GET\"])\ndef play_file(drive, folder, file):\n    target_file = folder + \"/\" + file",
+        "detail": "deta.src.app",
+        "documentation": {}
+    },
+    {
+        "label": "application",
+        "kind": 5,
+        "importPath": "deta.main",
+        "description": "deta.main",
+        "peekOfCode": "application = app",
+        "detail": "deta.main",
+        "documentation": {}
+    },
+    {
+        "label": "index",
+        "kind": 2,
         "importPath": "src.app",
         "description": "src.app",
-        "peekOfCode": "def index():\n    files = fs.list()[\"names\"]\n    return render_template(\n        \"index.html\",\n        files=files,\n    )\n@app.route(\"/file/play\", methods=[\"GET\"])\ndef play_file():\n    target_file = request.args.get(\"file\")\n    return render_template(\"player.html\", filename=target_file, deta_key=deta_key)",
+        "peekOfCode": "def index(drive=\"files\"):\n    fs = deta.Drive(drive)\n    files = fs.list()[\"names\"]\n    return render_template(\n        \"index.html\",\n        files=files,\n    )\n@app.route(\"/<drive>/<folder>/<file>\", methods=[\"GET\"])\ndef play_file(drive, folder, file):\n    target_file = folder + \"/\" + file",
         "detail": "src.app",
         "documentation": {}
     },
@@ -226,7 +331,7 @@
         "kind": 2,
         "importPath": "src.app",
         "description": "src.app",
-        "peekOfCode": "def play_file():\n    target_file = request.args.get(\"file\")\n    return render_template(\"player.html\", filename=target_file, deta_key=deta_key)\n@app.route(\"/file/delete\")\ndef delete_route():\n    target_file = request.args.get(\"file\")\n    fs.delete(target_file)\n    return jsonify(status=\"success\", message=f\"file {target_file} deleted successful\")\n@app.route(\"/file/upload\", methods=[\"POST\"])\ndef upload_file():",
+        "peekOfCode": "def play_file(drive, folder, file):\n    target_file = folder + \"/\" + file\n    return render_template(\n        \"player.html\", drive=drive, filename=target_file, deta_key=deta_key\n    )\n@app.route(\"/<drive>/<folder>/<filename>\", methods=[\"DELETE\"])\ndef delete_route(drive, folder, filename):\n    fs = deta.Drive(drive)\n    target_file = folder + \"/\" + filename\n    fs.delete(target_file)",
         "detail": "src.app",
         "documentation": {}
     },
@@ -235,7 +340,7 @@
         "kind": 2,
         "importPath": "src.app",
         "description": "src.app",
-        "peekOfCode": "def delete_route():\n    target_file = request.args.get(\"file\")\n    fs.delete(target_file)\n    return jsonify(status=\"success\", message=f\"file {target_file} deleted successful\")\n@app.route(\"/file/upload\", methods=[\"POST\"])\ndef upload_file():\n    if request.files:\n        file = request.files[\"file\"]\n        fs.put(file.filename, file.read())\n        return jsonify(",
+        "peekOfCode": "def delete_route(drive, folder, filename):\n    fs = deta.Drive(drive)\n    target_file = folder + \"/\" + filename\n    fs.delete(target_file)\n    return jsonify(status=\"success\", message=f\"file {target_file} deleted successful\")\n@app.route(\"/<drive>/<folder>\", methods=[\"POST\"])\ndef upload_file(drive, folder):\n    fs = deta.Drive(drive)\n    if request.files:\n        file = request.files[\"file\"]",
         "detail": "src.app",
         "documentation": {}
     },
@@ -244,7 +349,7 @@
         "kind": 2,
         "importPath": "src.app",
         "description": "src.app",
-        "peekOfCode": "def upload_file():\n    if request.files:\n        file = request.files[\"file\"]\n        fs.put(file.filename, file.read())\n        return jsonify(\n            status=\"success\", message=f\"file {file.filename} upload completed\"\n        )\n    else:\n        data = request.json\n        fs.put(data[\"name\"], data[\"content\"])",
+        "peekOfCode": "def upload_file(drive, folder):\n    fs = deta.Drive(drive)\n    if request.files:\n        file = request.files[\"file\"]\n        fs.put(folder + \"/\" + file.filename, file.read())\n        return jsonify(\n            status=\"success\", message=f\"file {file.filename} upload completed\"\n        )\n    else:\n        data = request.json",
         "detail": "src.app",
         "documentation": {}
     },
@@ -253,7 +358,7 @@
         "kind": 2,
         "importPath": "src.app",
         "description": "src.app",
-        "peekOfCode": "def list_files():\n    files = fs.list()[\"names\"]\n    return jsonify(files=files)",
+        "peekOfCode": "def list_files(drive, folder):\n    fs = deta.Drive(drive)\n    files = fs.list()[\"names\"]\n    files = [file for file in files if file.startswith(folder)]\n    return jsonify(files=files)",
         "detail": "src.app",
         "documentation": {}
     },
@@ -262,16 +367,16 @@
         "kind": 5,
         "importPath": "src.app",
         "description": "src.app",
-        "peekOfCode": "app = Flask(__name__)\nfs = Deta(deta_key).Drive(\"files\")\n@app.route(\"/\")\ndef index():\n    files = fs.list()[\"names\"]\n    return render_template(\n        \"index.html\",\n        files=files,\n    )\n@app.route(\"/file/play\", methods=[\"GET\"])",
+        "peekOfCode": "app = Flask(__name__)\ndeta = Deta(deta_key)\n@app.route(\"/\")\n@app.route(\"/<drive>\")\ndef index(drive=\"files\"):\n    fs = deta.Drive(drive)\n    files = fs.list()[\"names\"]\n    return render_template(\n        \"index.html\",\n        files=files,",
         "detail": "src.app",
         "documentation": {}
     },
     {
-        "label": "fs",
+        "label": "deta",
         "kind": 5,
         "importPath": "src.app",
         "description": "src.app",
-        "peekOfCode": "fs = Deta(deta_key).Drive(\"files\")\n@app.route(\"/\")\ndef index():\n    files = fs.list()[\"names\"]\n    return render_template(\n        \"index.html\",\n        files=files,\n    )\n@app.route(\"/file/play\", methods=[\"GET\"])\ndef play_file():",
+        "peekOfCode": "deta = Deta(deta_key)\n@app.route(\"/\")\n@app.route(\"/<drive>\")\ndef index(drive=\"files\"):\n    fs = deta.Drive(drive)\n    files = fs.list()[\"names\"]\n    return render_template(\n        \"index.html\",\n        files=files,\n    )",
         "detail": "src.app",
         "documentation": {}
     },
@@ -316,7 +421,7 @@
         "kind": 5,
         "importPath": "environment",
         "description": "environment",
-        "peekOfCode": "secret_url = os.environ[\"SECRET\"]\nresponse = requests.get(secret_url)\ndata = response.json()\ndeta_key = data[\"deta\"][\"sm\"]\ns3_endpoint = data[\"s3\"][\"idrive\"][\"endpoint\"]\ns3_key = data[\"s3\"][\"idrive\"][\"key\"]\ns3_secret = data[\"s3\"][\"idrive\"][\"secret\"]\nbot_token = data[\"bot\"][\"tiktokdouyin\"]\nproject_id = os.environ[\"PROJECT_ID\"]",
+        "peekOfCode": "secret_url = os.environ[\"SECRET\"]\nresponse = requests.get(secret_url)\ndata = response.json()\ndeta_key = data[\"deta\"][\"sm\"]\ns3_endpoint = data[\"s3\"][\"idrive\"][\"endpoint\"]\ns3_key = data[\"s3\"][\"idrive\"][\"key\"]\ns3_secret = data[\"s3\"][\"idrive\"][\"secret\"]\nbot_token = data[\"bot\"][\"tiktokdouyin\"]",
         "detail": "environment",
         "documentation": {}
     },
@@ -325,7 +430,7 @@
         "kind": 5,
         "importPath": "environment",
         "description": "environment",
-        "peekOfCode": "response = requests.get(secret_url)\ndata = response.json()\ndeta_key = data[\"deta\"][\"sm\"]\ns3_endpoint = data[\"s3\"][\"idrive\"][\"endpoint\"]\ns3_key = data[\"s3\"][\"idrive\"][\"key\"]\ns3_secret = data[\"s3\"][\"idrive\"][\"secret\"]\nbot_token = data[\"bot\"][\"tiktokdouyin\"]\nproject_id = os.environ[\"PROJECT_ID\"]",
+        "peekOfCode": "response = requests.get(secret_url)\ndata = response.json()\ndeta_key = data[\"deta\"][\"sm\"]\ns3_endpoint = data[\"s3\"][\"idrive\"][\"endpoint\"]\ns3_key = data[\"s3\"][\"idrive\"][\"key\"]\ns3_secret = data[\"s3\"][\"idrive\"][\"secret\"]\nbot_token = data[\"bot\"][\"tiktokdouyin\"]",
         "detail": "environment",
         "documentation": {}
     },
@@ -334,7 +439,7 @@
         "kind": 5,
         "importPath": "environment",
         "description": "environment",
-        "peekOfCode": "data = response.json()\ndeta_key = data[\"deta\"][\"sm\"]\ns3_endpoint = data[\"s3\"][\"idrive\"][\"endpoint\"]\ns3_key = data[\"s3\"][\"idrive\"][\"key\"]\ns3_secret = data[\"s3\"][\"idrive\"][\"secret\"]\nbot_token = data[\"bot\"][\"tiktokdouyin\"]\nproject_id = os.environ[\"PROJECT_ID\"]",
+        "peekOfCode": "data = response.json()\ndeta_key = data[\"deta\"][\"sm\"]\ns3_endpoint = data[\"s3\"][\"idrive\"][\"endpoint\"]\ns3_key = data[\"s3\"][\"idrive\"][\"key\"]\ns3_secret = data[\"s3\"][\"idrive\"][\"secret\"]\nbot_token = data[\"bot\"][\"tiktokdouyin\"]",
         "detail": "environment",
         "documentation": {}
     },
@@ -343,7 +448,7 @@
         "kind": 5,
         "importPath": "environment",
         "description": "environment",
-        "peekOfCode": "deta_key = data[\"deta\"][\"sm\"]\ns3_endpoint = data[\"s3\"][\"idrive\"][\"endpoint\"]\ns3_key = data[\"s3\"][\"idrive\"][\"key\"]\ns3_secret = data[\"s3\"][\"idrive\"][\"secret\"]\nbot_token = data[\"bot\"][\"tiktokdouyin\"]\nproject_id = os.environ[\"PROJECT_ID\"]",
+        "peekOfCode": "deta_key = data[\"deta\"][\"sm\"]\ns3_endpoint = data[\"s3\"][\"idrive\"][\"endpoint\"]\ns3_key = data[\"s3\"][\"idrive\"][\"key\"]\ns3_secret = data[\"s3\"][\"idrive\"][\"secret\"]\nbot_token = data[\"bot\"][\"tiktokdouyin\"]",
         "detail": "environment",
         "documentation": {}
     },
@@ -352,7 +457,7 @@
         "kind": 5,
         "importPath": "environment",
         "description": "environment",
-        "peekOfCode": "s3_endpoint = data[\"s3\"][\"idrive\"][\"endpoint\"]\ns3_key = data[\"s3\"][\"idrive\"][\"key\"]\ns3_secret = data[\"s3\"][\"idrive\"][\"secret\"]\nbot_token = data[\"bot\"][\"tiktokdouyin\"]\nproject_id = os.environ[\"PROJECT_ID\"]",
+        "peekOfCode": "s3_endpoint = data[\"s3\"][\"idrive\"][\"endpoint\"]\ns3_key = data[\"s3\"][\"idrive\"][\"key\"]\ns3_secret = data[\"s3\"][\"idrive\"][\"secret\"]\nbot_token = data[\"bot\"][\"tiktokdouyin\"]",
         "detail": "environment",
         "documentation": {}
     },
@@ -361,7 +466,7 @@
         "kind": 5,
         "importPath": "environment",
         "description": "environment",
-        "peekOfCode": "s3_key = data[\"s3\"][\"idrive\"][\"key\"]\ns3_secret = data[\"s3\"][\"idrive\"][\"secret\"]\nbot_token = data[\"bot\"][\"tiktokdouyin\"]\nproject_id = os.environ[\"PROJECT_ID\"]",
+        "peekOfCode": "s3_key = data[\"s3\"][\"idrive\"][\"key\"]\ns3_secret = data[\"s3\"][\"idrive\"][\"secret\"]\nbot_token = data[\"bot\"][\"tiktokdouyin\"]",
         "detail": "environment",
         "documentation": {}
     },
@@ -370,7 +475,7 @@
         "kind": 5,
         "importPath": "environment",
         "description": "environment",
-        "peekOfCode": "s3_secret = data[\"s3\"][\"idrive\"][\"secret\"]\nbot_token = data[\"bot\"][\"tiktokdouyin\"]\nproject_id = os.environ[\"PROJECT_ID\"]",
+        "peekOfCode": "s3_secret = data[\"s3\"][\"idrive\"][\"secret\"]\nbot_token = data[\"bot\"][\"tiktokdouyin\"]",
         "detail": "environment",
         "documentation": {}
     },
@@ -379,16 +484,7 @@
         "kind": 5,
         "importPath": "environment",
         "description": "environment",
-        "peekOfCode": "bot_token = data[\"bot\"][\"tiktokdouyin\"]\nproject_id = os.environ[\"PROJECT_ID\"]",
-        "detail": "environment",
-        "documentation": {}
-    },
-    {
-        "label": "project_id",
-        "kind": 5,
-        "importPath": "environment",
-        "description": "environment",
-        "peekOfCode": "project_id = os.environ[\"PROJECT_ID\"]",
+        "peekOfCode": "bot_token = data[\"bot\"][\"tiktokdouyin\"]",
         "detail": "environment",
         "documentation": {}
     },
