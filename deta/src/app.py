@@ -34,8 +34,10 @@ def delete_route(drive, folder, file):
 
 
 @app.route("/<drive>/<folder>", methods=["GET"])
-def list_files(drive, folder):
+@app.route("/<drive>/root", methods=["GET"])
+def list_files(drive, folder=None):
     fs = deta.Drive(drive)
     files = fs.list()["names"]
-    files = [file for file in files if file.startswith(folder)]
+    if folder:
+        files = [file for file in files if file.startswith(folder)]
     return jsonify(files=files)

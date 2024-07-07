@@ -259,7 +259,7 @@
         "kind": 2,
         "importPath": "deta.src.app",
         "description": "deta.src.app",
-        "peekOfCode": "def delete_route(drive, folder, file):\n    target_file = folder + \"/\" + file\n    fs = deta.Drive(drive)\n    fs.delete(target_file)\n    return jsonify(status=\"success\", message=f\"file {target_file} deleted successful\")\n@app.route(\"/<drive>/<folder>\", methods=[\"GET\"])\ndef list_files(drive, folder):\n    fs = deta.Drive(drive)\n    files = fs.list()[\"names\"]\n    files = [file for file in files if file.startswith(folder)]",
+        "peekOfCode": "def delete_route(drive, folder, file):\n    target_file = folder + \"/\" + file\n    fs = deta.Drive(drive)\n    fs.delete(target_file)\n    return jsonify(status=\"success\", message=f\"file {target_file} deleted successful\")\n@app.route(\"/<drive>/<folder>\", methods=[\"GET\"])\n@app.route(\"/<drive>/root\", methods=[\"GET\"])\ndef list_files(drive, folder=None):\n    fs = deta.Drive(drive)\n    files = fs.list()[\"names\"]",
         "detail": "deta.src.app",
         "documentation": {}
     },
@@ -268,7 +268,7 @@
         "kind": 2,
         "importPath": "deta.src.app",
         "description": "deta.src.app",
-        "peekOfCode": "def list_files(drive, folder):\n    fs = deta.Drive(drive)\n    files = fs.list()[\"names\"]\n    files = [file for file in files if file.startswith(folder)]\n    return jsonify(files=files)",
+        "peekOfCode": "def list_files(drive, folder=None):\n    fs = deta.Drive(drive)\n    files = fs.list()[\"names\"]\n    if folder:\n        files = [file for file in files if file.startswith(folder)]\n    return jsonify(files=files)",
         "detail": "deta.src.app",
         "documentation": {}
     },
