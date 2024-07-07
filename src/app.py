@@ -11,10 +11,7 @@ deta = Deta(deta_key)
 def index(drive="files"):
     fs = deta.Drive(drive)
     files = fs.list()["names"]
-    return render_template(
-        "index.html",
-        files=files,
-    )
+    return render_template("index.html", files=files, drive=drive)
 
 
 @app.route("/<drive>/<folder>/<file>", methods=["GET"])

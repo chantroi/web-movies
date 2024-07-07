@@ -322,7 +322,7 @@
         "kind": 2,
         "importPath": "src.app",
         "description": "src.app",
-        "peekOfCode": "def index(drive=\"files\"):\n    fs = deta.Drive(drive)\n    files = fs.list()[\"names\"]\n    return render_template(\n        \"index.html\",\n        files=files,\n    )\n@app.route(\"/<drive>/<folder>/<file>\", methods=[\"GET\"])\ndef play_file(drive, folder, file):\n    target_file = folder + \"/\" + file",
+        "peekOfCode": "def index(drive=\"files\"):\n    fs = deta.Drive(drive)\n    files = fs.list()[\"names\"]\n    return render_template(\"index.html\", files=files, drive=drive)\n@app.route(\"/<drive>/<folder>/<file>\", methods=[\"GET\"])\ndef play_file(drive, folder, file):\n    target_file = folder + \"/\" + file\n    return render_template(\n        \"player.html\", drive=drive, filename=target_file, deta_key=deta_key\n    )",
         "detail": "src.app",
         "documentation": {}
     },
@@ -367,7 +367,7 @@
         "kind": 5,
         "importPath": "src.app",
         "description": "src.app",
-        "peekOfCode": "app = Flask(__name__)\ndeta = Deta(deta_key)\n@app.route(\"/\")\n@app.route(\"/<drive>\")\ndef index(drive=\"files\"):\n    fs = deta.Drive(drive)\n    files = fs.list()[\"names\"]\n    return render_template(\n        \"index.html\",\n        files=files,",
+        "peekOfCode": "app = Flask(__name__)\ndeta = Deta(deta_key)\n@app.route(\"/\")\n@app.route(\"/<drive>\")\ndef index(drive=\"files\"):\n    fs = deta.Drive(drive)\n    files = fs.list()[\"names\"]\n    return render_template(\"index.html\", files=files, drive=drive)\n@app.route(\"/<drive>/<folder>/<file>\", methods=[\"GET\"])\ndef play_file(drive, folder, file):",
         "detail": "src.app",
         "documentation": {}
     },
@@ -376,7 +376,7 @@
         "kind": 5,
         "importPath": "src.app",
         "description": "src.app",
-        "peekOfCode": "deta = Deta(deta_key)\n@app.route(\"/\")\n@app.route(\"/<drive>\")\ndef index(drive=\"files\"):\n    fs = deta.Drive(drive)\n    files = fs.list()[\"names\"]\n    return render_template(\n        \"index.html\",\n        files=files,\n    )",
+        "peekOfCode": "deta = Deta(deta_key)\n@app.route(\"/\")\n@app.route(\"/<drive>\")\ndef index(drive=\"files\"):\n    fs = deta.Drive(drive)\n    files = fs.list()[\"names\"]\n    return render_template(\"index.html\", files=files, drive=drive)\n@app.route(\"/<drive>/<folder>/<file>\", methods=[\"GET\"])\ndef play_file(drive, folder, file):\n    target_file = folder + \"/\" + file",
         "detail": "src.app",
         "documentation": {}
     },
