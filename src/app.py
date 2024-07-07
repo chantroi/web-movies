@@ -31,25 +31,34 @@ def delete_route(drive, folder, filename):
 
 
 @app.route("/<drive>/<folder>", methods=["POST"])
-def upload_file(drive, folder):
+@app.route("/<drive>", methods=["POST"])
+def upload_file(drive, folder=None):
     fs = deta.Drive(drive)
     if request.files:
         file = request.files["file"]
-        fs.put(folder + "/" + file.filename, file.read())
+        filename = file.filename
+        if folder:
+            filename = folder + "/" + filename
+        fs.put(filename, file.read())
         return jsonify(
             status="success", message=f"file {file.filename} upload completed"
         )
     else:
         data = request.json
-        fs.put(folder + "/" + data["name"], data["content"])
+        filename = data["name"]
+        if folder:
+            filename = folder + "/" + data["name"]
+        fs.put(filename, data["content"])
         return jsonify(
             status="success", message=f"file {data['name']} upload completed"
         )
 
 
 @app.route("/<drive>/<folder>")
-def list_files(drive, folder):
+@app.route("/<drive>/root")
+def list_files(drive, folder=None):
     fs = deta.Drive(drive)
     files = fs.list()["names"]
-    files = [file for file in files if file.startswith(folder)]
+    if folder:
+        files = [file for file in files if file.startswith(folder)]
     return jsonify(files=files)
