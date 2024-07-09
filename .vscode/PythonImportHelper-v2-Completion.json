@@ -270,7 +270,7 @@
         "kind": 2,
         "importPath": "deta.src.app",
         "description": "deta.src.app",
-        "peekOfCode": "def index(drive=\"files\"):\n    fs = deta.Drive(drive)\n    files = fs.list()[\"names\"]\n    return render_template(\"index.html\", files=files, drive=drive)\n@app.route(\"/<drive>/<folder>/<file>\", methods=[\"GET\"])\ndef play_file(drive, folder, file):\n    target_file = folder + \"/\" + file\n    fs = deta.Drive(drive)\n    files = fs.list()[\"names\"]\n    pre_file, next_file = get_neighbors(files, target_file)",
+        "peekOfCode": "def index(drive=\"files\"):\n    fs = deta.Drive(drive)\n    files = fs.list()[\"names\"]\n    return render_template(\"index.html\", files=files, drive=drive)\n@app.route(\"/<drive>/<file>\", methods=[\"GET\"])\ndef play_file(drive, file):\n    fs = deta.Drive(drive)\n    files = fs.list()[\"names\"]\n    pre_file, next_file = get_neighbors(files, file)\n    return render_template(",
         "detail": "deta.src.app",
         "documentation": {}
     },
@@ -279,7 +279,7 @@
         "kind": 2,
         "importPath": "deta.src.app",
         "description": "deta.src.app",
-        "peekOfCode": "def play_file(drive, folder, file):\n    target_file = folder + \"/\" + file\n    fs = deta.Drive(drive)\n    files = fs.list()[\"names\"]\n    pre_file, next_file = get_neighbors(files, target_file)\n    return render_template(\n        \"player.html\",\n        drive=drive,\n        filename=target_file,\n        deta_key=DETA_KEY,",
+        "peekOfCode": "def play_file(drive, file):\n    fs = deta.Drive(drive)\n    files = fs.list()[\"names\"]\n    pre_file, next_file = get_neighbors(files, file)\n    return render_template(\n        \"player.html\",\n        drive=drive,\n        filename=file,\n        deta_key=DETA_KEY,\n        pre_file=pre_file,",
         "detail": "deta.src.app",
         "documentation": {}
     },
@@ -288,7 +288,7 @@
         "kind": 2,
         "importPath": "deta.src.app",
         "description": "deta.src.app",
-        "peekOfCode": "def delete_route(drive, folder, file):\n    target_file = folder + \"/\" + file\n    fs = deta.Drive(drive)\n    fs.delete(target_file)\n    return jsonify(status=\"success\", message=f\"file {target_file} deleted successful\")\n@app.route(\"/<drive>/<folder>\", methods=[\"GET\"])\n@app.route(\"/<drive>/root\", methods=[\"GET\"])\ndef list_files(drive, folder=None):\n    fs = deta.Drive(drive)\n    files = fs.list()[\"names\"]",
+        "peekOfCode": "def delete_route(drive, file):\n    fs = deta.Drive(drive)\n    fs.delete(file)\n    return jsonify(status=\"success\", message=f\"file {file} deleted successful\")\n@app.route(\"/<drive>/json\", methods=[\"GET\"])\ndef list_files(drive):\n    fs = deta.Drive(drive)\n    files = fs.list()[\"names\"]\n    return jsonify(files=files)",
         "detail": "deta.src.app",
         "documentation": {}
     },
@@ -297,7 +297,7 @@
         "kind": 2,
         "importPath": "deta.src.app",
         "description": "deta.src.app",
-        "peekOfCode": "def list_files(drive, folder=None):\n    fs = deta.Drive(drive)\n    files = fs.list()[\"names\"]\n    if folder:\n        files = [file for file in files if file.startswith(folder)]\n    return jsonify(files=files)",
+        "peekOfCode": "def list_files(drive):\n    fs = deta.Drive(drive)\n    files = fs.list()[\"names\"]\n    return jsonify(files=files)",
         "detail": "deta.src.app",
         "documentation": {}
     },
@@ -360,7 +360,7 @@
         "kind": 2,
         "importPath": "src.app",
         "description": "src.app",
-        "peekOfCode": "def index(drive=\"files\"):\n    fs = deta.Drive(drive)\n    files = fs.list()[\"names\"]\n    return render_template(\"index.html\", files=files, drive=drive)\n@app.route(\"/<drive>/<folder>/<file>\", methods=[\"GET\"])\ndef play_file(drive, folder, file):\n    target_file = folder + \"/\" + file\n    fs = deta.Drive(drive)\n    files = fs.list()[\"names\"]\n    pre_file, next_file = get_neighbors(files, target_file)",
+        "peekOfCode": "def index(drive=\"files\"):\n    fs = deta.Drive(drive)\n    files = fs.list()[\"names\"]\n    return render_template(\"index.html\", files=files, drive=drive)\n@app.route(\"/<drive>/<file>\", methods=[\"GET\"])\ndef play_file(drive, file):\n    fs = deta.Drive(drive)\n    files = fs.list()[\"names\"]\n    pre_file, next_file = get_neighbors(files, file)\n    return render_template(",
         "detail": "src.app",
         "documentation": {}
     },
@@ -369,7 +369,7 @@
         "kind": 2,
         "importPath": "src.app",
         "description": "src.app",
-        "peekOfCode": "def play_file(drive, folder, file):\n    target_file = folder + \"/\" + file\n    fs = deta.Drive(drive)\n    files = fs.list()[\"names\"]\n    pre_file, next_file = get_neighbors(files, target_file)\n    return render_template(\n        \"player.html\",\n        drive=drive,\n        filename=target_file,\n        deta_key=deta_key,",
+        "peekOfCode": "def play_file(drive, file):\n    fs = deta.Drive(drive)\n    files = fs.list()[\"names\"]\n    pre_file, next_file = get_neighbors(files, file)\n    return render_template(\n        \"player.html\",\n        drive=drive,\n        filename=file,\n        deta_key=deta_key,\n        pre_file=pre_file,",
         "detail": "src.app",
         "documentation": {}
     },
@@ -378,7 +378,7 @@
         "kind": 2,
         "importPath": "src.app",
         "description": "src.app",
-        "peekOfCode": "def delete_route(drive, folder, filename):\n    fs = deta.Drive(drive)\n    target_file = folder + \"/\" + filename\n    fs.delete(target_file)\n    return jsonify(status=\"success\", message=f\"file {target_file} deleted successful\")\n@app.route(\"/<drive>/<folder>\", methods=[\"POST\"])\n@app.route(\"/<drive>\", methods=[\"POST\"])\ndef upload_file(drive, folder=None):\n    fs = deta.Drive(drive)\n    if request.files:",
+        "peekOfCode": "def delete_route(drive, folder, file):\n    fs = deta.Drive(drive)\n    fs.delete(file)\n    return jsonify(status=\"success\", message=f\"file {file} deleted successful\")\n@app.route(\"/<drive>\", methods=[\"POST\"])\ndef upload_file(drive):\n    fs = deta.Drive(drive)\n    if request.files:\n        file = request.files[\"file\"]\n        filename = file.filename",
         "detail": "src.app",
         "documentation": {}
     },
@@ -387,7 +387,7 @@
         "kind": 2,
         "importPath": "src.app",
         "description": "src.app",
-        "peekOfCode": "def upload_file(drive, folder=None):\n    fs = deta.Drive(drive)\n    if request.files:\n        file = request.files[\"file\"]\n        filename = file.filename\n        if folder:\n            filename = folder + \"/\" + filename\n        fs.put(filename, file.read())\n        return jsonify(\n            status=\"success\", message=f\"file {file.filename} upload completed\"",
+        "peekOfCode": "def upload_file(drive):\n    fs = deta.Drive(drive)\n    if request.files:\n        file = request.files[\"file\"]\n        filename = file.filename\n        fs.put(filename, file.read())\n        return jsonify(\n            status=\"success\", message=f\"file {file.filename} upload completed\"\n        )\n    else:",
         "detail": "src.app",
         "documentation": {}
     },
@@ -396,7 +396,7 @@
         "kind": 2,
         "importPath": "src.app",
         "description": "src.app",
-        "peekOfCode": "def list_files(drive, folder=None):\n    fs = deta.Drive(drive)\n    files = fs.list()[\"names\"]\n    if folder:\n        files = [file for file in files if file.startswith(folder)]\n    return jsonify(files=files)",
+        "peekOfCode": "def list_files(drive):\n    fs = deta.Drive(drive)\n    files = fs.list()[\"names\"]\n    return jsonify(files=files)",
         "detail": "src.app",
         "documentation": {}
     },

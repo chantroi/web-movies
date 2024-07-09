@@ -27,35 +27,30 @@ def index(drive="files"):
     return render_template("index.html", files=files, drive=drive)
 
 
-@app.route("/<drive>/<folder>/<file>", methods=["GET"])
-def play_file(drive, folder, file):
-    target_file = folder + "/" + file
+@app.route("/<drive>/<file>", methods=["GET"])
+def play_file(drive, file):
     fs = deta.Drive(drive)
     files = fs.list()["names"]
-    pre_file, next_file = get_neighbors(files, target_file)
+    pre_file, next_file = get_neighbors(files, file)
     return render_template(
         "player.html",
         drive=drive,
-        filename=target_file,
+        filename=file,
         deta_key=DETA_KEY,
         pre_file=pre_file,
         next_file=next_file,
     )
 
 
-@app.route("/<drive>/<folder>/<file>", methods=["DELETE"])
-def delete_route(drive, folder, file):
-    target_file = folder + "/" + file
+@app.route("/<drive>/<file>", methods=["DELETE"])
+def delete_route(drive, file):
     fs = deta.Drive(drive)
-    fs.delete(target_file)
-    return jsonify(status="success", message=f"file {target_file} deleted successful")
+    fs.delete(file)
+    return jsonify(status="success", message=f"file {file} deleted successful")
 
 
-@app.route("/<drive>/<folder>", methods=["GET"])
-@app.route("/<drive>/root", methods=["GET"])
-def list_files(drive, folder=None):
+@app.route("/<drive>/json", methods=["GET"])
+def list_files(drive):
     fs = deta.Drive(drive)
     files = fs.list()["names"]
-    if folder:
-        files = [file for file in files if file.startswith(folder)]
     return jsonify(files=files)
