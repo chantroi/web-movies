@@ -215,15 +215,6 @@
         "documentation": {}
     },
     {
-        "label": "pyrogram",
-        "kind": 6,
-        "isExtraImport": true,
-        "importPath": "pyrogram",
-        "description": "pyrogram",
-        "detail": "pyrogram",
-        "documentation": {}
-    },
-    {
         "label": "Client",
         "importPath": "pyrogram",
         "description": "pyrogram",
@@ -542,33 +533,6 @@
         "description": "main",
         "peekOfCode": "application = app",
         "detail": "main",
-        "documentation": {}
-    },
-    {
-        "label": "deta",
-        "kind": 5,
-        "importPath": "task",
-        "description": "task",
-        "peekOfCode": "deta = deta.Deta(\"c0kEEGmHJte_YjH9AKDzdmP4tm6Zyge3Fme9KyMRNwXB\")\nbot = pyrogram.Client(\n    \"uploader\",\n    21021245,\n    \"7b32ea92719781c5e22ede319c5dbde5\",\n    bot_token=\"5846865945:AAFdGzRy-1-KZXZOm1je_oR-LQTsCOCHfqI\",\n)\ndrive = deta.Drive(\"files\")\nbot.start()\nfor i in range(1, 1672):",
-        "detail": "task",
-        "documentation": {}
-    },
-    {
-        "label": "bot",
-        "kind": 5,
-        "importPath": "task",
-        "description": "task",
-        "peekOfCode": "bot = pyrogram.Client(\n    \"uploader\",\n    21021245,\n    \"7b32ea92719781c5e22ede319c5dbde5\",\n    bot_token=\"5846865945:AAFdGzRy-1-KZXZOm1je_oR-LQTsCOCHfqI\",\n)\ndrive = deta.Drive(\"files\")\nbot.start()\nfor i in range(1, 1672):\n    m = bot.get_messages(\"contentdownload\", i)",
-        "detail": "task",
-        "documentation": {}
-    },
-    {
-        "label": "drive",
-        "kind": 5,
-        "importPath": "task",
-        "description": "task",
-        "peekOfCode": "drive = deta.Drive(\"files\")\nbot.start()\nfor i in range(1, 1672):\n    m = bot.get_messages(\"contentdownload\", i)\n    if m.video:\n        print(i)\n        video = bot.download_media(m, in_memory=True)\n        name = video.name\n        drive.put(name, video.getvalue())\n        print(name)",
-        "detail": "task",
         "documentation": {}
     }
 ]
