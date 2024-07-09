@@ -1,5 +1,57 @@
 [
     {
+        "label": "sys",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "sys",
+        "description": "sys",
+        "detail": "sys",
+        "documentation": {}
+    },
+    {
+        "label": "json",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "json",
+        "description": "json",
+        "detail": "json",
+        "documentation": {}
+    },
+    {
+        "label": "argparse",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "argparse",
+        "description": "argparse",
+        "detail": "argparse",
+        "documentation": {}
+    },
+    {
+        "label": "pformat",
+        "importPath": "pprint",
+        "description": "pprint",
+        "isExtraImport": true,
+        "detail": "pprint",
+        "documentation": {}
+    },
+    {
+        "label": "jmespath",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "jmespath",
+        "description": "jmespath",
+        "detail": "jmespath",
+        "documentation": {}
+    },
+    {
+        "label": "exceptions",
+        "importPath": "jmespath",
+        "description": "jmespath",
+        "isExtraImport": true,
+        "detail": "jmespath",
+        "documentation": {}
+    },
+    {
         "label": "os",
         "kind": 6,
         "isExtraImport": true,
@@ -154,38 +206,6 @@
         "documentation": {}
     },
     {
-        "label": "s3_endpoint",
-        "importPath": "environment",
-        "description": "environment",
-        "isExtraImport": true,
-        "detail": "environment",
-        "documentation": {}
-    },
-    {
-        "label": "s3_key",
-        "importPath": "environment",
-        "description": "environment",
-        "isExtraImport": true,
-        "detail": "environment",
-        "documentation": {}
-    },
-    {
-        "label": "s3_secret",
-        "importPath": "environment",
-        "description": "environment",
-        "isExtraImport": true,
-        "detail": "environment",
-        "documentation": {}
-    },
-    {
-        "label": "deta_key",
-        "importPath": "environment",
-        "description": "environment",
-        "isExtraImport": true,
-        "detail": "environment",
-        "documentation": {}
-    },
-    {
         "label": "boto3",
         "kind": 6,
         "isExtraImport": true,
@@ -228,12 +248,12 @@
         "documentation": {}
     },
     {
-        "label": "s3fs",
-        "kind": 6,
-        "isExtraImport": true,
-        "importPath": "s3fs",
-        "description": "s3fs",
-        "detail": "s3fs",
+        "label": "main",
+        "kind": 2,
+        "importPath": ".venv.bin.jp",
+        "description": ".venv.bin.jp",
+        "peekOfCode": "def main():\n    parser = argparse.ArgumentParser()\n    parser.add_argument('expression')\n    parser.add_argument('-f', '--filename',\n                        help=('The filename containing the input data.  '\n                              'If a filename is not given then data is '\n                              'read from stdin.'))\n    parser.add_argument('--ast', action='store_true',\n                        help=('Pretty print the AST, do not search the data.'))\n    args = parser.parse_args()",
+        "detail": ".venv.bin.jp",
         "documentation": {}
     },
     {
@@ -513,33 +533,6 @@
         "description": "main",
         "peekOfCode": "application = app",
         "detail": "main",
-        "documentation": {}
-    },
-    {
-        "label": "fs",
-        "kind": 5,
-        "importPath": "task",
-        "description": "task",
-        "peekOfCode": "fs = deta.Deta(deta_key).Drive(\"files\")\ns3 = s3fs.S3FileSystem(\n    key=s3_key, secret=s3_secret, client_kwargs={\"endpoint_url\": s3_endpoint}\n)\nfiles = fs.list()[\"names\"]\nfor file in s3.ls(\"storage/video\"):\n    name = file.split(\"/\", 1)[1]\n    if name in files:\n        continue\n    with s3.open(file, \"rb\") as f:",
-        "detail": "task",
-        "documentation": {}
-    },
-    {
-        "label": "s3",
-        "kind": 5,
-        "importPath": "task",
-        "description": "task",
-        "peekOfCode": "s3 = s3fs.S3FileSystem(\n    key=s3_key, secret=s3_secret, client_kwargs={\"endpoint_url\": s3_endpoint}\n)\nfiles = fs.list()[\"names\"]\nfor file in s3.ls(\"storage/video\"):\n    name = file.split(\"/\", 1)[1]\n    if name in files:\n        continue\n    with s3.open(file, \"rb\") as f:\n        data = f.read()",
-        "detail": "task",
-        "documentation": {}
-    },
-    {
-        "label": "files",
-        "kind": 5,
-        "importPath": "task",
-        "description": "task",
-        "peekOfCode": "files = fs.list()[\"names\"]\nfor file in s3.ls(\"storage/video\"):\n    name = file.split(\"/\", 1)[1]\n    if name in files:\n        continue\n    with s3.open(file, \"rb\") as f:\n        data = f.read()\n    fs.put(name, data, content_type=\"video/mp4\")\n    print(f\"Uploaded {name} to {name}\")\nprint(\"Upload completed\")",
-        "detail": "task",
         "documentation": {}
     }
 ]
