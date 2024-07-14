@@ -44,7 +44,9 @@ def upload(c: Client, m: Message):
             Key="video/" + file.name,
             ExtraArgs={"ACL": "public-read", "ContentType": "video/mp4"},
         )
-        m.reply(f"Uploaded {file.name} to {file.name}", quote=True)
+        m.reply(f"Uploaded {file.name}", quote=True)
+    else:
+        m.reply("Reply to a message with /upload", quote=True)
 
 
 print("Bot started")
