@@ -1,38 +1,5 @@
 [
     {
-        "label": "os",
-        "kind": 6,
-        "isExtraImport": true,
-        "importPath": "os",
-        "description": "os",
-        "detail": "os",
-        "documentation": {}
-    },
-    {
-        "label": "Flask",
-        "importPath": "flask",
-        "description": "flask",
-        "isExtraImport": true,
-        "detail": "flask",
-        "documentation": {}
-    },
-    {
-        "label": "render_template",
-        "importPath": "flask",
-        "description": "flask",
-        "isExtraImport": true,
-        "detail": "flask",
-        "documentation": {}
-    },
-    {
-        "label": "jsonify",
-        "importPath": "flask",
-        "description": "flask",
-        "isExtraImport": true,
-        "detail": "flask",
-        "documentation": {}
-    },
-    {
         "label": "Flask",
         "importPath": "flask",
         "description": "flask",
@@ -79,30 +46,6 @@
         "description": "deta",
         "isExtraImport": true,
         "detail": "deta",
-        "documentation": {}
-    },
-    {
-        "label": "Deta",
-        "importPath": "deta",
-        "description": "deta",
-        "isExtraImport": true,
-        "detail": "deta",
-        "documentation": {}
-    },
-    {
-        "label": "app",
-        "importPath": "src.app",
-        "description": "src.app",
-        "isExtraImport": true,
-        "detail": "src.app",
-        "documentation": {}
-    },
-    {
-        "label": "app",
-        "importPath": "src.app",
-        "description": "src.app",
-        "isExtraImport": true,
-        "detail": "src.app",
         "documentation": {}
     },
     {
@@ -187,6 +130,15 @@
         "documentation": {}
     },
     {
+        "label": "os",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "os",
+        "description": "os",
+        "detail": "os",
+        "documentation": {}
+    },
+    {
         "label": "requests",
         "kind": 6,
         "isExtraImport": true,
@@ -196,93 +148,11 @@
         "documentation": {}
     },
     {
-        "label": "get_neighbors",
-        "kind": 2,
-        "importPath": "deta.src.app",
-        "description": "deta.src.app",
-        "peekOfCode": "def get_neighbors(lst, element):\n    if element in lst:\n        indx = lst.index(element)\n        return lst[indx - 1] if indx > 0 else None, (\n            lst[indx + 1] if indx < len(lst) - 1 else None\n        )\n    else:\n        return None, None\n@app.route(\"/\")\n@app.route(\"/<drive>\")",
-        "detail": "deta.src.app",
-        "documentation": {}
-    },
-    {
-        "label": "index",
-        "kind": 2,
-        "importPath": "deta.src.app",
-        "description": "deta.src.app",
-        "peekOfCode": "def index(drive=\"files\"):\n    fs = deta.Drive(drive)\n    files = fs.list()[\"names\"]\n    return render_template(\"index.html\", files=files, drive=drive)\n@app.route(\"/<drive>/<file>\", methods=[\"GET\"])\ndef play_file(drive, file):\n    fs = deta.Drive(drive)\n    files = fs.list()[\"names\"]\n    pre_file, next_file = get_neighbors(files, file)\n    return render_template(",
-        "detail": "deta.src.app",
-        "documentation": {}
-    },
-    {
-        "label": "play_file",
-        "kind": 2,
-        "importPath": "deta.src.app",
-        "description": "deta.src.app",
-        "peekOfCode": "def play_file(drive, file):\n    fs = deta.Drive(drive)\n    files = fs.list()[\"names\"]\n    pre_file, next_file = get_neighbors(files, file)\n    return render_template(\n        \"player.html\",\n        drive=drive,\n        filename=file,\n        deta_key=DETA_KEY,\n        pre_file=pre_file,",
-        "detail": "deta.src.app",
-        "documentation": {}
-    },
-    {
-        "label": "delete_route",
-        "kind": 2,
-        "importPath": "deta.src.app",
-        "description": "deta.src.app",
-        "peekOfCode": "def delete_route(drive, file):\n    fs = deta.Drive(drive)\n    fs.delete(file)\n    return jsonify(status=\"success\", message=f\"file {file} deleted successful\")\n@app.route(\"/<drive>/json\", methods=[\"GET\"])\ndef list_files(drive):\n    fs = deta.Drive(drive)\n    files = fs.list()[\"names\"]\n    return jsonify(files=files)",
-        "detail": "deta.src.app",
-        "documentation": {}
-    },
-    {
-        "label": "list_files",
-        "kind": 2,
-        "importPath": "deta.src.app",
-        "description": "deta.src.app",
-        "peekOfCode": "def list_files(drive):\n    fs = deta.Drive(drive)\n    files = fs.list()[\"names\"]\n    return jsonify(files=files)",
-        "detail": "deta.src.app",
-        "documentation": {}
-    },
-    {
-        "label": "DETA_PROJECT_KEY",
-        "kind": 5,
-        "importPath": "deta.src.app",
-        "description": "deta.src.app",
-        "peekOfCode": "DETA_PROJECT_KEY = os.environ[\"DETA_PROJECT_KEY\"]\nDETA_KEY = os.getenv(\"DETA_KEY\", DETA_PROJECT_KEY)\napp = Flask(__name__)\ndeta = Deta(DETA_KEY)\ndef get_neighbors(lst, element):\n    if element in lst:\n        indx = lst.index(element)\n        return lst[indx - 1] if indx > 0 else None, (\n            lst[indx + 1] if indx < len(lst) - 1 else None\n        )",
-        "detail": "deta.src.app",
-        "documentation": {}
-    },
-    {
-        "label": "DETA_KEY",
-        "kind": 5,
-        "importPath": "deta.src.app",
-        "description": "deta.src.app",
-        "peekOfCode": "DETA_KEY = os.getenv(\"DETA_KEY\", DETA_PROJECT_KEY)\napp = Flask(__name__)\ndeta = Deta(DETA_KEY)\ndef get_neighbors(lst, element):\n    if element in lst:\n        indx = lst.index(element)\n        return lst[indx - 1] if indx > 0 else None, (\n            lst[indx + 1] if indx < len(lst) - 1 else None\n        )\n    else:",
-        "detail": "deta.src.app",
-        "documentation": {}
-    },
-    {
         "label": "app",
-        "kind": 5,
-        "importPath": "deta.src.app",
-        "description": "deta.src.app",
-        "peekOfCode": "app = Flask(__name__)\ndeta = Deta(DETA_KEY)\ndef get_neighbors(lst, element):\n    if element in lst:\n        indx = lst.index(element)\n        return lst[indx - 1] if indx > 0 else None, (\n            lst[indx + 1] if indx < len(lst) - 1 else None\n        )\n    else:\n        return None, None",
-        "detail": "deta.src.app",
-        "documentation": {}
-    },
-    {
-        "label": "deta",
-        "kind": 5,
-        "importPath": "deta.src.app",
-        "description": "deta.src.app",
-        "peekOfCode": "deta = Deta(DETA_KEY)\ndef get_neighbors(lst, element):\n    if element in lst:\n        indx = lst.index(element)\n        return lst[indx - 1] if indx > 0 else None, (\n            lst[indx + 1] if indx < len(lst) - 1 else None\n        )\n    else:\n        return None, None\n@app.route(\"/\")",
-        "detail": "deta.src.app",
-        "documentation": {}
-    },
-    {
-        "label": "application",
-        "kind": 5,
-        "importPath": "deta.main",
-        "description": "deta.main",
-        "peekOfCode": "application = app",
-        "detail": "deta.main",
+        "importPath": "src.app",
+        "description": "src.app",
+        "isExtraImport": true,
+        "detail": "src.app",
         "documentation": {}
     },
     {
@@ -427,15 +297,6 @@
         "description": "bot",
         "peekOfCode": "s3 = s3fs.S3FileSystem(\n    key=s3_key,\n    secret=s3_secret,\n    endpoint_url=s3_endpoint,\n)\ndef upload_to_s3(file_name, file_data):\n    s3_path = f\"bosuutap/video/{file_name}\"\n    with s3.open(s3_path, \"wb\") as s3_file:\n        s3_file.write(file_data)\n    s3.setxattr(s3_path, copy_kwargs={\"ContentType\": \"video/mp4\"})",
         "detail": "bot",
-        "documentation": {}
-    },
-    {
-        "label": "secret_url",
-        "kind": 5,
-        "importPath": "environment",
-        "description": "environment",
-        "peekOfCode": "secret_url = os.environ.get(\"SECRET\")\nif secret_url:\n    response = requests.get(secret_url, timeout=5)\n    data = response.json()\n    deta_key = data[\"deta\"][\"sm\"]\n    s3_endpoint = data[\"s3\"][\"idrive\"][\"endpoint\"]\n    s3_key = data[\"s3\"][\"idrive\"][\"key\"]\n    s3_secret = data[\"s3\"][\"idrive\"][\"secret\"]\n    bot_token = data[\"bot\"][\"tiktokdouyin\"]\nelse:",
-        "detail": "environment",
         "documentation": {}
     },
     {

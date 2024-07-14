@@ -30,6 +30,7 @@ def index(drive="files"):
         files.extend(res["names"])
         if not res["paging"].get("last"):
             break
+        last = res["paging"]["last"]
     return render_template("index.html", files=files, drive=drive)
 
 
@@ -87,4 +88,5 @@ def list_files(drive):
         files.extend(res["names"])
         if not res["paging"].get("last"):
             break
+        last = res["paging"]["last"]
     return jsonify(files=files)
