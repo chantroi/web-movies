@@ -380,7 +380,25 @@
         "kind": 2,
         "importPath": "bot",
         "description": "bot",
-        "peekOfCode": "def upload(c: Client, m: Message):\n    if m.reply_to_message:\n        file = c.download_media(m.reply_to_message, in_memory=True)\n        fs.put(file.name, file.getvalue())\n        upload_to_s3(file.name, file.getvalue())\n        m.reply(f\"Uploaded {file.name}\", quote=True)\n    else:\n        m.reply(\"Reply to a message with /upload\", quote=True)\nprint(\"Bot started\")\nbot.run()",
+        "peekOfCode": "def upload(c: Client, m: Message):\n    if m.reply_to_message:\n        file = c.download_media(m.reply_to_message, in_memory=True)\n        fs.put(file.name, file.getvalue())\n        upload_to_s3(file.name, file.getvalue())\n        m.reply(f\"Uploaded {file.name}\", quote=True)\n    else:\n        m.reply(\"Reply to a message with /upload\", quote=True)\n@bot.on_message(filters.command(\"upload_s3\"))\ndef upload_s3(c: Client, m: Message):",
+        "detail": "bot",
+        "documentation": {}
+    },
+    {
+        "label": "upload_s3",
+        "kind": 2,
+        "importPath": "bot",
+        "description": "bot",
+        "peekOfCode": "def upload_s3(c: Client, m: Message):\n    if m.reply_to_message:\n        file = c.download_media(m.reply_to_message, in_memory=True)\n        upload_to_s3(file.name, file.getvalue())\n        m.reply(f\"Uploaded {file.name}\", quote=True)\n    else:\n        m.reply(\"Reply to a message with /upload_s3\", quote=True)\n@bot.on_message(filters.command(\"delete_file\"))\ndef delete_file(c: Client, m: Message):\n    if len(m.command) >= 2:",
+        "detail": "bot",
+        "documentation": {}
+    },
+    {
+        "label": "delete_file",
+        "kind": 2,
+        "importPath": "bot",
+        "description": "bot",
+        "peekOfCode": "def delete_file(c: Client, m: Message):\n    if len(m.command) >= 2:\n        filename = m.command[1]\n        fs.delete(filename)\n        m.reply(f\"Deleted {filename}\", quote=True)\n    else:\n        m.reply(\"Provide a filename with /delete_file\", quote=True)\nprint(\"Bot started\")\nbot.run()",
         "detail": "bot",
         "documentation": {}
     },

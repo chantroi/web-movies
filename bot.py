@@ -46,5 +46,26 @@ def upload(c: Client, m: Message):
         m.reply("Reply to a message with /upload", quote=True)
 
 
+@bot.on_message(filters.command("upload_s3"))
+def upload_s3(c: Client, m: Message):
+    if m.reply_to_message:
+        file = c.download_media(m.reply_to_message, in_memory=True)
+        upload_to_s3(file.name, file.getvalue())
+
+        m.reply(f"Uploaded {file.name}", quote=True)
+    else:
+        m.reply("Reply to a message with /upload_s3", quote=True)
+
+
+@bot.on_message(filters.command("delete_file"))
+def delete_file(c: Client, m: Message):
+    if len(m.command) >= 2:
+        filename = m.command[1]
+        fs.delete(filename)
+        m.reply(f"Deleted {filename}", quote=True)
+    else:
+        m.reply("Provide a filename with /delete_file", quote=True)
+
+
 print("Bot started")
 bot.run()
