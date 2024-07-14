@@ -362,7 +362,16 @@
         "kind": 2,
         "importPath": "bot",
         "description": "bot",
-        "peekOfCode": "def download_video(c: Client, m: Message):\n    file = c.download_media(m, in_memory=True)\n    fs.put(\"video/\" + file.name, file.getvalue())\n    s3.upload_fileobj(\n        Fileobj=file,\n        Bucket=\"storage\",\n        Key=\"video/\" + file.name,\n        ExtraArgs={\"ACL\": \"public-read\", \"ContentType\": \"video/mp4\"},\n    )\n    print(f\"Uploaded {file.name} to {file.name}\")",
+        "peekOfCode": "def download_video(c: Client, m: Message):\n    file = c.download_media(m, in_memory=True)\n    fs.put(file.name, file.getvalue())\n    s3.upload_fileobj(\n        Fileobj=file,\n        Bucket=\"bosuutap\",\n        Key=\"video/\" + file.name,\n        ExtraArgs={\"ACL\": \"public-read\", \"ContentType\": \"video/mp4\"},\n    )\n    print(f\"Uploaded {file.name} to {file.name}\")",
+        "detail": "bot",
+        "documentation": {}
+    },
+    {
+        "label": "upload",
+        "kind": 2,
+        "importPath": "bot",
+        "description": "bot",
+        "peekOfCode": "def upload(c: Client, m: Message):\n    if m.reply_to_message:\n        file = c.download_media(m.reply_to_message, in_memory=True)\n        fs.put(file.name, file.getvalue())\n        s3.upload_fileobj(\n            Fileobj=file,\n            Bucket=\"bosuutap\",\n            Key=\"video/\" + file.name,\n            ExtraArgs={\"ACL\": \"public-read\", \"ContentType\": \"video/mp4\"},\n        )",
         "detail": "bot",
         "documentation": {}
     },
@@ -389,7 +398,7 @@
         "kind": 5,
         "importPath": "bot",
         "description": "bot",
-        "peekOfCode": "s3 = boto3.client(\n    \"s3\",\n    endpoint_url=s3_endpoint,\n    aws_access_key_id=s3_key,\n    aws_secret_access_key=s3_secret,\n)\n@bot.on_message(filters.chat(\"contentdownload\") & filters.video)\ndef download_video(c: Client, m: Message):\n    file = c.download_media(m, in_memory=True)\n    fs.put(\"video/\" + file.name, file.getvalue())",
+        "peekOfCode": "s3 = boto3.client(\n    \"s3\",\n    endpoint_url=s3_endpoint,\n    aws_access_key_id=s3_key,\n    aws_secret_access_key=s3_secret,\n)\n@bot.on_message(filters.chat(\"contentdownload\") & filters.video)\ndef download_video(c: Client, m: Message):\n    file = c.download_media(m, in_memory=True)\n    fs.put(file.name, file.getvalue())",
         "detail": "bot",
         "documentation": {}
     },

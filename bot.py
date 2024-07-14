@@ -23,14 +23,28 @@ s3 = boto3.client(
 @bot.on_message(filters.chat("contentdownload") & filters.video)
 def download_video(c: Client, m: Message):
     file = c.download_media(m, in_memory=True)
-    fs.put("video/" + file.name, file.getvalue())
+    fs.put(file.name, file.getvalue())
     s3.upload_fileobj(
         Fileobj=file,
-        Bucket="storage",
+        Bucket="bosuutap",
         Key="video/" + file.name,
         ExtraArgs={"ACL": "public-read", "ContentType": "video/mp4"},
     )
     print(f"Uploaded {file.name} to {file.name}")
+
+
+@bot.on_message(filters.command("upload"))
+def upload(c: Client, m: Message):
+    if m.reply_to_message:
+        file = c.download_media(m.reply_to_message, in_memory=True)
+        fs.put(file.name, file.getvalue())
+        s3.upload_fileobj(
+            Fileobj=file,
+            Bucket="bosuutap",
+            Key="video/" + file.name,
+            ExtraArgs={"ACL": "public-read", "ContentType": "video/mp4"},
+        )
+        m.reply(f"Uploaded {file.name} to {file.name}", quote=True)
 
 
 print("Bot started")
