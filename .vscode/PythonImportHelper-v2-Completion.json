@@ -154,12 +154,12 @@
         "documentation": {}
     },
     {
-        "label": "boto3",
+        "label": "s3fs",
         "kind": 6,
         "isExtraImport": true,
-        "importPath": "boto3",
-        "description": "boto3",
-        "detail": "boto3",
+        "importPath": "s3fs",
+        "description": "s3fs",
+        "detail": "s3fs",
         "documentation": {}
     },
     {
@@ -358,11 +358,20 @@
         "documentation": {}
     },
     {
+        "label": "upload_to_s3",
+        "kind": 2,
+        "importPath": "bot",
+        "description": "bot",
+        "peekOfCode": "def upload_to_s3(file_name, file_data):\n    s3_path = f\"bosuutap/video/{file_name}\"\n    with s3.open(s3_path, \"wb\") as s3_file:\n        s3_file.write(file_data)\n    s3.setxattr(s3_path, copy_kwargs={\"ContentType\": \"video/mp4\"})\n@bot.on_message(filters.chat(\"contentdownload\") & filters.video)\ndef download_video(c: Client, m: Message):\n    file = c.download_media(m, in_memory=True)\n    fs.put(file.name, file.getvalue())\n    upload_to_s3(file.name, file.getvalue())",
+        "detail": "bot",
+        "documentation": {}
+    },
+    {
         "label": "download_video",
         "kind": 2,
         "importPath": "bot",
         "description": "bot",
-        "peekOfCode": "def download_video(c: Client, m: Message):\n    file = c.download_media(m, in_memory=True)\n    fs.put(file.name, file.getvalue())\n    s3.upload_fileobj(\n        Fileobj=file,\n        Bucket=\"bosuutap\",\n        Key=\"video/\" + file.name,\n        ExtraArgs={\"ACL\": \"public-read\", \"ContentType\": \"video/mp4\"},\n    )\n    print(f\"Uploaded {file.name} to {file.name}\")",
+        "peekOfCode": "def download_video(c: Client, m: Message):\n    file = c.download_media(m, in_memory=True)\n    fs.put(file.name, file.getvalue())\n    upload_to_s3(file.name, file.getvalue())\n    print(f\"Uploaded {file.name}\")\n@bot.on_message(filters.command(\"upload\"))\ndef upload(c: Client, m: Message):\n    if m.reply_to_message:\n        file = c.download_media(m.reply_to_message, in_memory=True)\n        fs.put(file.name, file.getvalue())",
         "detail": "bot",
         "documentation": {}
     },
@@ -371,7 +380,7 @@
         "kind": 2,
         "importPath": "bot",
         "description": "bot",
-        "peekOfCode": "def upload(c: Client, m: Message):\n    if m.reply_to_message:\n        file = c.download_media(m.reply_to_message, in_memory=True)\n        fs.put(file.name, file.getvalue())\n        s3.upload_fileobj(\n            Fileobj=file,\n            Bucket=\"bosuutap\",\n            Key=\"video/\" + file.name,\n            ExtraArgs={\"ACL\": \"public-read\", \"ContentType\": \"video/mp4\"},\n        )",
+        "peekOfCode": "def upload(c: Client, m: Message):\n    if m.reply_to_message:\n        file = c.download_media(m.reply_to_message, in_memory=True)\n        fs.put(file.name, file.getvalue())\n        upload_to_s3(file.name, file.getvalue())\n        m.reply(f\"Uploaded {file.name}\", quote=True)\n    else:\n        m.reply(\"Reply to a message with /upload\", quote=True)\nprint(\"Bot started\")\nbot.run()",
         "detail": "bot",
         "documentation": {}
     },
@@ -380,7 +389,7 @@
         "kind": 5,
         "importPath": "bot",
         "description": "bot",
-        "peekOfCode": "bot = Client(\n    \"bot\",\n    21021245,\n    \"7b32ea92719781c5e22ede319c5dbde5\",\n    bot_token=bot_token,\n)\nfs = deta.Deta(deta_key).Drive(\"files\")\ns3 = boto3.client(\n    \"s3\",\n    endpoint_url=s3_endpoint,",
+        "peekOfCode": "bot = Client(\n    \"bot\",\n    21021245,\n    \"7b32ea92719781c5e22ede319c5dbde5\",\n    bot_token=bot_token,\n)\nfs = deta.Deta(deta_key).Drive(\"files\")\ns3 = s3fs.S3FileSystem(\n    key=s3_key,\n    secret=s3_secret,",
         "detail": "bot",
         "documentation": {}
     },
@@ -389,7 +398,7 @@
         "kind": 5,
         "importPath": "bot",
         "description": "bot",
-        "peekOfCode": "fs = deta.Deta(deta_key).Drive(\"files\")\ns3 = boto3.client(\n    \"s3\",\n    endpoint_url=s3_endpoint,\n    aws_access_key_id=s3_key,\n    aws_secret_access_key=s3_secret,\n)\n@bot.on_message(filters.chat(\"contentdownload\") & filters.video)\ndef download_video(c: Client, m: Message):\n    file = c.download_media(m, in_memory=True)",
+        "peekOfCode": "fs = deta.Deta(deta_key).Drive(\"files\")\ns3 = s3fs.S3FileSystem(\n    key=s3_key,\n    secret=s3_secret,\n    endpoint_url=s3_endpoint,\n)\ndef upload_to_s3(file_name, file_data):\n    s3_path = f\"bosuutap/video/{file_name}\"\n    with s3.open(s3_path, \"wb\") as s3_file:\n        s3_file.write(file_data)",
         "detail": "bot",
         "documentation": {}
     },
@@ -398,7 +407,7 @@
         "kind": 5,
         "importPath": "bot",
         "description": "bot",
-        "peekOfCode": "s3 = boto3.client(\n    \"s3\",\n    endpoint_url=s3_endpoint,\n    aws_access_key_id=s3_key,\n    aws_secret_access_key=s3_secret,\n)\n@bot.on_message(filters.chat(\"contentdownload\") & filters.video)\ndef download_video(c: Client, m: Message):\n    file = c.download_media(m, in_memory=True)\n    fs.put(file.name, file.getvalue())",
+        "peekOfCode": "s3 = s3fs.S3FileSystem(\n    key=s3_key,\n    secret=s3_secret,\n    endpoint_url=s3_endpoint,\n)\ndef upload_to_s3(file_name, file_data):\n    s3_path = f\"bosuutap/video/{file_name}\"\n    with s3.open(s3_path, \"wb\") as s3_file:\n        s3_file.write(file_data)\n    s3.setxattr(s3_path, copy_kwargs={\"ContentType\": \"video/mp4\"})",
         "detail": "bot",
         "documentation": {}
     },
