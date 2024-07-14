@@ -299,7 +299,7 @@
         "kind": 2,
         "importPath": "src.app",
         "description": "src.app",
-        "peekOfCode": "def index(drive=\"files\"):\n    fs = deta.Drive(drive)\n    files = fs.list()[\"names\"]\n    return render_template(\"index.html\", files=files, drive=drive)\n@app.route(\"/<drive>/<file>\", methods=[\"GET\"])\ndef play_file(drive, file):\n    fs = deta.Drive(drive)\n    files = fs.list()[\"names\"]\n    pre_file, next_file = get_neighbors(files, file)\n    return render_template(",
+        "peekOfCode": "def index(drive=\"files\"):\n    fs = deta.Drive(drive)\n    files = []\n    last = None\n    while True:\n        if last:\n            res = fs.list(last=last)\n        else:\n            res = fs.list()\n        files.extend(res[\"names\"])",
         "detail": "src.app",
         "documentation": {}
     },
@@ -317,7 +317,7 @@
         "kind": 2,
         "importPath": "src.app",
         "description": "src.app",
-        "peekOfCode": "def delete_route(drive, folder, file):\n    fs = deta.Drive(drive)\n    fs.delete(file)\n    return jsonify(status=\"success\", message=f\"file {file} deleted successful\")\n@app.route(\"/<drive>\", methods=[\"POST\"])\ndef upload_file(drive):\n    fs = deta.Drive(drive)\n    if request.files:\n        file = request.files[\"file\"]\n        filename = file.filename",
+        "peekOfCode": "def delete_route(drive, file):\n    fs = deta.Drive(drive)\n    fs.delete(file)\n    return jsonify(status=\"success\", message=f\"file {file} deleted successful\")\n@app.route(\"/<drive>\", methods=[\"POST\"])\ndef upload_file(drive):\n    fs = deta.Drive(drive)\n    if request.files:\n        file = request.files[\"file\"]\n        filename = file.filename",
         "detail": "src.app",
         "documentation": {}
     },
@@ -335,7 +335,7 @@
         "kind": 2,
         "importPath": "src.app",
         "description": "src.app",
-        "peekOfCode": "def list_files(drive):\n    fs = deta.Drive(drive)\n    files = fs.list()[\"names\"]\n    return jsonify(files=files)",
+        "peekOfCode": "def list_files(drive):\n    fs = deta.Drive(drive)\n    files = []\n    last = None\n    while True:\n        if last:\n            res = fs.list(last=last)\n        else:\n            res = fs.list()\n        files.extend(res[\"names\"])",
         "detail": "src.app",
         "documentation": {}
     },

@@ -20,7 +20,16 @@ def get_neighbors(lst, element):
 @app.route("/<drive>")
 def index(drive="files"):
     fs = deta.Drive(drive)
-    files = fs.list()["names"]
+    files = []
+    last = None
+    while True:
+        if last:
+            res = fs.list(last=last)
+        else:
+            res = fs.list()
+        files.extend(res["names"])
+        if not res["paging"].get("last"):
+            break
     return render_template("index.html", files=files, drive=drive)
 
 
@@ -40,7 +49,7 @@ def play_file(drive, file):
 
 
 @app.route("/<drive>/<filename>", methods=["DELETE"])
-def delete_route(drive, folder, file):
+def delete_route(drive, file):
     fs = deta.Drive(drive)
     fs.delete(file)
     return jsonify(status="success", message=f"file {file} deleted successful")
@@ -65,8 +74,17 @@ def upload_file(drive):
         )
 
 
-@app.route("/<drive>/json")
+@app.route("/<drive>/list")
 def list_files(drive):
     fs = deta.Drive(drive)
-    files = fs.list()["names"]
+    files = []
+    last = None
+    while True:
+        if last:
+            res = fs.list(last=last)
+        else:
+            res = fs.list()
+        files.extend(res["names"])
+        if not res["paging"].get("last"):
+            break
     return jsonify(files=files)
