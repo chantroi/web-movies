@@ -1,13 +1,17 @@
 import os
 import requests
 
-secret_url = os.environ["SECRET"]
+secret_url = os.environ.get("SECRET")
 
-response = requests.get(secret_url)
-data = response.json()
+if secret_url:
+    response = requests.get(secret_url, timeout=5)
+    data = response.json()
+    deta_key = data["deta"]["sm"]
+    s3_endpoint = data["s3"]["idrive"]["endpoint"]
+    s3_key = data["s3"]["idrive"]["key"]
+    s3_secret = data["s3"]["idrive"]["secret"]
+    bot_token = data["bot"]["tiktokdouyin"]
 
-deta_key = data["deta"]["sm"]
-s3_endpoint = data["s3"]["idrive"]["endpoint"]
-s3_key = data["s3"]["idrive"]["key"]
-s3_secret = data["s3"]["idrive"]["secret"]
-bot_token = data["bot"]["tiktokdouyin"]
+else:
+    DETA_PROJECT_KEY = os.environ["DETA_PROJECT_KEY"]
+    deta_key = os.getenv("DETA_KEY", DETA_PROJECT_KEY)

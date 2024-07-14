@@ -434,70 +434,7 @@
         "kind": 5,
         "importPath": "environment",
         "description": "environment",
-        "peekOfCode": "secret_url = os.environ[\"SECRET\"]\nresponse = requests.get(secret_url)\ndata = response.json()\ndeta_key = data[\"deta\"][\"sm\"]\ns3_endpoint = data[\"s3\"][\"idrive\"][\"endpoint\"]\ns3_key = data[\"s3\"][\"idrive\"][\"key\"]\ns3_secret = data[\"s3\"][\"idrive\"][\"secret\"]\nbot_token = data[\"bot\"][\"tiktokdouyin\"]",
-        "detail": "environment",
-        "documentation": {}
-    },
-    {
-        "label": "response",
-        "kind": 5,
-        "importPath": "environment",
-        "description": "environment",
-        "peekOfCode": "response = requests.get(secret_url)\ndata = response.json()\ndeta_key = data[\"deta\"][\"sm\"]\ns3_endpoint = data[\"s3\"][\"idrive\"][\"endpoint\"]\ns3_key = data[\"s3\"][\"idrive\"][\"key\"]\ns3_secret = data[\"s3\"][\"idrive\"][\"secret\"]\nbot_token = data[\"bot\"][\"tiktokdouyin\"]",
-        "detail": "environment",
-        "documentation": {}
-    },
-    {
-        "label": "data",
-        "kind": 5,
-        "importPath": "environment",
-        "description": "environment",
-        "peekOfCode": "data = response.json()\ndeta_key = data[\"deta\"][\"sm\"]\ns3_endpoint = data[\"s3\"][\"idrive\"][\"endpoint\"]\ns3_key = data[\"s3\"][\"idrive\"][\"key\"]\ns3_secret = data[\"s3\"][\"idrive\"][\"secret\"]\nbot_token = data[\"bot\"][\"tiktokdouyin\"]",
-        "detail": "environment",
-        "documentation": {}
-    },
-    {
-        "label": "deta_key",
-        "kind": 5,
-        "importPath": "environment",
-        "description": "environment",
-        "peekOfCode": "deta_key = data[\"deta\"][\"sm\"]\ns3_endpoint = data[\"s3\"][\"idrive\"][\"endpoint\"]\ns3_key = data[\"s3\"][\"idrive\"][\"key\"]\ns3_secret = data[\"s3\"][\"idrive\"][\"secret\"]\nbot_token = data[\"bot\"][\"tiktokdouyin\"]",
-        "detail": "environment",
-        "documentation": {}
-    },
-    {
-        "label": "s3_endpoint",
-        "kind": 5,
-        "importPath": "environment",
-        "description": "environment",
-        "peekOfCode": "s3_endpoint = data[\"s3\"][\"idrive\"][\"endpoint\"]\ns3_key = data[\"s3\"][\"idrive\"][\"key\"]\ns3_secret = data[\"s3\"][\"idrive\"][\"secret\"]\nbot_token = data[\"bot\"][\"tiktokdouyin\"]",
-        "detail": "environment",
-        "documentation": {}
-    },
-    {
-        "label": "s3_key",
-        "kind": 5,
-        "importPath": "environment",
-        "description": "environment",
-        "peekOfCode": "s3_key = data[\"s3\"][\"idrive\"][\"key\"]\ns3_secret = data[\"s3\"][\"idrive\"][\"secret\"]\nbot_token = data[\"bot\"][\"tiktokdouyin\"]",
-        "detail": "environment",
-        "documentation": {}
-    },
-    {
-        "label": "s3_secret",
-        "kind": 5,
-        "importPath": "environment",
-        "description": "environment",
-        "peekOfCode": "s3_secret = data[\"s3\"][\"idrive\"][\"secret\"]\nbot_token = data[\"bot\"][\"tiktokdouyin\"]",
-        "detail": "environment",
-        "documentation": {}
-    },
-    {
-        "label": "bot_token",
-        "kind": 5,
-        "importPath": "environment",
-        "description": "environment",
-        "peekOfCode": "bot_token = data[\"bot\"][\"tiktokdouyin\"]",
+        "peekOfCode": "secret_url = os.environ.get(\"SECRET\")\nif secret_url:\n    response = requests.get(secret_url, timeout=5)\n    data = response.json()\n    deta_key = data[\"deta\"][\"sm\"]\n    s3_endpoint = data[\"s3\"][\"idrive\"][\"endpoint\"]\n    s3_key = data[\"s3\"][\"idrive\"][\"key\"]\n    s3_secret = data[\"s3\"][\"idrive\"][\"secret\"]\n    bot_token = data[\"bot\"][\"tiktokdouyin\"]\nelse:",
         "detail": "environment",
         "documentation": {}
     },
