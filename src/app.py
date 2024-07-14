@@ -20,18 +20,7 @@ def get_neighbors(lst, element):
 @app.route("/<drive>")
 def index(drive="files"):
     fs = deta.Drive(drive)
-    files = []
-    last = None
-    while True:
-        if last:
-            res = fs.list(last=last)
-        else:
-            res = fs.list()
-        files.extend(res["names"])
-        if not res:
-            break
-        if res.get("paging") and res["paging"].get("last"):
-            last = res["paging"]["last"]
+    files = fs.list()["names"]
     return render_template("index.html", files=files, drive=drive)
 
 
@@ -79,16 +68,5 @@ def upload_file(drive):
 @app.route("/<drive>/list")
 def list_files(drive):
     fs = deta.Drive(drive)
-    files = []
-    last = None
-    while True:
-        if last:
-            res = fs.list(last=last)
-        else:
-            res = fs.list()
-        files.extend(res["names"])
-        if not res:
-            break
-        if res.get("paging") and res["paging"].get("last"):
-            last = res["paging"]["last"]
+    files = fs.list()["names"]
     return jsonify(files=files)
