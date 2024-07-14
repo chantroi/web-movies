@@ -27,6 +27,8 @@ def index(drive="files"):
             res = fs.list(last=last)
         else:
             res = fs.list()
+        if not res:
+            break
         files.extend(res["names"])
         if not res.get("paging").get("last"):
             break
@@ -85,6 +87,8 @@ def list_files(drive):
             res = fs.list(last=last)
         else:
             res = fs.list()
+        if not res:
+            break
         files.extend(res["names"])
         if not res.get("paging").get("last"):
             break

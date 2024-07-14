@@ -169,7 +169,7 @@
         "kind": 2,
         "importPath": "src.app",
         "description": "src.app",
-        "peekOfCode": "def index(drive=\"files\"):\n    fs = deta.Drive(drive)\n    files = []\n    last = None\n    while True:\n        if last:\n            res = fs.list(last=last)\n        else:\n            res = fs.list()\n        files.extend(res[\"names\"])",
+        "peekOfCode": "def index(drive=\"files\"):\n    fs = deta.Drive(drive)\n    files = []\n    last = None\n    while True:\n        if last:\n            res = fs.list(last=last)\n        else:\n            res = fs.list()\n        if not res:",
         "detail": "src.app",
         "documentation": {}
     },
@@ -205,7 +205,7 @@
         "kind": 2,
         "importPath": "src.app",
         "description": "src.app",
-        "peekOfCode": "def list_files(drive):\n    fs = deta.Drive(drive)\n    files = []\n    last = None\n    while True:\n        if last:\n            res = fs.list(last=last)\n        else:\n            res = fs.list()\n        files.extend(res[\"names\"])",
+        "peekOfCode": "def list_files(drive):\n    fs = deta.Drive(drive)\n    files = []\n    last = None\n    while True:\n        if last:\n            res = fs.list(last=last)\n        else:\n            res = fs.list()\n        if not res:",
         "detail": "src.app",
         "documentation": {}
     },
