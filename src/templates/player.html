@@ -34,7 +34,6 @@
         <p>Your browser doesn't support video playback.</p>
       </video>
     </div>
-
     <script type="module">
       import { Deta } from "https://cdn.deta.space/js/deta@latest/deta.mjs";
       const deta = Deta("{{ deta_key }}");
@@ -42,11 +41,24 @@
       let currentVideo = "{{ filename }}";
       let nextVideo = "{{ next_file }}";
       let preVideo = "{{ pre_file }}";
+      let videoCache = {};
+
+      async function fetchVideo(filename) {
+        if (!videoCache[filename]) {
+          try {
+            const response = await drive.get(filename);
+            const blob = new Blob([response]);
+            videoCache[filename] = URL.createObjectURL(blob);
+          } catch (error) {
+            console.error("Error fetching video:", filename, error);
+          }
+        }
+        return videoCache[filename];
+      }
 
       async function initVideo(filename) {
         try {
-          const response = await drive.get(filename);
-          const videoUrl = URL.createObjectURL(new Blob([response]));
+          const videoUrl = await fetchVideo(filename);
           const video = document.getElementById("videoPlayer");
           video.src = videoUrl;
           video.play();
@@ -65,46 +77,50 @@
         video.style.width = video.videoWidth > w ? w + "px" : "auto";
       }
 
-      function renewVideo(filename) {
-        fetch(`/{{ drive }}/${filename}?renew=true`)
-          .then((response) => response.json())
-          .then((data) => {
-            currentVideo = filename;
-            nextVideo = data.next;
-            preVideo = data.pre;
-          });
+      async function renewVideo(filename) {
+        const response = await fetch(`/{{ drive }}/${filename}?renew=true`);
+        const data = await response.json();
+        currentVideo = filename;
+        nextVideo = data.next;
+        preVideo = data.pre;
+
+        // Preload next and previous videos
+        if (nextVideo) fetchVideo(nextVideo);
+        if (preVideo) fetchVideo(preVideo);
       }
+
       initVideo(currentVideo);
+      renewVideo(currentVideo); // Initial preloading
 
       let touchStart;
       document.addEventListener(
         "touchstart",
         (e) => (touchStart = e.changedTouches[0].screenX)
       );
-      document.addEventListener("touchend", (e) => {
+      document.addEventListener("touchend", async (e) => {
         const touchEnd = e.changedTouches[0].screenX;
         if (touchEnd < touchStart) {
           if (nextVideo) {
-            initVideo(nextVideo);
+            await initVideo(nextVideo);
             renewVideo(nextVideo);
           }
         } else if (touchEnd > touchStart) {
           if (preVideo) {
-            initVideo(preVideo);
+            await initVideo(preVideo);
             renewVideo(preVideo);
           }
         }
       });
 
-      document.addEventListener("keydown", (e) => {
+      document.addEventListener("keydown", async (e) => {
         if (e.key === "ArrowLeft") {
           if (preVideo) {
-            initVideo(preVideo);
+            await initVideo(preVideo);
             renewVideo(preVideo);
           }
         } else if (e.key === "ArrowRight") {
           if (nextVideo) {
-            initVideo(nextVideo);
+            await initVideo(nextVideo);
             renewVideo(nextVideo);
           }
         }
