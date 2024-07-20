@@ -5,14 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{{ filename }}</title>
     <style>
-      html,
-      body {
+      body,
+      html {
         height: 100%;
         margin: 0;
-        padding: 0;
-        background-color: black;
-      }
-      body {
+        background: black;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -24,45 +21,36 @@
         justify-content: center;
         align-items: center;
       }
-      #videoWrapper {
-        max-width: 100%;
-        max-height: 100%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-      }
       #videoPlayer {
         max-width: 100%;
         max-height: 100%;
-        width: auto;
-        height: auto;
         object-fit: contain;
       }
     </style>
   </head>
   <body>
     <div id="videoContainer">
-      <div id="videoWrapper">
-        <video id="videoPlayer" controls autoplay>
-          <p>Your browser doesn't support video playback.</p>
-        </video>
-      </div>
+      <video id="videoPlayer" controls autoplay>
+        <p>Your browser doesn't support video playback.</p>
+      </video>
     </div>
+
     <script type="module">
       import { Deta } from "https://cdn.deta.space/js/deta@latest/deta.mjs";
       const deta = Deta("{{ deta_key }}");
+      const drive = deta.Drive("{{ drive }}");
+      let currentVideo = "{{ filename }}";
+      let nextVideo = "{{ next_file }}";
+      let preVideo = "{{ pre_file }}";
 
-      async function downloadAndPlayVideo() {
-        const drive = deta.Drive("{{ drive }}");
-        const fileId = "{{ filename }}";
+      async function initVideo(filename) {
         try {
-          const response = await drive.get(fileId);
-          const fileBlob = new Blob([response]);
-          const videoUrl = URL.createObjectURL(fileBlob);
-          const videoElement = document.getElementById("videoPlayer");
-          videoElement.src = videoUrl;
-          videoElement.play();
-          videoElement.addEventListener("loadedmetadata", adjustVideoSize);
+          const response = await drive.get(filename);
+          const videoUrl = URL.createObjectURL(new Blob([response]));
+          const video = document.getElementById("videoPlayer");
+          video.src = videoUrl;
+          video.play();
+          video.addEventListener("loadedmetadata", adjustVideoSize);
           window.addEventListener("resize", adjustVideoSize);
         } catch (error) {
           console.error("Error:", error);
@@ -70,63 +58,55 @@
       }
 
       function adjustVideoSize() {
-        const videoElement = document.getElementById("videoPlayer");
-        const windowHeight = window.innerHeight;
-        const windowWidth = window.innerWidth;
-        const videoAspectRatio =
-          videoElement.videoWidth / videoElement.videoHeight;
-
-        if (videoElement.videoHeight > windowHeight) {
-          videoElement.style.height = windowHeight + "px";
-          videoElement.style.width = windowHeight * videoAspectRatio + "px";
-        } else if (videoElement.videoWidth > windowWidth) {
-          videoElement.style.width = windowWidth + "px";
-          videoElement.style.height = windowWidth / videoAspectRatio + "px";
-        } else {
-          videoElement.style.width = videoElement.videoWidth + "px";
-          videoElement.style.height = videoElement.videoHeight + "px";
-        }
+        const video = document.getElementById("videoPlayer");
+        const { innerHeight: h, innerWidth: w } = window;
+        const ratio = video.videoWidth / video.videoHeight;
+        video.style.height = video.videoHeight > h ? h + "px" : "auto";
+        video.style.width = video.videoWidth > w ? w + "px" : "auto";
       }
 
-      downloadAndPlayVideo();
-    </script>
-    <script>
-      let touchstartX = 0;
-      let touchendX = 0;
-
-      function checkDirection() {
-        if (touchendX < touchstartX) {
-          // {% if next_file %}
-          window.location.replace("/{{ drive }}/{{ next_file }}");
-          // {% endif %}
-        }
-        if (touchendX > touchstartX) {
-          // {% if pre_file %}
-          window.location.replace("/{{ drive }}/{{ pre_file }}");
-          // {% endif %}
-        }
-        touchstartX = 0;
-        touchendX = 0;
+      function renewVideo(filename) {
+        fetch(`/{{ drive }}/${filename}?renew=true`)
+          .then((response) => response.json())
+          .then((data) => {
+            currentVideo = filename;
+            nextVideo = data.next;
+            preVideo = data.pre;
+          });
       }
+      initVideo(currentVideo);
 
-      document.addEventListener("touchstart", (e) => {
-        touchstartX = e.changedTouches[0].screenX;
-      });
-
+      let touchStart;
+      document.addEventListener(
+        "touchstart",
+        (e) => (touchStart = e.changedTouches[0].screenX)
+      );
       document.addEventListener("touchend", (e) => {
-        touchendX = e.changedTouches[0].screenX;
-        checkDirection();
+        const touchEnd = e.changedTouches[0].screenX;
+        if (touchEnd < touchStart) {
+          if (nextVideo) {
+            initVideo(nextVideo);
+            renewVideo(nextVideo);
+          }
+        } else if (touchEnd > touchStart) {
+          if (preVideo) {
+            initVideo(preVideo);
+            renewVideo(preVideo);
+          }
+        }
       });
 
-      document.addEventListener("keydown", function (event) {
-        if (event.key === "ArrowLeft") {
-          // {% if pre_file %}
-          window.location.replace("/{{ drive }}/{{ pre_file }}");
-          // {% endif %}
-        } else if (event.key === "ArrowRight") {
-          // {% if next_file %}
-          window.location.replace("/{{ drive }}/{{ next_file }}");
-          // {% endif %}
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "ArrowLeft") {
+          if (preVideo) {
+            initVideo(preVideo);
+            renewVideo(preVideo);
+          }
+        } else if (e.key === "ArrowRight") {
+          if (nextVideo) {
+            initVideo(nextVideo);
+            renewVideo(nextVideo);
+          }
         }
       });
     </script>

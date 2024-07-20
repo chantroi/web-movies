@@ -169,7 +169,7 @@
         "kind": 2,
         "importPath": "src.app",
         "description": "src.app",
-        "peekOfCode": "def index(drive=\"files\"):\n    fs = deta.Drive(drive)\n    files = fs.list()[\"names\"]\n    return render_template(\"index.html\", files=files, drive=drive)\n@app.route(\"/<drive>/<file>\", methods=[\"GET\"])\ndef play_file(drive, file):\n    fs = deta.Drive(drive)\n    files = fs.list()[\"names\"]\n    pre_file, next_file = get_neighbors(files, file)\n    return render_template(",
+        "peekOfCode": "def index(drive=\"files\"):\n    fs = deta.Drive(drive)\n    files = fs.list()[\"names\"]\n    return render_template(\"index.html\", files=files, drive=drive)\n@app.route(\"/<drive>/<file>\", methods=[\"GET\"])\ndef play_file(drive, file):\n    renew = request.args.get(\"renew\", \"false\")\n    fs = deta.Drive(drive)\n    files = fs.list()[\"names\"]\n    pre_file, next_file = get_neighbors(files, file)",
         "detail": "src.app",
         "documentation": {}
     },
@@ -178,7 +178,7 @@
         "kind": 2,
         "importPath": "src.app",
         "description": "src.app",
-        "peekOfCode": "def play_file(drive, file):\n    fs = deta.Drive(drive)\n    files = fs.list()[\"names\"]\n    pre_file, next_file = get_neighbors(files, file)\n    return render_template(\n        \"player.html\",\n        drive=drive,\n        filename=file,\n        deta_key=deta_key,\n        pre_file=pre_file,",
+        "peekOfCode": "def play_file(drive, file):\n    renew = request.args.get(\"renew\", \"false\")\n    fs = deta.Drive(drive)\n    files = fs.list()[\"names\"]\n    pre_file, next_file = get_neighbors(files, file)\n    if renew == \"true\":\n        return jsonify(pre=pre_file, next=next_file)\n    return render_template(\n        \"player.html\",\n        drive=drive,",
         "detail": "src.app",
         "documentation": {}
     },
