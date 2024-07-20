@@ -89,8 +89,18 @@
         if (preVideo) fetchVideo(preVideo);
       }
 
+      async function playNextVideo() {
+        if (nextVideo) {
+          await initVideo(nextVideo);
+          renewVideo(nextVideo);
+        }
+      }
+
       initVideo(currentVideo);
       renewVideo(currentVideo); // Initial preloading
+
+      const video = document.getElementById("videoPlayer");
+      video.addEventListener("ended", playNextVideo);
 
       let touchStart;
       document.addEventListener(
@@ -100,10 +110,7 @@
       document.addEventListener("touchend", async (e) => {
         const touchEnd = e.changedTouches[0].screenX;
         if (touchEnd < touchStart) {
-          if (nextVideo) {
-            await initVideo(nextVideo);
-            renewVideo(nextVideo);
-          }
+          await playNextVideo();
         } else if (touchEnd > touchStart) {
           if (preVideo) {
             await initVideo(preVideo);
@@ -119,10 +126,7 @@
             renewVideo(preVideo);
           }
         } else if (e.key === "ArrowRight") {
-          if (nextVideo) {
-            await initVideo(nextVideo);
-            renewVideo(nextVideo);
-          }
+          await playNextVideo();
         }
       });
     </script>
