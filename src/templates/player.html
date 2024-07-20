@@ -10,29 +10,44 @@
         height: 100%;
         margin: 0;
         background: black;
-        display: flex;
-        justify-content: center;
-        align-items: center;
+        overflow: hidden;
+      }
+      #outerContainer {
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
       }
       #videoContainer {
-        width: 100%;
+        width: 300%;
+        height: 100%;
+        display: flex;
+        transition: transform 0.5s ease;
+      }
+      .videoWrapper {
+        width: 33.33%;
         height: 100%;
         display: flex;
         justify-content: center;
         align-items: center;
       }
       #videoPlayer {
-        max-width: 100%;
-        max-height: 100%;
+        width: 100%;
+        height: 100%;
         object-fit: contain;
       }
     </style>
   </head>
   <body>
-    <div id="videoContainer">
-      <video id="videoPlayer" controls autoplay>
-        <p>Your browser doesn't support video playback.</p>
-      </video>
+    <div id="outerContainer">
+      <div id="videoContainer">
+        <div class="videoWrapper" id="prevWrapper"></div>
+        <div class="videoWrapper" id="currentWrapper">
+          <video id="videoPlayer" controls autoplay>
+            <p>Your browser doesn't support video playback.</p>
+          </video>
+        </div>
+        <div class="videoWrapper" id="nextWrapper"></div>
+      </div>
     </div>
     <script type="module">
       import { Deta } from "https://cdn.deta.space/js/deta@latest/deta.mjs";
@@ -42,6 +57,9 @@
       let nextVideo = "{{ next_file }}";
       let preVideo = "{{ pre_file }}";
       let videoCache = {};
+
+      const videoContainer = document.getElementById("videoContainer");
+      const videoPlayer = document.getElementById("videoPlayer");
 
       async function fetchVideo(filename) {
         if (!videoCache[filename]) {
@@ -59,22 +77,11 @@
       async function initVideo(filename) {
         try {
           const videoUrl = await fetchVideo(filename);
-          const video = document.getElementById("videoPlayer");
-          video.src = videoUrl;
-          video.play();
-          video.addEventListener("loadedmetadata", adjustVideoSize);
-          window.addEventListener("resize", adjustVideoSize);
+          videoPlayer.src = videoUrl;
+          videoPlayer.play();
         } catch (error) {
           console.error("Error:", error);
         }
-      }
-
-      function adjustVideoSize() {
-        const video = document.getElementById("videoPlayer");
-        const { innerHeight: h, innerWidth: w } = window;
-        const ratio = video.videoWidth / video.videoHeight;
-        video.style.height = video.videoHeight > h ? h + "px" : "auto";
-        video.style.width = video.videoWidth > w ? w + "px" : "auto";
       }
 
       async function renewVideo(filename) {
@@ -84,23 +91,58 @@
         nextVideo = data.next;
         preVideo = data.pre;
 
-        // Preload next and previous videos
         if (nextVideo) fetchVideo(nextVideo);
         if (preVideo) fetchVideo(preVideo);
       }
 
       async function playNextVideo() {
         if (nextVideo) {
+          await slideToNext();
           await initVideo(nextVideo);
           renewVideo(nextVideo);
         }
       }
 
-      initVideo(currentVideo);
-      renewVideo(currentVideo); // Initial preloading
+      async function playPrevVideo() {
+        if (preVideo) {
+          await slideToPrev();
+          await initVideo(preVideo);
+          renewVideo(preVideo);
+        }
+      }
 
-      const video = document.getElementById("videoPlayer");
-      video.addEventListener("ended", playNextVideo);
+      function slideToNext() {
+        return new Promise((resolve) => {
+          videoContainer.style.transform = "translateX(-33.33%)";
+          setTimeout(() => {
+            videoContainer.style.transition = "none";
+            videoContainer.style.transform = "translateX(0)";
+            setTimeout(() => {
+              videoContainer.style.transition = "transform 0.5s ease";
+              resolve();
+            }, 50);
+          }, 500);
+        });
+      }
+
+      function slideToPrev() {
+        return new Promise((resolve) => {
+          videoContainer.style.transform = "translateX(33.33%)";
+          setTimeout(() => {
+            videoContainer.style.transition = "none";
+            videoContainer.style.transform = "translateX(0)";
+            setTimeout(() => {
+              videoContainer.style.transition = "transform 0.5s ease";
+              resolve();
+            }, 50);
+          }, 500);
+        });
+      }
+
+      initVideo(currentVideo);
+      renewVideo(currentVideo);
+
+      videoPlayer.addEventListener("ended", playNextVideo);
 
       let touchStart;
       document.addEventListener(
@@ -109,22 +151,16 @@
       );
       document.addEventListener("touchend", async (e) => {
         const touchEnd = e.changedTouches[0].screenX;
-        if (touchEnd < touchStart) {
+        if (touchEnd < touchStart - 50) {
           await playNextVideo();
-        } else if (touchEnd > touchStart) {
-          if (preVideo) {
-            await initVideo(preVideo);
-            renewVideo(preVideo);
-          }
+        } else if (touchEnd > touchStart + 50) {
+          await playPrevVideo();
         }
       });
 
       document.addEventListener("keydown", async (e) => {
         if (e.key === "ArrowLeft") {
-          if (preVideo) {
-            await initVideo(preVideo);
-            renewVideo(preVideo);
-          }
+          await playPrevVideo();
         } else if (e.key === "ArrowRight") {
           await playNextVideo();
         }
