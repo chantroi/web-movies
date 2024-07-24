@@ -1,5 +1,14 @@
 [
     {
+        "label": "os",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "os",
+        "description": "os",
+        "detail": "os",
+        "documentation": {}
+    },
+    {
         "label": "Flask",
         "importPath": "flask",
         "description": "flask",
@@ -49,11 +58,36 @@
         "documentation": {}
     },
     {
-        "label": "deta_key",
-        "importPath": "environment",
-        "description": "environment",
+        "label": "s3fs",
+        "kind": 6,
         "isExtraImport": true,
-        "detail": "environment",
+        "importPath": "s3fs",
+        "description": "s3fs",
+        "detail": "s3fs",
+        "documentation": {}
+    },
+    {
+        "label": "Client",
+        "importPath": "pyrogram",
+        "description": "pyrogram",
+        "isExtraImport": true,
+        "detail": "pyrogram",
+        "documentation": {}
+    },
+    {
+        "label": "filters",
+        "importPath": "pyrogram",
+        "description": "pyrogram",
+        "isExtraImport": true,
+        "detail": "pyrogram",
+        "documentation": {}
+    },
+    {
+        "label": "Message",
+        "importPath": "pyrogram.types",
+        "description": "pyrogram.types",
+        "isExtraImport": true,
+        "detail": "pyrogram.types",
         "documentation": {}
     },
     {
@@ -94,48 +128,6 @@
         "description": "environment",
         "isExtraImport": true,
         "detail": "environment",
-        "documentation": {}
-    },
-    {
-        "label": "s3fs",
-        "kind": 6,
-        "isExtraImport": true,
-        "importPath": "s3fs",
-        "description": "s3fs",
-        "detail": "s3fs",
-        "documentation": {}
-    },
-    {
-        "label": "Client",
-        "importPath": "pyrogram",
-        "description": "pyrogram",
-        "isExtraImport": true,
-        "detail": "pyrogram",
-        "documentation": {}
-    },
-    {
-        "label": "filters",
-        "importPath": "pyrogram",
-        "description": "pyrogram",
-        "isExtraImport": true,
-        "detail": "pyrogram",
-        "documentation": {}
-    },
-    {
-        "label": "Message",
-        "importPath": "pyrogram.types",
-        "description": "pyrogram.types",
-        "isExtraImport": true,
-        "detail": "pyrogram.types",
-        "documentation": {}
-    },
-    {
-        "label": "os",
-        "kind": 6,
-        "isExtraImport": true,
-        "importPath": "os",
-        "description": "os",
-        "detail": "os",
         "documentation": {}
     },
     {
@@ -206,6 +198,24 @@
         "importPath": "src.app",
         "description": "src.app",
         "peekOfCode": "def list_files(drive):\n    fs = deta.Drive(drive)\n    files = fs.list()[\"names\"]\n    return jsonify(files=files)",
+        "detail": "src.app",
+        "documentation": {}
+    },
+    {
+        "label": "DETA_PROJECT_KEY",
+        "kind": 5,
+        "importPath": "src.app",
+        "description": "src.app",
+        "peekOfCode": "DETA_PROJECT_KEY = os.environ[\"DETA_PROJECT_KEY\"]\ndeta_key = os.getenv(\"DETA_KEY\", DETA_PROJECT_KEY)\napp = Flask(__name__)\ndeta = Deta(deta_key)\ndef get_neighbors(lst, element):\n    if element in lst:\n        indx = lst.index(element)\n        return lst[indx - 1] if indx > 0 else None, (\n            lst[indx + 1] if indx < len(lst) - 1 else None\n        )",
+        "detail": "src.app",
+        "documentation": {}
+    },
+    {
+        "label": "deta_key",
+        "kind": 5,
+        "importPath": "src.app",
+        "description": "src.app",
+        "peekOfCode": "deta_key = os.getenv(\"DETA_KEY\", DETA_PROJECT_KEY)\napp = Flask(__name__)\ndeta = Deta(deta_key)\ndef get_neighbors(lst, element):\n    if element in lst:\n        indx = lst.index(element)\n        return lst[indx - 1] if indx > 0 else None, (\n            lst[indx + 1] if indx < len(lst) - 1 else None\n        )\n    else:",
         "detail": "src.app",
         "documentation": {}
     },
@@ -297,6 +307,78 @@
         "description": "bot",
         "peekOfCode": "s3 = s3fs.S3FileSystem(\n    key=s3_key,\n    secret=s3_secret,\n    endpoint_url=s3_endpoint,\n)\ndef upload_to_s3(file_name, file_data):\n    s3_path = f\"bosuutap/video/{file_name}\"\n    with s3.open(s3_path, \"wb\") as s3_file:\n        s3_file.write(file_data)\n    s3.setxattr(s3_path, copy_kwargs={\"ContentType\": \"video/mp4\"})",
         "detail": "bot",
+        "documentation": {}
+    },
+    {
+        "label": "secret_url",
+        "kind": 5,
+        "importPath": "environment",
+        "description": "environment",
+        "peekOfCode": "secret_url = os.environ[\"SECRET\"]\nresponse = requests.get(secret_url, timeout=5)\ndata = response.json()\nos.environ[\"DETA_KEY\"] = data[\"access\"][\"deta\"][\"sm\"]\ns3_endpoint = data[\"s3\"][4][\"endpoint\"]\ns3_key = data[\"s3\"][4][\"key\"]\ns3_secret = data[\"s3\"][4][\"secret\"]\nbot_token = data[\"access\"][\"telegram\"][\"td\"]",
+        "detail": "environment",
+        "documentation": {}
+    },
+    {
+        "label": "response",
+        "kind": 5,
+        "importPath": "environment",
+        "description": "environment",
+        "peekOfCode": "response = requests.get(secret_url, timeout=5)\ndata = response.json()\nos.environ[\"DETA_KEY\"] = data[\"access\"][\"deta\"][\"sm\"]\ns3_endpoint = data[\"s3\"][4][\"endpoint\"]\ns3_key = data[\"s3\"][4][\"key\"]\ns3_secret = data[\"s3\"][4][\"secret\"]\nbot_token = data[\"access\"][\"telegram\"][\"td\"]",
+        "detail": "environment",
+        "documentation": {}
+    },
+    {
+        "label": "data",
+        "kind": 5,
+        "importPath": "environment",
+        "description": "environment",
+        "peekOfCode": "data = response.json()\nos.environ[\"DETA_KEY\"] = data[\"access\"][\"deta\"][\"sm\"]\ns3_endpoint = data[\"s3\"][4][\"endpoint\"]\ns3_key = data[\"s3\"][4][\"key\"]\ns3_secret = data[\"s3\"][4][\"secret\"]\nbot_token = data[\"access\"][\"telegram\"][\"td\"]",
+        "detail": "environment",
+        "documentation": {}
+    },
+    {
+        "label": "os.environ[\"DETA_KEY\"]",
+        "kind": 5,
+        "importPath": "environment",
+        "description": "environment",
+        "peekOfCode": "os.environ[\"DETA_KEY\"] = data[\"access\"][\"deta\"][\"sm\"]\ns3_endpoint = data[\"s3\"][4][\"endpoint\"]\ns3_key = data[\"s3\"][4][\"key\"]\ns3_secret = data[\"s3\"][4][\"secret\"]\nbot_token = data[\"access\"][\"telegram\"][\"td\"]",
+        "detail": "environment",
+        "documentation": {}
+    },
+    {
+        "label": "s3_endpoint",
+        "kind": 5,
+        "importPath": "environment",
+        "description": "environment",
+        "peekOfCode": "s3_endpoint = data[\"s3\"][4][\"endpoint\"]\ns3_key = data[\"s3\"][4][\"key\"]\ns3_secret = data[\"s3\"][4][\"secret\"]\nbot_token = data[\"access\"][\"telegram\"][\"td\"]",
+        "detail": "environment",
+        "documentation": {}
+    },
+    {
+        "label": "s3_key",
+        "kind": 5,
+        "importPath": "environment",
+        "description": "environment",
+        "peekOfCode": "s3_key = data[\"s3\"][4][\"key\"]\ns3_secret = data[\"s3\"][4][\"secret\"]\nbot_token = data[\"access\"][\"telegram\"][\"td\"]",
+        "detail": "environment",
+        "documentation": {}
+    },
+    {
+        "label": "s3_secret",
+        "kind": 5,
+        "importPath": "environment",
+        "description": "environment",
+        "peekOfCode": "s3_secret = data[\"s3\"][4][\"secret\"]\nbot_token = data[\"access\"][\"telegram\"][\"td\"]",
+        "detail": "environment",
+        "documentation": {}
+    },
+    {
+        "label": "bot_token",
+        "kind": 5,
+        "importPath": "environment",
+        "description": "environment",
+        "peekOfCode": "bot_token = data[\"access\"][\"telegram\"][\"td\"]",
+        "detail": "environment",
         "documentation": {}
     },
     {

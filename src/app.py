@@ -1,6 +1,9 @@
+import os
 from flask import Flask, request, render_template, jsonify
 from deta import Deta
-from environment import deta_key
+
+DETA_PROJECT_KEY = os.environ["DETA_PROJECT_KEY"]
+deta_key = os.getenv("DETA_KEY", DETA_PROJECT_KEY)
 
 app = Flask(__name__)
 deta = Deta(deta_key)
