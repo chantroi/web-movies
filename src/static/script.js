@@ -116,9 +116,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
       if (Math.abs(touchDiff) > 50) {
         if (touchDiff > 0) {
-          await playNextVideo();
-        } else {
           await playPreviousVideo();
+        } else {
+          await playNextVideo();
         }
       }
     },
