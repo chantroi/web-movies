@@ -29,20 +29,11 @@ def index(drive="files"):
 
 @app.route("/<drive>/<file>", methods=["GET"])
 def play_file(drive, file):
-    renew = request.args.get("renew", "false")
     fs = deta.Drive(drive)
     files = fs.list()["names"]
     pre_file, next_file = get_neighbors(files, file)
-    if renew == "true":
-        return jsonify(pre=pre_file, next=next_file)
-    return render_template(
-        "player.html",
-        drive=drive,
-        filename=file,
-        deta_key=deta_key,
-        pre_file=pre_file,
-        next_file=next_file,
-    )
+    return jsonify(pre=pre_file, next=next_file)
+    
 
 
 @app.route("/<drive>/<filename>", methods=["DELETE"])

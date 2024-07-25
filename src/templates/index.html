@@ -8,87 +8,27 @@
       href="https://fonts.googleapis.com/icon?family=Material+Icons"
       rel="stylesheet"
     />
-    <style>
-      :root {
-        --bg-color: #f0f0f0;
-        --text-color: #333;
-        --item-bg: white;
-        --item-border: #e0e0e0;
-        --item-hover: #f5f5f5;
-      }
-
-      @media (prefers-color-scheme: dark) {
-        :root {
-          --bg-color: #333;
-          --text-color: #fff;
-          --item-bg: #444;
-          --item-border: #555;
-          --item-hover: #666;
-        }
-      }
-
-      body {
-        font-family: Arial, sans-serif;
-        margin: 0;
-        padding: 20px;
-        background-color: var(--bg-color);
-        color: var(--text-color);
-      }
-      .file-list {
-        list-style-type: none;
-        padding: 0;
-        margin: 0;
-        background-color: var(--item-bg);
-        border-radius: 5px;
-        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-        max-width: 100%;
-        width: 100%; /* Adjust this value as needed */
-      }
-      .file-item {
-        padding: 10px 15px;
-        border: 1px solid var(--item-border);
-        margin-bottom: -1px;
-      }
-      .file-item:first-child {
-        border-top-left-radius: 5px;
-        border-top-right-radius: 5px;
-      }
-      .file-item:last-child {
-        border-bottom-left-radius: 5px;
-        border-bottom-right-radius: 5px;
-        margin-bottom: 0;
-      }
-      .file-link {
-        text-decoration: none;
-        color: var(--text-color);
-        display: flex;
-        align-items: center;
-        overflow: hidden;
-      }
-      .file-link:hover {
-        background-color: var(--item-hover);
-      }
-      .file-icon {
-        margin-right: 10px;
-        flex-shrink: 0;
-      }
-      .file-name {
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-      }
-    </style>
+    <link rel="stylesheet" href="static/style.css" />
   </head>
   <body>
     <ul class="file-list">
       {% for file in files %}
       <li class="file-item">
-        <a href="/{{ drive }}/{{ file }}" class="file-link">
+        <a href="{{ file }}" class="file-link" data-file="{{ file }}">
           <span class="material-icons file-icon">description</span>
           <span class="file-name">{{ file.split('/')[-1] }}</span>
         </a>
       </li>
       {% endfor %}
     </ul>
+
+    <script>
+      var driveName = "{{ drive }}";
+      var detaKey = "{{ deta_key }}";
+    </script>
+    <div id="videoPlayerContainer">
+      <video id="videoPlayer" controls></video>
+    </div>
+    <script type="module" src="static/script.js"></script>
   </body>
 </html>

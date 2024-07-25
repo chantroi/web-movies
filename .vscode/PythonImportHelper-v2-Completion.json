@@ -1,43 +1,11 @@
 [
     {
-        "label": "os",
+        "label": "s3fs",
         "kind": 6,
         "isExtraImport": true,
-        "importPath": "os",
-        "description": "os",
-        "detail": "os",
-        "documentation": {}
-    },
-    {
-        "label": "Flask",
-        "importPath": "flask",
-        "description": "flask",
-        "isExtraImport": true,
-        "detail": "flask",
-        "documentation": {}
-    },
-    {
-        "label": "request",
-        "importPath": "flask",
-        "description": "flask",
-        "isExtraImport": true,
-        "detail": "flask",
-        "documentation": {}
-    },
-    {
-        "label": "render_template",
-        "importPath": "flask",
-        "description": "flask",
-        "isExtraImport": true,
-        "detail": "flask",
-        "documentation": {}
-    },
-    {
-        "label": "jsonify",
-        "importPath": "flask",
-        "description": "flask",
-        "isExtraImport": true,
-        "detail": "flask",
+        "importPath": "s3fs",
+        "description": "s3fs",
+        "detail": "s3fs",
         "documentation": {}
     },
     {
@@ -55,15 +23,6 @@
         "description": "deta",
         "isExtraImport": true,
         "detail": "deta",
-        "documentation": {}
-    },
-    {
-        "label": "s3fs",
-        "kind": 6,
-        "isExtraImport": true,
-        "importPath": "s3fs",
-        "description": "s3fs",
-        "detail": "s3fs",
         "documentation": {}
     },
     {
@@ -131,6 +90,47 @@
         "documentation": {}
     },
     {
+        "label": "os",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "os",
+        "description": "os",
+        "detail": "os",
+        "documentation": {}
+    },
+    {
+        "label": "Flask",
+        "importPath": "flask",
+        "description": "flask",
+        "isExtraImport": true,
+        "detail": "flask",
+        "documentation": {}
+    },
+    {
+        "label": "request",
+        "importPath": "flask",
+        "description": "flask",
+        "isExtraImport": true,
+        "detail": "flask",
+        "documentation": {}
+    },
+    {
+        "label": "render_template",
+        "importPath": "flask",
+        "description": "flask",
+        "isExtraImport": true,
+        "detail": "flask",
+        "documentation": {}
+    },
+    {
+        "label": "jsonify",
+        "importPath": "flask",
+        "description": "flask",
+        "isExtraImport": true,
+        "detail": "flask",
+        "documentation": {}
+    },
+    {
         "label": "requests",
         "kind": 6,
         "isExtraImport": true,
@@ -148,6 +148,78 @@
         "documentation": {}
     },
     {
+        "label": "upload_to_s3",
+        "kind": 2,
+        "importPath": "bot.bot",
+        "description": "bot.bot",
+        "peekOfCode": "def upload_to_s3(file_name, file_data):\n    s3_path = f\"bosuutap/video/{file_name}\"\n    with s3.open(s3_path, \"wb\") as s3_file:\n        s3_file.write(file_data)\n    s3.setxattr(s3_path, copy_kwargs={\"ContentType\": \"video/mp4\"})\n@bot.on_message(filters.chat(\"contentdownload\") & filters.video)\ndef download_video(c: Client, m: Message):\n    file = c.download_media(m, in_memory=True)\n    fs.put(file.name, file.getvalue())\n    upload_to_s3(file.name, file.getvalue())",
+        "detail": "bot.bot",
+        "documentation": {}
+    },
+    {
+        "label": "download_video",
+        "kind": 2,
+        "importPath": "bot.bot",
+        "description": "bot.bot",
+        "peekOfCode": "def download_video(c: Client, m: Message):\n    file = c.download_media(m, in_memory=True)\n    fs.put(file.name, file.getvalue())\n    upload_to_s3(file.name, file.getvalue())\n    print(f\"Uploaded {file.name}\")\n@bot.on_message(filters.command(\"upload\"))\ndef upload(c: Client, m: Message):\n    if m.reply_to_message:\n        file = c.download_media(m.reply_to_message, in_memory=True)\n        fs.put(file.name, file.getvalue())",
+        "detail": "bot.bot",
+        "documentation": {}
+    },
+    {
+        "label": "upload",
+        "kind": 2,
+        "importPath": "bot.bot",
+        "description": "bot.bot",
+        "peekOfCode": "def upload(c: Client, m: Message):\n    if m.reply_to_message:\n        file = c.download_media(m.reply_to_message, in_memory=True)\n        fs.put(file.name, file.getvalue())\n        upload_to_s3(file.name, file.getvalue())\n        m.reply(f\"Uploaded {file.name}\", quote=True)\n    else:\n        m.reply(\"Reply to a message with /upload\", quote=True)\n@bot.on_message(filters.command(\"upload_s3\"))\ndef upload_s3(c: Client, m: Message):",
+        "detail": "bot.bot",
+        "documentation": {}
+    },
+    {
+        "label": "upload_s3",
+        "kind": 2,
+        "importPath": "bot.bot",
+        "description": "bot.bot",
+        "peekOfCode": "def upload_s3(c: Client, m: Message):\n    if m.reply_to_message:\n        file = c.download_media(m.reply_to_message, in_memory=True)\n        upload_to_s3(file.name, file.getvalue())\n        m.reply(f\"Uploaded {file.name}\", quote=True)\n    else:\n        m.reply(\"Reply to a message with /upload_s3\", quote=True)\n@bot.on_message(filters.command(\"delete_file\"))\ndef delete_file(c: Client, m: Message):\n    if len(m.command) >= 2:",
+        "detail": "bot.bot",
+        "documentation": {}
+    },
+    {
+        "label": "delete_file",
+        "kind": 2,
+        "importPath": "bot.bot",
+        "description": "bot.bot",
+        "peekOfCode": "def delete_file(c: Client, m: Message):\n    if len(m.command) >= 2:\n        filename = m.command[1]\n        fs.delete(filename)\n        m.reply(f\"Deleted {filename}\", quote=True)\n    else:\n        m.reply(\"Provide a filename with /delete_file\", quote=True)\nprint(\"Bot started\")\nbot.run()",
+        "detail": "bot.bot",
+        "documentation": {}
+    },
+    {
+        "label": "bot",
+        "kind": 5,
+        "importPath": "bot.bot",
+        "description": "bot.bot",
+        "peekOfCode": "bot = Client(\n    \"bot\",\n    21021245,\n    \"7b32ea92719781c5e22ede319c5dbde5\",\n    bot_token=bot_token,\n)\nfs = deta.Deta(deta_key).Drive(\"files\")\ns3 = s3fs.S3FileSystem(\n    key=s3_key,\n    secret=s3_secret,",
+        "detail": "bot.bot",
+        "documentation": {}
+    },
+    {
+        "label": "fs",
+        "kind": 5,
+        "importPath": "bot.bot",
+        "description": "bot.bot",
+        "peekOfCode": "fs = deta.Deta(deta_key).Drive(\"files\")\ns3 = s3fs.S3FileSystem(\n    key=s3_key,\n    secret=s3_secret,\n    endpoint_url=s3_endpoint,\n)\ndef upload_to_s3(file_name, file_data):\n    s3_path = f\"bosuutap/video/{file_name}\"\n    with s3.open(s3_path, \"wb\") as s3_file:\n        s3_file.write(file_data)",
+        "detail": "bot.bot",
+        "documentation": {}
+    },
+    {
+        "label": "s3",
+        "kind": 5,
+        "importPath": "bot.bot",
+        "description": "bot.bot",
+        "peekOfCode": "s3 = s3fs.S3FileSystem(\n    key=s3_key,\n    secret=s3_secret,\n    endpoint_url=s3_endpoint,\n)\ndef upload_to_s3(file_name, file_data):\n    s3_path = f\"bosuutap/video/{file_name}\"\n    with s3.open(s3_path, \"wb\") as s3_file:\n        s3_file.write(file_data)\n    s3.setxattr(s3_path, copy_kwargs={\"ContentType\": \"video/mp4\"})",
+        "detail": "bot.bot",
+        "documentation": {}
+    },
+    {
         "label": "get_neighbors",
         "kind": 2,
         "importPath": "src.app",
@@ -161,7 +233,7 @@
         "kind": 2,
         "importPath": "src.app",
         "description": "src.app",
-        "peekOfCode": "def index(drive=\"files\"):\n    fs = deta.Drive(drive)\n    files = fs.list()[\"names\"]\n    return render_template(\"index.html\", files=files, drive=drive)\n@app.route(\"/<drive>/<file>\", methods=[\"GET\"])\ndef play_file(drive, file):\n    renew = request.args.get(\"renew\", \"false\")\n    fs = deta.Drive(drive)\n    files = fs.list()[\"names\"]\n    pre_file, next_file = get_neighbors(files, file)",
+        "peekOfCode": "def index(drive=\"files\"):\n    fs = deta.Drive(drive)\n    files = fs.list()[\"names\"]\n    return render_template(\"index.html\", files=files, drive=drive)\n@app.route(\"/<drive>/<file>\", methods=[\"GET\"])\ndef play_file(drive, file):\n    fs = deta.Drive(drive)\n    files = fs.list()[\"names\"]\n    pre_file, next_file = get_neighbors(files, file)\n    return jsonify(pre=pre_file, next=next_file)",
         "detail": "src.app",
         "documentation": {}
     },
@@ -170,7 +242,7 @@
         "kind": 2,
         "importPath": "src.app",
         "description": "src.app",
-        "peekOfCode": "def play_file(drive, file):\n    renew = request.args.get(\"renew\", \"false\")\n    fs = deta.Drive(drive)\n    files = fs.list()[\"names\"]\n    pre_file, next_file = get_neighbors(files, file)\n    if renew == \"true\":\n        return jsonify(pre=pre_file, next=next_file)\n    return render_template(\n        \"player.html\",\n        drive=drive,",
+        "peekOfCode": "def play_file(drive, file):\n    fs = deta.Drive(drive)\n    files = fs.list()[\"names\"]\n    pre_file, next_file = get_neighbors(files, file)\n    return jsonify(pre=pre_file, next=next_file)\n@app.route(\"/<drive>/<filename>\", methods=[\"DELETE\"])\ndef delete_route(drive, file):\n    fs = deta.Drive(drive)\n    fs.delete(file)\n    return jsonify(status=\"success\", message=f\"file {file} deleted successful\")",
         "detail": "src.app",
         "documentation": {}
     },
@@ -235,78 +307,6 @@
         "description": "src.app",
         "peekOfCode": "deta = Deta(deta_key)\ndef get_neighbors(lst, element):\n    if element in lst:\n        indx = lst.index(element)\n        return lst[indx - 1] if indx > 0 else None, (\n            lst[indx + 1] if indx < len(lst) - 1 else None\n        )\n    else:\n        return None, None\n@app.route(\"/\")",
         "detail": "src.app",
-        "documentation": {}
-    },
-    {
-        "label": "upload_to_s3",
-        "kind": 2,
-        "importPath": "bot",
-        "description": "bot",
-        "peekOfCode": "def upload_to_s3(file_name, file_data):\n    s3_path = f\"bosuutap/video/{file_name}\"\n    with s3.open(s3_path, \"wb\") as s3_file:\n        s3_file.write(file_data)\n    s3.setxattr(s3_path, copy_kwargs={\"ContentType\": \"video/mp4\"})\n@bot.on_message(filters.chat(\"contentdownload\") & filters.video)\ndef download_video(c: Client, m: Message):\n    file = c.download_media(m, in_memory=True)\n    fs.put(file.name, file.getvalue())\n    upload_to_s3(file.name, file.getvalue())",
-        "detail": "bot",
-        "documentation": {}
-    },
-    {
-        "label": "download_video",
-        "kind": 2,
-        "importPath": "bot",
-        "description": "bot",
-        "peekOfCode": "def download_video(c: Client, m: Message):\n    file = c.download_media(m, in_memory=True)\n    fs.put(file.name, file.getvalue())\n    upload_to_s3(file.name, file.getvalue())\n    print(f\"Uploaded {file.name}\")\n@bot.on_message(filters.command(\"upload\"))\ndef upload(c: Client, m: Message):\n    if m.reply_to_message:\n        file = c.download_media(m.reply_to_message, in_memory=True)\n        fs.put(file.name, file.getvalue())",
-        "detail": "bot",
-        "documentation": {}
-    },
-    {
-        "label": "upload",
-        "kind": 2,
-        "importPath": "bot",
-        "description": "bot",
-        "peekOfCode": "def upload(c: Client, m: Message):\n    if m.reply_to_message:\n        file = c.download_media(m.reply_to_message, in_memory=True)\n        fs.put(file.name, file.getvalue())\n        upload_to_s3(file.name, file.getvalue())\n        m.reply(f\"Uploaded {file.name}\", quote=True)\n    else:\n        m.reply(\"Reply to a message with /upload\", quote=True)\n@bot.on_message(filters.command(\"upload_s3\"))\ndef upload_s3(c: Client, m: Message):",
-        "detail": "bot",
-        "documentation": {}
-    },
-    {
-        "label": "upload_s3",
-        "kind": 2,
-        "importPath": "bot",
-        "description": "bot",
-        "peekOfCode": "def upload_s3(c: Client, m: Message):\n    if m.reply_to_message:\n        file = c.download_media(m.reply_to_message, in_memory=True)\n        upload_to_s3(file.name, file.getvalue())\n        m.reply(f\"Uploaded {file.name}\", quote=True)\n    else:\n        m.reply(\"Reply to a message with /upload_s3\", quote=True)\n@bot.on_message(filters.command(\"delete_file\"))\ndef delete_file(c: Client, m: Message):\n    if len(m.command) >= 2:",
-        "detail": "bot",
-        "documentation": {}
-    },
-    {
-        "label": "delete_file",
-        "kind": 2,
-        "importPath": "bot",
-        "description": "bot",
-        "peekOfCode": "def delete_file(c: Client, m: Message):\n    if len(m.command) >= 2:\n        filename = m.command[1]\n        fs.delete(filename)\n        m.reply(f\"Deleted {filename}\", quote=True)\n    else:\n        m.reply(\"Provide a filename with /delete_file\", quote=True)\nprint(\"Bot started\")\nbot.run()",
-        "detail": "bot",
-        "documentation": {}
-    },
-    {
-        "label": "bot",
-        "kind": 5,
-        "importPath": "bot",
-        "description": "bot",
-        "peekOfCode": "bot = Client(\n    \"bot\",\n    21021245,\n    \"7b32ea92719781c5e22ede319c5dbde5\",\n    bot_token=bot_token,\n)\nfs = deta.Deta(deta_key).Drive(\"files\")\ns3 = s3fs.S3FileSystem(\n    key=s3_key,\n    secret=s3_secret,",
-        "detail": "bot",
-        "documentation": {}
-    },
-    {
-        "label": "fs",
-        "kind": 5,
-        "importPath": "bot",
-        "description": "bot",
-        "peekOfCode": "fs = deta.Deta(deta_key).Drive(\"files\")\ns3 = s3fs.S3FileSystem(\n    key=s3_key,\n    secret=s3_secret,\n    endpoint_url=s3_endpoint,\n)\ndef upload_to_s3(file_name, file_data):\n    s3_path = f\"bosuutap/video/{file_name}\"\n    with s3.open(s3_path, \"wb\") as s3_file:\n        s3_file.write(file_data)",
-        "detail": "bot",
-        "documentation": {}
-    },
-    {
-        "label": "s3",
-        "kind": 5,
-        "importPath": "bot",
-        "description": "bot",
-        "peekOfCode": "s3 = s3fs.S3FileSystem(\n    key=s3_key,\n    secret=s3_secret,\n    endpoint_url=s3_endpoint,\n)\ndef upload_to_s3(file_name, file_data):\n    s3_path = f\"bosuutap/video/{file_name}\"\n    with s3.open(s3_path, \"wb\") as s3_file:\n        s3_file.write(file_data)\n    s3.setxattr(s3_path, copy_kwargs={\"ContentType\": \"video/mp4\"})",
-        "detail": "bot",
         "documentation": {}
     },
     {
@@ -379,15 +379,6 @@
         "description": "environment",
         "peekOfCode": "bot_token = data[\"access\"][\"telegram\"][\"td\"]",
         "detail": "environment",
-        "documentation": {}
-    },
-    {
-        "label": "application",
-        "kind": 5,
-        "importPath": "main",
-        "description": "main",
-        "peekOfCode": "application = app",
-        "detail": "main",
         "documentation": {}
     }
 ]
