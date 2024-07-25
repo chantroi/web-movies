@@ -5,6 +5,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const drive = deta.Drive(driveName);
   const fileLinks = document.querySelectorAll(".file-link");
   const videoPlayer = document.getElementById("videoPlayer");
+  const videoPlayerContainer = document.getElementById("videoPlayerContainer");
   let videoCache = {};
   let currentVideo;
   let preVideo;
@@ -27,6 +28,7 @@ document.addEventListener("DOMContentLoaded", function () {
     try {
       const videoUrl = await fetchVideo(filename);
       videoPlayer.src = videoUrl;
+      videoPlayerContainer.style.display = "block";
       await videoPlayer.play();
       if (videoPlayer.requestFullscreen) {
         await videoPlayer.requestFullscreen();
@@ -76,6 +78,7 @@ document.addEventListener("DOMContentLoaded", function () {
       videoPlayer.pause();
       videoPlayer.currentTime = 0;
       videoPlayer.src = "";
+      videoPlayerContainer.style.display = "none";
     }
   }
 
@@ -109,15 +112,12 @@ document.addEventListener("DOMContentLoaded", function () {
     "touchend",
     async (e) => {
       const touchEnd = e.changedTouches[0].screenX;
-      const touchDiff = touchEnd - touchStart; // Đã sửa đổi ở đây
+      const touchDiff = touchEnd - touchStart;
 
       if (Math.abs(touchDiff) > 50) {
-        // Ngưỡng để xác định hành động vuốt
         if (touchDiff > 0) {
-          // Vuốt sang phải (trái sang phải)
           await playNextVideo();
         } else {
-          // Vuốt sang trái (phải sang trái)
           await playPreviousVideo();
         }
       }

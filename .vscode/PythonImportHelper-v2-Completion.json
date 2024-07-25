@@ -233,7 +233,7 @@
         "kind": 2,
         "importPath": "src.app",
         "description": "src.app",
-        "peekOfCode": "def index(drive=\"files\"):\n    fs = deta.Drive(drive)\n    files = fs.list()[\"names\"]\n    return render_template(\"index.html\", files=files, drive=drive)\n@app.route(\"/<drive>/<file>\", methods=[\"GET\"])\ndef play_file(drive, file):\n    fs = deta.Drive(drive)\n    files = fs.list()[\"names\"]\n    pre_file, next_file = get_neighbors(files, file)\n    return jsonify(pre=pre_file, next=next_file)",
+        "peekOfCode": "def index(drive=\"files\"):\n    fs = deta.Drive(drive)\n    files = fs.list()[\"names\"]\n    return render_template(\"index.html\", files=files, drive=drive, deta_key=deta_key)\n@app.route(\"/<drive>/<file>\", methods=[\"GET\"])\ndef play_file(drive, file):\n    fs = deta.Drive(drive)\n    files = fs.list()[\"names\"]\n    pre_file, next_file = get_neighbors(files, file)\n    return jsonify(pre=pre_file, next=next_file)",
         "detail": "src.app",
         "documentation": {}
     },

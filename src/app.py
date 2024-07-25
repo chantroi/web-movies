@@ -24,7 +24,7 @@ def get_neighbors(lst, element):
 def index(drive="files"):
     fs = deta.Drive(drive)
     files = fs.list()["names"]
-    return render_template("index.html", files=files, drive=drive)
+    return render_template("index.html", files=files, drive=drive, deta_key=deta_key)
 
 
 @app.route("/<drive>/<file>", methods=["GET"])
