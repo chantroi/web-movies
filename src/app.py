@@ -1,9 +1,6 @@
-import os
 from flask import Flask, request, render_template, jsonify
 from deta import Deta
-
-DETA_PROJECT_KEY = os.environ["DETA_PROJECT_KEY"]
-deta_key = os.getenv("DETA_KEY", DETA_PROJECT_KEY)
+from environment import deta_key
 
 app = Flask(__name__)
 deta = Deta(deta_key)
@@ -33,7 +30,6 @@ def play_file(drive, file):
     files = fs.list()["names"]
     pre_file, next_file = get_neighbors(files, file)
     return jsonify(pre=pre_file, next=next_file)
-    
 
 
 @app.route("/<drive>/<filename>", methods=["DELETE"])
