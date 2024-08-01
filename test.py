@@ -1,0 +1,15 @@
+from pyrogram.enums import MessageMediaType
+
+print(str(MessageMediaType.PHOTO))
+print(MessageMediaType.VIDEO)
+print(MessageMediaType.DOCUMENT)
+print(MessageMediaType.AUDIO)
+print(MessageMediaType.VOICE)
+print(MessageMediaType.ANIMATION)
+print(MessageMediaType.STICKER)
+print(MessageMediaType.VIDEO_NOTE)
+print(MessageMediaType.CONTACT)
+print(MessageMediaType.LOCATION)
+print(MessageMediaType.VENUE)
+print(MessageMediaType.POLL)
+print(MessageMediaType.GAME)
