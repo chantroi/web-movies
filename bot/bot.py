@@ -1,7 +1,7 @@
 from pyrogram import Client, filters
 from pyrogram.types import Message
 from pyrogram.enums import ChatAction
-from bot.util import Storage
+from util import Storage
 from environment import bot_token
 
 bot = Client(
