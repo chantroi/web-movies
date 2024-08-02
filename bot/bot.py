@@ -1,5 +1,5 @@
 from pyrogram import Client, filters
-from pyrogram.types import Message
+from pyrogram.types import Message, InlineKeyboardMarkup, InlineKeyboardButton
 from pyrogram.enums import ChatAction
 from util import Storage
 from environment import bot_token
@@ -11,6 +11,28 @@ bot = Client(
     bot_token=bot_token,
 )
 fs = Storage()
+
+
+@bot.on_message(filters.command("start"))
+async def play_video(c: Client, m: Message):
+    await m.reply_chat_action(ChatAction.TYPING)
+    buttons = [
+        [
+            InlineKeyboardButton(
+                "Web Music",
+                url="https://t.me/tiktokanddouyin_bot/music",
+            ),
+            InlineKeyboardButton(
+                "Web Movies", url="https://t.me/tiktokanddouyin_bot/movies"
+            ),
+        ],
+        [InlineKeyboardButton("Douyin", url="https://t.me/tiktokanddouyin_bot/douyin")],
+    ]
+    reply_markup = InlineKeyboardMarkup(buttons)
+    await m.reply(
+        "TikTok and Douyin Bot",
+        reply_markup=reply_markup,
+    )
 
 
 @bot.on_message(filters.chat("contentdownload") & filters.video)
